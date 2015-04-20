@@ -1,0 +1,8 @@
+2015-03-20 09:41:59 [DB-LOG] CMainService::OnInit() 
+
+2015-03-20 09:41:59 [DB-LOG] CMainService::OnCreate() 
+
+2015-03-20 09:42:04 [DB-LOG] CMainService::OnDestroy() 
+
+2015-03-20 09:42:04 [DB-LOG] CMainService::OnUnInit() 
+
