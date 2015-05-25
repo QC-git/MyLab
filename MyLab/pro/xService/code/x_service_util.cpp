@@ -1,6 +1,8 @@
 
 #include "x_util.h"
 
+#include "x_container.h"
+
 #ifdef _WIN32
 
 #include <tchar.h>
@@ -13,10 +15,24 @@
 //////////////////////////////////////////////////////////////////////////
 _SERVOCE_DOOR_BEGIN
 
+_SERVICE_EXPORT ERR_T Init(VOID_T* pOpt)
+{
+	static S8_T s_nStatus = 0;
+	
+	if (s_nStatus)
+	{
+		return -1;
+	}
+
+	s_nStatus = 1;
+
+	return 0;
+}
+
 #ifdef _WIN32
 
 #define MAX_BUF_LEN 4096
-#define LOG_OUT_FILEPATH _T(".\\Log")  // 使用.\ 文件前面会多一个小点
+#define LOG_OUT_DEFAULT_FILEPATH _T(".\\default")  // 使用.\ 文件前面会多一个小点
 
 _SERVICE_IMPLEMENT VOID_T Print_f()
 {
@@ -50,20 +66,30 @@ _SERVICE_IMPLEMENT BOOL_T GetDataTimeString_f(CHAR_T *pStrDT)
 class CLogFile
 {
 public:
-	CLogFile(LPCTSTR lpPath)
+	CLogFile(LPCTSTR lpName)
 	{
 		strcpy_s (m_strPath, _T(""));
 		m_hLogFile = NULL;
 		//
-		if (lpPath != NULL)		
-			strcpy_s (m_strPath, lpPath);
+		if (lpName != NULL)		
+		{
+			TCHAR   sdaytime[36] = {0};
+			GetDataTimeString_f(sdaytime);
+			sdaytime[35] = '\n';
+
+			strcpy_s(m_strPath, _T(".\\"));
+			strcpy_s(m_strPath, lpName);
+			strcat_s(m_strPath, _T(" "));
+			strcat_s(m_strPath, sdaytime);
+			strcat_s(m_strPath, _T(".log"));
+		}			
 		else
 		{
 			TCHAR   sdaytime[36] = {0};
 			GetDataTimeString_f(sdaytime);
 			sdaytime[35] = '\n';
 
-			strcpy_s(m_strPath, LOG_OUT_FILEPATH);
+			strcpy_s(m_strPath, LOG_OUT_DEFAULT_FILEPATH);
 			strcat_s(m_strPath, _T(" "));
 			strcat_s(m_strPath, sdaytime);
 			strcat_s(m_strPath, _T(".log"));
@@ -286,15 +312,166 @@ VOID_T UtilTest3()
 	g_cPrint<<"\n";
 }
 
+class CLogImpl: public CLog
+{
+public:
+	CLogImpl(const CHAR_T* sName)
+	{
+		m_sName[0] = '\0';
+		strncpy(m_sName, sName, 100);
+		m_sName[99] = '\0';
+		m_pLogFile = new CLogFile(m_sName);
+	}
+	~CLogImpl()
+	{
+		delete m_pLogFile;
+	}
+
+public:
+	// 	enum EM_LOG_LEVEL{
+	// 		_LOG_TYPE_NORMAL = 0,
+	// 		_LOG_TYPE_FILE   = 1,
+	// 		_LOG_TYPE_WARNING = 2,
+	// 		_LOG_TYPE_ERR     = 3
+	// 	};
+
+#define _LOG_PARAMERTERS_PARSE_F()                        \
+	TCHAR sTmp[MAX_BUF_LEN] = {0};                        \
+	va_list vaArg;                                        \
+	va_start(vaArg, (LPCTSTR)sFmt);                       \
+	_vsntprintf(sTmp, MAX_BUF_LEN, (LPCTSTR)sFmt, vaArg); \
+	va_end(vaArg);
+
+#define _LOG_NEXT_F(type) _LOG_PARAMERTERS_PARSE_F(); _Log(type, (const CHAR_T*)sTmp);
+
+public:
+	//@override
+	void Log(const CHAR_T* sFmt, ...)
+	{
+		_LOG_NEXT_F(E_LOG_LEVEL_NORMAL);
+	}
+
+	//@override
+	void LogF(const CHAR_T* sFmt, ...)
+	{
+		_LOG_NEXT_F(E_LOG_LEVEL_DEBUG);
+	}
+
+	//@override
+	void LogE(const CHAR_T* sFmt, ...)
+	{
+		_LOG_NEXT_F(E_LOG_LEVEL_WARNING);
+	}
+
+	//@override
+	void LogErr(const CHAR_T* sFmt, ...)
+	{
+		_LOG_NEXT_F(E_LOG_LEVEL_ERROR);
+	}
+
+protected:
+	virtual void _Log(E_LOG_LEVEL emLevel, const CHAR_T* sStr)
+	{
+		TCHAR   sLevel[36] = {0};
+		switch (emLevel)
+		{
+		case E_LOG_LEVEL_NORMAL:
+			sprintf_s(sLevel, 36, "[DB-LOG]");
+			break;
+		case E_LOG_LEVEL_DEBUG:
+			sprintf_s(sLevel, 36, "[DB-DEBUG]");
+			break;
+		case E_LOG_LEVEL_WARNING:
+			sprintf_s(sLevel, 36, "[DB-WANING]");
+			break;
+		case E_LOG_LEVEL_ERROR:
+			sprintf_s(sLevel, 36, "[DB-ERROR]");
+			break;
+		default:
+			sprintf_s(sLevel, 36, "[DB-LOG]");
+			break;
+		}
+
+		PRINT_F("\n\n%s %s %s", m_sName, sLevel, sStr);
+
+		if ( emLevel > E_LOG_LEVEL_NORMAL )
+		{
+			// 获取日期
+			TCHAR   sDataTime[36] = {0};
+			GetDataTimeString_f(sDataTime);
+
+			TCHAR   sMsg[MAX_BUF_LEN] = {0};
+			sprintf_s(sMsg, MAX_BUF_LEN, "\n\n%s %s %s", sDataTime, sLevel, sStr);
+
+			if (m_pLogFile)
+			{
+				m_pLogFile->WriteString(sMsg);
+			}
+			else
+			{
+				_LogFile(sMsg);
+			}
+		}
+	}
+
+	virtual void _LogFile(const CHAR_T* sStr)
+	{
+		;
+	}
+
+private:
+	CHAR_T m_sName[100];
+
+	CLogFile* m_pLogFile;
+};
+
+class CLogManager
+{
+public:
+	CLogManager()
+	{
+		m_cSet.Clear();
+	}
+
+	~CLogManager()
+	{
+		CValueSet<CLogImpl*>::Iter cIter(m_cSet);
+
+		CLogImpl* pLog = NULL;
+
+		while(cIter.Next(pLog))
+		{
+			if (pLog)
+			{
+				delete pLog;
+			}
+
+			pLog = NULL;
+		}
+
+	}
+
+
+public:
+	CValueSet<CLogImpl*> m_cSet;
+};
+
+VOID_T UtilTest4()  // 测试CLogFile
+{
+	;
+}
+
 _SERVICE_IMPLEMENT ERR_T UtilTest()
 {
 #if X_SERVICE_HAVE_LOGFILE > 0
 	//UtilTest1();
 #endif
 
-	UtilTest2();
+	//UtilTest2();
 
 	//UtilTest3();
+
+	UtilTest4();
 
 	return 0;
 }

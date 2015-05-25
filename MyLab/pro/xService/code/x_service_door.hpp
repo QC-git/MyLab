@@ -16,9 +16,9 @@
 //规则
 // *   defined   :  普通 大写 + _D   函数 大写 + _F
 // *   typedef   :  普通 大写 + _T   结构体或类 大小写 + _t
-// *   enum      :  EM_ + 大写
+// *   enum      :  EM_ + 大写, class 内部可选择 _ + 大写
 // *   struct    :  S + 大小写
-// *   class     :  C + 大小写   类中类，大小写
+// *   class     :  C + 大小写   类中类，大小写， 类中私有函数 可选择 _ + 大小写
 // *   全局函数  :  大小写 + _f
 
 // *   继承      ： 类继承时保持单向继承，其余为接口继承
@@ -87,6 +87,8 @@ typedef int                   BOOL_T;
 typedef long                  TIME_T;
 typedef void                  VOID_T;
 typedef int                    ERR_T;
+typedef unsigned int           LEN_T;
+typedef int                 STATUS_T;
 #define TRUE_D   1
 #define FALSE_D  0
 #else // Linux
@@ -95,12 +97,14 @@ typedef unsigned char           U8_T;
 typedef signed short           S16_T;
 typedef unsigned short         U16_T;
 typedef signed int             S32_T;
-typedef unsigned int           U64_T;
+typedef unsigned int           U32_T;
 typedef char                  CHAR_T;
 typedef int                   BOOL_T;
 typedef long                  TIME_T;
 typedef void                  VOID_T;
 typedef int                    ERR_T;
+typedef unsigned int           LEN_T;
+typedef int                 STATUS_T;
 #	if _MIPS_SZLONG == 64
 #		define _PTR_IS_64_BIT  1
 #		define _LONG_IS_64_BIT 1
@@ -133,6 +137,23 @@ typedef unsigned long long     U64_T;
 
 //////////////////////////////////////////////////////////////////////////
 _SERVOCE_DOOR_BEGIN
+
+/*
+************************************************************************************************************************
+*                                                    Init
+*
+* Description: 全局初始化，可选择使用， 只能初始化一次
+*
+* Arguments  : 配置
+*
+* Returns    : 随机
+*
+* Note(s)    :
+*
+************************************************************************************************************************
+*/
+_SERVICE_EXPORT ERR_T Init(VOID_T* pOpt);
+
 _SERVOCE_DOOR_END
 //////////////////////////////////////////////////////////////////////////
 

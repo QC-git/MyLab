@@ -52,6 +52,20 @@ _SERVICE_EXPORT VOID_T Log_f(E_LOG_LEVEL emLevel, const CHAR_T* sFmt, ...);
 #	endif
 #endif
 
+/*
+************************************************************************************************************************
+*                                                    CPrint
+*
+* Description: 位移式打印
+*
+* Arguments  : 
+*
+* Returns    : 
+*
+* Note(s)    :
+*
+************************************************************************************************************************
+*/
 class CPrint
 {
 public:
@@ -65,6 +79,33 @@ public:
 _SERVICE_EXPORT CPrint& GetPrint_f();
 #define _SERVICE_OUT_F _SERVICE_NAME::GetPrint_f()
 #define OUT_F _SERVICE_OUT_F
+
+/*
+************************************************************************************************************************
+*                                                    CLog
+*
+* Description: 日志式打印
+*
+* Arguments  : 
+*
+* Returns    : 
+*
+* Note(s)    :
+*
+************************************************************************************************************************
+*/
+class CLog
+{
+public:
+	virtual void Log(const CHAR_T* sFmt, ...) = 0;
+
+	virtual void LogF(const CHAR_T* sFmt, ...) = 0;
+
+	virtual void LogE(const CHAR_T* sFmt, ...) = 0;
+
+	virtual void LogErr(const CHAR_T* sFmt, ...) = 0;
+
+};
 
 /*
 ************************************************************************************************************************
