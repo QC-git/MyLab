@@ -3,6 +3,16 @@
 
 _SERVOCE_DOOR_BEGIN
 
+CFunction::CFunction()
+{
+	;
+}
+
+CFunction::~CFunction()
+{
+	;
+}
+
 _SERVICE_IMPLEMENT ERR_T BoostTest()
 {
 	//LOG_F("BoostTest()");
