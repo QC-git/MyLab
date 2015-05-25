@@ -40,8 +40,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>../xService\code\include;./;$(IncludePath)</IncludePath>
-    <IntDir>.\..\..\tmp\$(ProjectName)\Debug</IntDir>
+    <IncludePath>../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
+    <IntDir>.\..\..\bld\tmp\$(ProjectName)\Debug</IntDir>
     <OutDir>.\..\..\bin\Debug</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

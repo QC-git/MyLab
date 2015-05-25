@@ -14,7 +14,7 @@
     <ProjectGuid>{6D5C6D52-1A53-4E84-8BC5-251E53CB202C}</ProjectGuid>
     <RootNamespace>xDemo</RootNamespace>
     <Keyword>MFCProj</Keyword>
-    <ProjectName>xServer</ProjectName>
+    <ProjectName>xDemo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -45,7 +45,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>../../shr\RKAPI\include;../../shr/VLD;../xService\code\include;./RF_Code;../../shr\AFDAPI\include;../../shr/SQLAPI\include;./Logic;./Util;./Dlg;./;$(IncludePath)</IncludePath>
     <LibraryPath>../../shr/VLD;.\..\..\bin\Debug;../../shr/SQLAPI\lib;../../shr/RKAPI\lib\Debug;../../shr/AFDAPI/lib;$(LibraryPath)</LibraryPath>
-    <IntDir>.\..\..\tmp\$(ProjectName)\Debug</IntDir>
+    <IntDir>.\..\..\bld\tmp\$(ProjectName)\Debug</IntDir>
     <OutDir>.\..\..\bin\Debug</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
