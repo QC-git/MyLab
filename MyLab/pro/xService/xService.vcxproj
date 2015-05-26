@@ -39,9 +39,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>./code\include;./;$(IncludePath)</IncludePath>
+    <IncludePath>D:\boost_1_57_0;./code\include;./;$(IncludePath)</IncludePath>
     <OutDir>.\..\..\bin\Debug</OutDir>
     <IntDir>.\..\..\bld\tmp\$(ProjectName)\Debug</IntDir>
+    <LibraryPath>D:\boost_1_57_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -81,12 +82,14 @@
     <ClInclude Include="code\include\x_boost.h" />
     <ClInclude Include="code\include\x_container.h" />
     <ClInclude Include="code\include\x_dummy.h" />
+    <ClInclude Include="code\include\x_net.h" />
     <ClInclude Include="code\include\x_thread.h" />
     <ClInclude Include="code\include\x_util.h" />
     <ClInclude Include="code\x_config.h" />
     <ClInclude Include="code\x_service_door_boost.hpp" />
     <ClInclude Include="code\x_service_door_container.hpp" />
     <ClInclude Include="code\x_service_door_dummy.hpp" />
+    <ClInclude Include="code\x_service_door_net.hpp" />
     <ClInclude Include="code\x_service_door_thread.hpp" />
     <ClInclude Include="code\x_service_door_util.hpp" />
     <ClInclude Include="code\x_service_door.hpp" />
@@ -97,6 +100,7 @@
     <ClCompile Include="code\x_service_boost.cpp" />
     <ClCompile Include="code\x_service_container.cpp" />
     <ClCompile Include="code\x_service_dummy.cpp" />
+    <ClCompile Include="code\x_service_net.cpp" />
     <ClCompile Include="code\x_service_thread.cpp" />
     <ClCompile Include="code\x_service_util.cpp" />
     <ClCompile Include="dllmain.cpp">

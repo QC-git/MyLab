@@ -6,6 +6,8 @@
 #ifndef _SERVOCE_DOOR_NET_HEADER
 #define _SERVOCE_DOOR_NET_HEADER
 
+#include <boost/asio.hpp>
+
 //////////////////////////////////////////////////////////////////////////
 _SERVOCE_DOOR_BEGIN
 
@@ -26,9 +28,17 @@ _SERVOCE_DOOR_BEGIN
 class _SERVICE_CLASS CIp
 {
 public:
-	CIp();
+	CIp(const CHAR_T* sAddr, U16_T uPort);
 	virtual ~CIp();
 
+	typedef boost::asio::ip::address Addr_t;
+	
+public:
+	BOOL_T IsEffect();
+
+private:
+	Addr_t m_cAddr;
+	U16_T m_uPort;
 };
 
 /*
@@ -41,7 +51,7 @@ public:
 *
 * Returns    : 随机
 *
-* Note(s)    :
+* Note(s)    : 指针外部负责释放
 *
 ************************************************************************************************************************
 */
@@ -50,6 +60,23 @@ class _SERVICE_CLASS CTcp
 public:
 	CTcp();
 	virtual ~CTcp();
+
+	typedef boost::asio::ip::tcp Tcp_t;
+
+public:
+	ERR_T SetHostIp(CIp* pIp);
+	ERR_T SetRemoteIp(CIp* pIp);
+
+	ERR_T Listen();
+	ERR_T Connect();
+
+	ERR_T Send();
+	ERR_T Recieve();
+
+private:
+	Tcp_t m_cTcp;
+	CIp* m_pHostIp;  
+	CIp* m_pRemoteIp;
 
 };
 
@@ -72,6 +99,20 @@ class _SERVICE_CLASS CUdp
 public:
 	CUdp();
 	virtual ~CUdp();
+
+	typedef boost::asio::ip::udp Udp_t;
+
+public:
+	ERR_T SetHostIp(CIp* pIp);
+	ERR_T SetRemoteIp(CIp* pIp);
+
+	ERR_T Send();
+	ERR_T Recieve();
+
+private:
+	Udp_t m_cUdp;
+	CIp* m_pHostIp;  
+	CIp* m_pRemoteIp;
 
 };
 
