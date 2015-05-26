@@ -1,9 +1,0 @@
-
-
-2015-03-19-214920 [DB-DEBUG] CRoundThread::TStartup(), Thread(240) CRkWatchDogThread start! 
-
-2015-03-19-214921 [DB-DEBUG] CRoundThread::TStartup(), Thread(928) MyCpuStatusEx start! 
-
-2015-03-19-214924 [DB-DEBUG] CRoundThread::TClose(), Thread(928) MyCpuStatusEx Exit ! 
-
-2015-03-19-214924 [DB-DEBUG] CRoundThread::TClose(), Thread(240) CRkWatchDogThread Exit ! 
