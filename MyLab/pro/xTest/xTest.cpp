@@ -4,10 +4,13 @@
 #include "stdafx.h"
 //#include <windows.h>
 
-#include "x_dummy.h"
-#include "x_util.h"
-#include "x_thread.h"
-#include "x_container.h"
+// #include "x_dummy.h"
+// #include "x_util.h"
+// #include "x_thread.h"
+// #include "x_container.h"
+// #include "x_net.h"
+
+#include "x_all.h"
 
 #include "x_Interface.h"
 #include<windows.h>
@@ -128,7 +131,45 @@ KBE_SINGLETON_INIT_TEST(CHello)
 //KBE_SINGLETON_INIT_TEST(CHello)
 //KBE_SINGLETON_INIT_TEST(CHello2)
 
+class CListenHandler : public X::CNetHanlder
+{
+public:
+	CListenHandler() {;}
+	~CListenHandler() {;}
 
+public:
+	virtual VOID_T OnAccept(X::CNetPoint* pNewPonit)
+	{
+
+		LEN_T uLen = 0;
+		ERR_T nErr = pNewPonit->Write("hello123", strlen("hello123")+1, uLen);
+		LOG_F("pNewPonit->Write, nErr = %d, uLen = %d", nErr, uLen);
+		while(true)
+		{
+			X::Sleep_f(1);
+		}
+
+		delete pNewPonit;
+	}
+
+	virtual VOID_T OnRecieve(X::CNetIp* pRemoteIp, CHAR_T* pData, LEN_T uDataLen)
+	{
+		;
+	}
+
+};
+
+// X::CNetListener g_cNetSvr(X::EM_NET_TCP);
+// 
+void TaskFunc(void*)
+{
+	CListenHandler cb;
+	X::CNetIp* pIp = X::CNetIp::Create("127.0.0.1", 1234);
+	HANDLE_T h = X::CreateNetListener_f(X::EM_NET_TCP, pIp, &cb);
+
+	LOG_F("X::CreateNetListener_f, h = %d", h);
+}
+X::CThreadCreater g_cThreadCreater;
 
 // #define sas  #define AAA 111
 // sas
@@ -136,15 +177,33 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	LOG_F("xTest main()");
 
+// 	{
+// 		int n = X::Init(NULL);
+// 		LOGD_F(" n = %d", n);
+// 
+// 		X_HSER->Init();
+// 		X_HSER->Start();
+// 
+// 		X_HSER->Stop();
+// 		X_HSER->Destroy();
+// 	}
+
 	{
-		int n = X::Init(NULL);
-		LOGD_F(" n = %d", n);
+		g_cThreadCreater.CreateThread(TaskFunc, NULL);
+		X::Sleep_f(500);
+		X::CNetIp* pIp = X::CNetIp::Create("127.0.0.1", 1234);
+		X::CNetPoint* pNetP = X::CNetPoint::Create();
+		pNetP->Connect(pIp);
+		CHAR_T pBuffer[100];
+		pBuffer[99] = '\0';
+		LEN_T uLen = 0;
+		ERR_T nErr = pNetP->Read(pBuffer, 99, uLen);
+		LOG_F("pNetP->Read, nErr = %d, uLen = %d, %s", nErr, uLen, pBuffer);
 
-		X_HSER->Init();
-		X_HSER->Start();
-
-		X_HSER->Stop();
-		X_HSER->Destroy();
+		while(true)
+		{
+			X::Sleep_f(1);
+		}
 	}
 	
 // 	{
@@ -189,7 +248,10 @@ int _tmain(int argc, _TCHAR* argv[])
 // 
 // 	}
 	
-
+	while(true)
+	{
+		X::Sleep_f(1);
+	}
 	return 0;
 }
 

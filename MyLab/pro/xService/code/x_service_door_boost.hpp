@@ -6,6 +6,10 @@
 #ifndef _SERVOCE_DOOR_BOOST_HEADER
 #define _SERVOCE_DOOR_BOSST_HEADER
 
+//#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/function.hpp>
+
 //////////////////////////////////////////////////////////////////////////
 _SERVOCE_DOOR_BEGIN
 

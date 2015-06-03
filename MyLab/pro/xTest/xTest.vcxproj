@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\boost_1_57_0\stage\lib;.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
     <IntDir>.\..\..\bld\tmp\$(ProjectName)\Debug</IntDir>
     <OutDir>.\..\..\bin\Debug</OutDir>
   </PropertyGroup>

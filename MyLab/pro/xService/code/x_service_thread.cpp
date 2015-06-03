@@ -325,12 +325,12 @@ ERR_T CThreadCreater::CreateThread(TaskFunc_T* pTaskFunc, VOID_T* hTaskFuncUser)
 		return 1;
 	}
 
-	if ( NULL == pTaskFunc || NULL == hTaskFuncUser )
+	if ( NULL == pTaskFunc )
 	{
 		return -1;
 	}
 	m_pTaskFunc = pTaskFunc;
-	m_hTaskFuncUser = hTaskFuncUser;
+	m_hTaskFuncUser = hTaskFuncUser;   // 可以为NULL
 	m_bThreadOpen = TRUE;
 
 	m_hThread = ThreadCreate_f(ThreadProc, this);  // m_hThread 可能不为0， 依然正确

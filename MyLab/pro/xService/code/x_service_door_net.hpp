@@ -6,115 +6,137 @@
 #ifndef _SERVOCE_DOOR_NET_HEADER
 #define _SERVOCE_DOOR_NET_HEADER
 
-#include <boost/asio.hpp>
+
 
 //////////////////////////////////////////////////////////////////////////
 _SERVOCE_DOOR_BEGIN
+
 
 /*
 ************************************************************************************************************************
 *                                                    CIp
 *
-* Description: IP地址
+* Description: 网络IP
 *
 * Arguments  : 无
 *
-* Returns    : 随机
+* Returns    : 无
 *
 * Note(s)    :
 *
 ************************************************************************************************************************
 */
-class _SERVICE_CLASS CIp
+
+enum EM_NET_TYPE{
+	EM_NET_TCP,
+	EM_NET_UDP
+};
+
+class _SERVICE_CLASS CNetIp
 {
 public:
-	CIp(const CHAR_T* sAddr, U16_T uPort);
-	virtual ~CIp();
+	CNetIp() {;}
+	virtual ~CNetIp() {;}
 
-	typedef boost::asio::ip::address Addr_t;
-	
+	static CNetIp* Create(const CHAR_T* sAddr, U16_T uPort = 0);
+
 public:
-	BOOL_T IsEffect();
+	virtual BOOL_T IsEffect() = 0;
 
-private:
-	Addr_t m_cAddr;
-	U16_T m_uPort;
 };
 
 /*
 ************************************************************************************************************************
-*                                                    CTcp
+*                                                    CNetPoint
 *
-* Description: TCP
+* Description: 网络端点, 类似sock
 *
 * Arguments  : 无
 *
-* Returns    : 随机
+* Returns    : 无
 *
-* Note(s)    : 指针外部负责释放
+* Note(s)    : 
 *
 ************************************************************************************************************************
 */
-class _SERVICE_CLASS CTcp
+
+class _SERVICE_CLASS CNetPoint
 {
 public:
-	CTcp();
-	virtual ~CTcp();
+	CNetPoint() {;}
+	virtual ~CNetPoint() {;}
 
-	typedef boost::asio::ip::tcp Tcp_t;
+	static CNetPoint* Create();
 
 public:
-	ERR_T SetHostIp(CIp* pIp);
-	ERR_T SetRemoteIp(CIp* pIp);
+	virtual ERR_T Connect(CNetIp* pRemoteIp) = 0;
 
-	ERR_T Listen();
-	ERR_T Connect();
+	virtual ERR_T Write(CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp = NULL) = 0;
 
-	ERR_T Send();
-	ERR_T Recieve();
-
-private:
-	Tcp_t m_cTcp;
-	CIp* m_pHostIp;  
-	CIp* m_pRemoteIp;
+	virtual ERR_T Read(CHAR_T* pBuffer, LEN_T uBufferLen, LEN_T& uReadLen, CNetIp* pRemoteIp = NULL) = 0;
 
 };
 
 /*
 ************************************************************************************************************************
-*                                                    CUdp
+*                                                    CNetListener
 *
-* Description: UDP
+* Description: 网络监听端
 *
 * Arguments  : 无
 *
-* Returns    : 随机
+* Returns    : 无
+*
+* Note(s)    : 
+*
+************************************************************************************************************************
+*/
+
+class CNetHanlder
+{
+public:
+	CNetHanlder() {;}
+	virtual ~CNetHanlder() {;}
+
+public:
+	virtual VOID_T OnAccept(CNetPoint* pNewPonit) = 0;    // 接受新的连接
+
+	virtual VOID_T OnRecieve(CNetIp* pRemoteIp, CHAR_T* pData, LEN_T uDataLen) = 0;   // 接受新的消息
+
+};
+
+
+/*
+************************************************************************************************************************
+*                                                    CreateNetListener
+*
+* Description: 创建网络监听口，支持TCP，UDP监听
+*
+* Arguments  : 网络类型，监听主机IP，回调句柄
+*
+* Returns    : 监听句柄
 *
 * Note(s)    :
 *
 ************************************************************************************************************************
 */
-class _SERVICE_CLASS CUdp
-{
-public:
-	CUdp();
-	virtual ~CUdp();
+_SERVICE_EXPORT HANDLE_T CreateNetListener_f(EM_NET_TYPE eType, CNetIp* pHostIp, CNetHanlder* pCb);
 
-	typedef boost::asio::ip::udp Udp_t;
-
-public:
-	ERR_T SetHostIp(CIp* pIp);
-	ERR_T SetRemoteIp(CIp* pIp);
-
-	ERR_T Send();
-	ERR_T Recieve();
-
-private:
-	Udp_t m_cUdp;
-	CIp* m_pHostIp;  
-	CIp* m_pRemoteIp;
-
-};
+/*
+************************************************************************************************************************
+*                                                    NetTest
+*
+* Description: 销毁网络监听
+*
+* Arguments  : 监听句柄
+*
+* Returns    : 无
+*
+* Note(s)    :
+*
+************************************************************************************************************************
+*/
+_SERVICE_EXPORT VOID_T DestroyNetListener_f(HANDLE_T hListener);
 
 /*
 ************************************************************************************************************************

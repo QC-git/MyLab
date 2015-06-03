@@ -79,6 +79,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="code\include\x_all.h" />
     <ClInclude Include="code\include\x_boost.h" />
     <ClInclude Include="code\include\x_container.h" />
     <ClInclude Include="code\include\x_dummy.h" />

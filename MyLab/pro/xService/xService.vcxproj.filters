@@ -75,6 +75,9 @@
     <ClInclude Include="code\include\x_net.h">
       <Filter>code\include</Filter>
     </ClInclude>
+    <ClInclude Include="code\include\x_all.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

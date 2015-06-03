@@ -89,6 +89,7 @@ typedef void                  VOID_T;
 typedef int                    ERR_T;
 typedef unsigned int           LEN_T;
 typedef int                 STATUS_T;
+typedef void*               HANDLE_T;
 #define TRUE_D   1
 #define FALSE_D  0
 #else // Linux
@@ -105,6 +106,7 @@ typedef void                  VOID_T;
 typedef int                    ERR_T;
 typedef unsigned int           LEN_T;
 typedef int                 STATUS_T;
+typedef void*               HANDLE_T;  // long
 #	if _MIPS_SZLONG == 64
 #		define _PTR_IS_64_BIT  1
 #		define _LONG_IS_64_BIT 1
