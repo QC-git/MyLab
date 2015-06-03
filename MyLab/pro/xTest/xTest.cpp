@@ -177,6 +177,20 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	LOG_F("xTest main()");
 
+	{
+		int n = 1;
+		auto a = n;
+		double d1 = n;
+		double d2 = a;
+
+		auto a1 = [](int i) { return i; };
+		auto a2 = a1(2);
+		while(true)
+		{
+			X::Sleep_f(1);
+		}
+	}
+
 // 	{
 // 		int n = X::Init(NULL);
 // 		LOGD_F(" n = %d", n);
@@ -188,23 +202,23 @@ int _tmain(int argc, _TCHAR* argv[])
 // 		X_HSER->Destroy();
 // 	}
 
-	{
-		g_cThreadCreater.CreateThread(TaskFunc, NULL);
-		X::Sleep_f(500);
-		X::CNetIp* pIp = X::CNetIp::Create("127.0.0.1", 1234);
-		X::CNetPoint* pNetP = X::CNetPoint::Create();
-		pNetP->Connect(pIp);
-		CHAR_T pBuffer[100];
-		pBuffer[99] = '\0';
-		LEN_T uLen = 0;
-		ERR_T nErr = pNetP->Read(pBuffer, 99, uLen);
-		LOG_F("pNetP->Read, nErr = %d, uLen = %d, %s", nErr, uLen, pBuffer);
-
-		while(true)
-		{
-			X::Sleep_f(1);
-		}
-	}
+// 	{
+// 		g_cThreadCreater.CreateThread(TaskFunc, NULL);
+// 		X::Sleep_f(500);
+// 		X::CNetIp* pIp = X::CNetIp::Create("127.0.0.1", 1234);
+// 		X::CNetPoint* pNetP = X::CNetPoint::Create();
+// 		pNetP->Connect(pIp);
+// 		CHAR_T pBuffer[100];
+// 		pBuffer[99] = '\0';
+// 		LEN_T uLen = 0;
+// 		ERR_T nErr = pNetP->Read(pBuffer, 99, uLen);
+// 		LOG_F("pNetP->Read, nErr = %d, uLen = %d, %s", nErr, uLen, pBuffer);
+// 
+// 		while(true)
+// 		{
+// 			X::Sleep_f(1);
+// 		}
+// 	}
 	
 // 	{
 // 		//CRITICAL_SECTION ds;
