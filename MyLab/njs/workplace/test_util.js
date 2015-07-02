@@ -129,7 +129,8 @@ UpdateWeek.prototype.checkUpdate = function() {
 
 function getWeek(time) {
     var curTime, week, date = new Date(time);
-    date.setDate(date.getDate() + 4 - (date.getDay() || 7 ));  //计算实际的偏移
+    var weekDay = date.getDay() || 7;
+    date.setDate( date.getDate() + 4 - weekDay );  //计算实际的偏移
     curTime = date.getTime();
     date.setMonth(0);
     date.setDate(1);
@@ -143,12 +144,20 @@ function getWeekEx(time, startDay) {
         startDay = 1;
     }
     startDay -= 1;
+
     var curTime, week, date = new Date(time);
-    date.setDate(date.getDate() + 4 - (date.getDay() || 7) - startDay );  //计算实际的偏移
+
+    var weekDay = date.getDay() || 7;
+    weekDay -= startDay;
+    if ( weekDay < 1 ) {
+        weekDay += 7;
+    }
+
+    date.setDate(date.getDate() + 4 - weekDay );  //计算实际的偏移
     curTime = date.getTime();
     date.setMonth(0);
     date.setDate(1);
-    week = Math.floor(Math.round((curTime - date) / CYCLE_WEEK )) + 1;
+    week = Math.floor(Math.round((curTime - date.getTime()) / CYCLE_WEEK )) + 1;
     return week;
 }
 
@@ -257,3 +266,59 @@ console.log(getWeekEx(time, 5));
 console.log(getWeekEx(time, 6));
 console.log(getWeekEx(time, 7));
 console.log(getWeekEx(time, 8));
+
+console.log("===========getWeekEx 2==============");
+
+var date2 = new Date;
+date2.setDate(1);
+time = date2.getTime();
+console.log(date2, getWeekEx(time, 5));
+date2.setDate(2);
+time = date2.getTime();
+console.log(date2, getWeekEx(time, 5));
+date2.setDate(3);
+time = date2.getTime();
+console.log(date2, getWeekEx(time, 5));
+date2.setDate(4);
+time = date2.getTime();
+console.log(date2, getWeekEx(time, 5));
+date2.setDate(5);
+time = date2.getTime();
+console.log(date2, getWeekEx(time, 5));
+date2.setDate(6);
+time = date2.getTime();
+console.log(date2, getWeekEx(time, 5));
+date2.setDate(7);
+time = date2.getTime();
+console.log(date2, getWeekEx(time, 5));
+date2.setDate(8);
+time = date2.getTime();
+console.log(date2, getWeekEx(time, 5));
+
+console.log("===========getWeekEx 3==============");
+
+date2 = new Date;
+date2.setDate(1);
+time = date2.getTime();
+console.log(date2, getWeekEx(time));
+date2.setDate(2);
+time = date2.getTime();
+console.log(date2, getWeekEx(time));
+date2.setDate(3);
+time = date2.getTime();
+console.log(date2, getWeekEx(time));
+date2.setDate(4);
+time = date2.getTime();
+console.log(date2, getWeekEx(time));
+date2.setDate(5);
+time = date2.getTime();
+console.log(date2, getWeekEx(time));
+date2.setDate(6);
+time = date2.getTime();
+console.log(date2, getWeekEx(time));
+date2.setDate(7);
+time = date2.getTime();
+console.log(date2, getWeekEx(time));
+date2.setDate(8);
+time = date2.getTime();
+console.log(date2, getWeekEx(time));
