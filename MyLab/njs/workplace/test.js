@@ -731,3 +731,45 @@ var obj = {
 
 console.log("obj = "+ obj);
 console.log("obj = ", obj);
+
+console.log("------------------21-----------------");
+
+var vec21 = [
+    'get'
+    , 'post'
+    , 'put'
+    , 'head'
+    , 'delete'
+    , 'options'
+    , 'trace'
+    , 'copy'
+    , 'lock'
+    , 'mkcol'
+    , 'move'
+    , 'propfind'
+    , 'proppatch'
+    , 'unlock'
+    , 'report'
+    , 'mkactivity'
+    , 'checkout'
+    , 'merge'
+    , 'm-search'
+    , 'notify'
+    , 'subscribe'
+    , 'unsubscribe'
+    , 'patch'
+];
+
+console.log(vec21.indexOf());
+console.log(vec21.indexOf("get"));
+console.log(vec21.indexOf("post"));
+console.log(~vec21.indexOf());
+console.log(~vec21.indexOf("get"));
+console.log(~vec21.indexOf("post"));
+
+//-1
+//0
+//1
+//0
+//-1
+//-2
