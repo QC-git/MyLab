@@ -102,6 +102,8 @@
     <ClCompile Include="code\x_service_container.cpp" />
     <ClCompile Include="code\x_service_dummy.cpp" />
     <ClCompile Include="code\x_service_net.cpp" />
+    <ClCompile Include="code\x_service_net_boost.cpp" />
+    <ClCompile Include="code\x_service_net_kbe.cpp" />
     <ClCompile Include="code\x_service_thread.cpp" />
     <ClCompile Include="code\x_service_util.cpp" />
     <ClCompile Include="dllmain.cpp">

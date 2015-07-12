@@ -104,7 +104,13 @@
     <ClCompile Include="code\x_service_boost.cpp">
       <Filter>code\impl</Filter>
     </ClCompile>
+    <ClCompile Include="code\x_service_net_boost.cpp">
+      <Filter>code\impl</Filter>
+    </ClCompile>
     <ClCompile Include="code\x_service_net.cpp">
+      <Filter>code\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="code\x_service_net_kbe.cpp">
       <Filter>code\impl</Filter>
     </ClCompile>
   </ItemGroup>
