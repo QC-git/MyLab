@@ -11,7 +11,6 @@
 //////////////////////////////////////////////////////////////////////////
 _SERVOCE_DOOR_BEGIN
 
-
 /*
 ************************************************************************************************************************
 *                                                    CIp
@@ -32,13 +31,11 @@ enum EM_NET_TYPE{
 	EM_NET_UDP
 };
 
-class _SERVICE_CLASS CNetIp
+class CNetIp
 {
 public:
 	CNetIp() {;}
 	virtual ~CNetIp() {;}
-
-	static CNetIp* Create(const CHAR_T* sAddr, U16_T uPort = 0);
 
 public:
 	virtual BOOL_T IsEffect() = 0;
@@ -60,13 +57,11 @@ public:
 ************************************************************************************************************************
 */
 
-class _SERVICE_CLASS CNetPoint
+class CNetPoint
 {
 public:
 	CNetPoint() {;}
 	virtual ~CNetPoint() {;}
-
-	static CNetPoint* Create();
 
 public:
 	virtual ERR_T Connect(CNetIp* pRemoteIp) = 0;
@@ -105,38 +100,43 @@ public:
 
 };
 
-
 /*
 ************************************************************************************************************************
-*                                                    CreateNetListener
+*                                                    CNetManager
 *
-* Description: 创建网络监听口，支持TCP，UDP监听
+* Description: 网络IP
 *
-* Arguments  : 网络类型，监听主机IP，回调句柄
-*
-* Returns    : 监听句柄
-*
-* Note(s)    :
-*
-************************************************************************************************************************
-*/
-_SERVICE_EXPORT HANDLE_T CreateNetListener_f(EM_NET_TYPE eType, CNetIp* pHostIp, CNetHanlder* pCb);
-
-/*
-************************************************************************************************************************
-*                                                    NetTest
-*
-* Description: 销毁网络监听
-*
-* Arguments  : 监听句柄
+* Arguments  : 无
 *
 * Returns    : 无
 *
-* Note(s)    :
+* Note(s)    : Local() 不支持多线程
 *
 ************************************************************************************************************************
 */
-_SERVICE_EXPORT VOID_T DestroyNetListener_f(HANDLE_T hListener);
+
+enum EM_NET_MANAGER{
+	EM_NET_MANAGER_BOOST,
+	EM_NET_MANAGER_KBE
+};
+
+class _SERVICE_CLASS CNetManager 
+{
+public:
+	CNetManager() {;}
+	virtual ~CNetManager() {;}
+
+	VOID_T Local(EM_NET_MANAGER eType);
+
+public:
+	virtual CNetIp*    CreateIp(const CHAR_T* sAddr, U16_T uPort = 0) = 0;
+	virtual CNetPoint* CreatePoint() = 0;
+
+	virtual HANDLE_T   CreateListener(EM_NET_TYPE eType, CNetIp* pHostIp, CNetHanlder* pCb) = 0;
+	virtual VOID_T     DestroyListener(HANDLE_T hListener) = 0;
+};
+
+_SERVICE_EXPORT CNetManager* NetManager();
 
 /*
 ************************************************************************************************************************
