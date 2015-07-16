@@ -1,8 +1,79 @@
 
-var mongoose = require("../modules/mongoose")
-    , Schema = mongoose.Schema
-    , ObjectId = mongoose.Types.ObjectId;
+var Mongoose = require("../modules/mongoose")
+    , Schema = Mongoose.Schema
+    , ObjectId = Mongoose.Types.ObjectId;
 
+
+var loadSchemeByKey = function(Mod, key, isCreate, cb) {
+    if ( !cb && "function" === typeof isCreate ) {
+        cb = isCreate;
+        isCreate = true;
+    }
+    Mod.findById(key, function(err, scheme) {
+        if (err) {
+            cb(err);
+        } else if (!scheme) {
+            if (!isCreate) {
+                cb(new Error("loadSchemeById fail, no scheme"));
+            }else {
+                //console.log("loadSchemeById, new Mod", id);
+                var mod = new Mod({_id: key});
+                mod.save(function(err, scheme) {
+                    if ( err || !scheme ) {
+                        cb(new Error("loadSchemeById fail, new Mod, err:" + err ));
+                    }else {
+                        cb(null, scheme);
+                    }
+                })
+            }
+        } else {
+            cb(null, scheme);
+        }
+    })
+};
+
+var loadSchemeByAttr = function(Mod, attr, isCreate, cb) {
+    if ( !cb && "function" === typeof isCreate ) {
+        cb = isCreate;
+        isCreate = true;
+    }
+
+    Mod.findOne(attr, function(err, scheme) {
+        if (err) {
+            cb(err);
+        } else if (!scheme) {
+            if (!isCreate) {
+                cb(new Error("loadSchemeByType fail, no scheme"));
+            }else {
+                console.log("loadSchemeByType, new Mod", attr);
+                var mod = new Mod(attr);
+                mod.save(function(err, scheme) {
+                    if ( err || !scheme ) {
+                        cb(new Error("loadSchemeByType fail, new Mod, err:" + err ));
+                    }else {
+                        cb(null, scheme);
+                    }
+                })
+            }
+        } else {
+            cb(null, scheme);
+        }
+    })
+};
+
+var loadSchemeList = function(Mod, find, limit, sort, cb) {
+    var query = Mod.find({}, find);
+    query.limit(limit);
+    query.sort(sort);
+    query.exec(cb);
+};
+
+var initMongoose = function(Handle, config, cb) {
+    var res = 'mongodb://' + config.host +":" + config.port + "/" + config.database;
+    Handle.connect(res, cb);
+};
+
+/////////////////////////////////////////ï¿½ï¿½ï¿½ï¿½///////////////////////////////////////////
 //console.log("mongoose = ", mongoose);
 //console.log("Schema = ", Schema);
 //console.log("ObjectId = ", ObjectId);
@@ -42,80 +113,9 @@ Person.statics.findByType = function(type, cb) {
     this.findOne({type: type}, cb);
 };
 
-mongoose.model('BlogPost', BlogPost);
-var PersonModel = mongoose.model("person", Person);
+Mongoose.model('BlogPost', BlogPost);
+var PersonModel = Mongoose.model("person", Person);
 
-var loadSchemeById = function(id, Mod, isCreate, cb) {
-    if ( !cb && "function" === typeof isCreate ) {
-        cb = isCreate;
-        isCreate = true;
-    }
-    Mod.findById(id, function(err, scheme) {
-        if (err) {
-            cb(err);
-        } else if (!scheme) {
-            if (!isCreate) {
-                cb(new Error("loadSchemeById fail, no scheme"));
-            }else {
-                console.log("loadSchemeById, new Mod", id);
-                var mod = new Mod({_id: id});
-                mod.save(function(err, scheme) {
-                    if ( err || !scheme ) {
-                        cb(new Error("loadSchemeById fail, new Mod, err:" + err ));
-                    }else {
-                        cb(null, scheme);
-                    }
-                })
-            }
-        } else {
-            cb(null, scheme);
-        }
-    })
-};
-
-var loadSchemeByAttr = function(attr, Mod, isCreate, cb) {
-    if ( !cb && "function" === typeof isCreate ) {
-        cb = isCreate;
-        isCreate = true;
-    }
-
-    Mod.findOne(attr, function(err, scheme) {
-        if (err) {
-            cb(err);
-        } else if (!scheme) {
-            if (!isCreate) {
-                cb(new Error("loadSchemeByType fail, no scheme"));
-            }else {
-                console.log("loadSchemeByType, new Mod", attr);
-                var mod = new Mod(attr);
-                mod.save(function(err, scheme) {
-                    if ( err || !scheme ) {
-                        cb(new Error("loadSchemeByType fail, new Mod, err:" + err ));
-                    }else {
-                        cb(null, scheme);
-                    }
-                })
-            }
-        } else {
-            cb(null, scheme);
-        }
-    })
-};
-
-var dbConfig = {
-    "host" : "127.0.0.1"
-    , "port" : "27017"
-    , "database" : "test"
-    , "user" : "1"
-    , "password" : "1"
-};
-var initMongoose = function(config) {
-    var res = 'mongodb://' + config.host +":" + config.port + "/" + config.database;
-    mongoose.connect(res, function(err) {
-        console.log("mongoose.connect cb ", err);
-    });
-};
-initMongoose(dbConfig);
 
 var strId;
 
@@ -124,7 +124,8 @@ var TABLE_NAME_1 = "person1";
 var Person1 = new Schema({
     map: {type: Schema.Types.Mixed},
     vec: [Schema.Types.Mixed],
-    num: Schema.Types.Mixed,
+    mix: Schema.Types.Mixed,
+    num: {type: Number, default: -1},
     list:
     [
          {
@@ -134,22 +135,64 @@ var Person1 = new Schema({
     ]
 
 }, {collection: TABLE_NAME_1, versionKey:false});
-var PersonModel1 = mongoose.model(TABLE_NAME_1, Person1);
+var PersonModel1 = Mongoose.model(TABLE_NAME_1, Person1);
 
 
 var TABLE_NAME_2 = "person2";
 var Person2 = new Schema({
     id_1: Number,
     id_2: String,
-    id_3: Number
+    id_3: {type: Number, default: -1},
+    id_4: Schema.Types.Mixed
 }, {collection: TABLE_NAME_2, versionKey:false});
-var PersonModel2 = mongoose.model(TABLE_NAME_2, Person2);
+var PersonModel2 = Mongoose.model(TABLE_NAME_2, Person2);
 
 ////////////////////////////////////////////////////////
 
 var async = require("../modules/async");
+var util  = require("./test_util");
 
-async.waterfall([  // »Øµ÷²ÎÊýµÄ¸öÊý±ØÐëµÈÓÚÏÂÒ»²ãµÄ²ÎÊý¸öÊý£¬ ²ÎÊý´«µÝ¹ý³ÌÊÇ¶ÔºÅÈë×ù£¬´«µÝ¸öÊý²»¶Ôµ¼ÖÂcbÒì³£
+async.waterfall([  // ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½Ç¶Ôºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½cbï¿½ì³£
+    function(cb){   // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+        var dbConfig = {
+            "host" : "127.0.0.1"
+            , "port" : "27017"
+            , "database" : "test"
+            , "user" : "1"
+            , "password" : "1"
+        };
+
+        initMongoose(Mongoose, dbConfig, function(err) {
+            console.log("1, initMongoose, err = ", err);
+            cb(err);
+        });
+    },
+    //function(cb){  // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //    util.doRepeat(100, function(i) {
+    //        var obj = new ObjectId();
+    //        loadSchemeById(PersonModel2, obj, function(err, scheme) {
+    //            console.log("2, loadSchemeById cb", err, scheme);
+    //            scheme.id_1 = i;
+    //            scheme.id_2 = i*10;
+    //            scheme.id_3 = i*100;
+    //            scheme.id_4 = {};
+    //            scheme.id_4.id_4_1 = i*1000;
+    //            scheme.id_4.id_4_2 = i*10000;
+    //            scheme.save(function(err) {
+    //                if (err) {
+    //                    console.log("scheme.save fail, err = ", err);
+    //                    return;
+    //                }
+    //
+    //                if ( 100 == i ) {
+    //                    cb(null);
+    //                }
+    //
+    //            });
+    //
+    //        });
+    //    });
+    //},
     //function(cb){
     //    console.log("\n-----------------1");
     //    strId = "800000008000000080000001";
@@ -244,21 +287,30 @@ async.waterfall([  // »Øµ÷²ÎÊýµÄ¸öÊý±ØÐëµÈÓÚÏÂÒ»²ãµÄ²ÎÊý¸öÊý£¬ ²ÎÊý´«µÝ¹ý³ÌÊÇ¶Ôº
     //        });
     //    });
     //},
-    //function(cb){
-    //    console.log("\n-----------------5");
-    //    loadSchemeById(strId, PersonModel1, function(err, scheme) {
-    //        console.log("loadSchemeById cb", err, scheme, "\n++++", scheme.list[0].data1);
-    //        cb(null);
-    //    });
-    //},
     function(cb){
-        console.log("\n-----------------6");
-        var attr = {id_1:1, id_2:"2", id_3: 3};
-        loadSchemeByAttr(attr, PersonModel2, function(err, scheme) {
-            console.log("loadSchemeByAttr cb", err, scheme);
+        console.log("\n-----------------5");
+        loadSchemeByKey(PersonModel1, "800000008000000080000003", function(err, scheme) {
+            console.log("loadSchemeById cb", err, scheme, scheme.num);
             cb(null);
         });
     }
+    //function(cb){
+    //    console.log("\n-----------------6");
+    //    var attr = {id_1:1, id_2:"2", id_3: 3};
+    //    loadSchemeByAttr(PersonModel2, attr, function(err, scheme) {
+    //        console.log("6, loadSchemeByAttr cb", err, scheme);
+    //        cb(null);
+    //    });
+    //}
+    //function(cb){
+    //        console.log("\n-----------------7");
+    //        loadSchemeList(PersonModel2, {"id_3":1, "id_4.id_4_2":1  }, 1, {"id_4.id_4_2": -1}, function(err, results) {
+    //            console.log("7, err = ", err, ", results = ", results);
+    //            //var data = util.cloneByAttr(results[0], {"id_1":3, "id_4.id_4_2":1});
+    //            //console.log("7, err = ", err, ", data = ", data);
+    //            cb(null);
+    //        })
+    //    }
 ], function(err){
     console.log("async.waterfall cb", err);
 });

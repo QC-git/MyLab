@@ -773,3 +773,73 @@ console.log(~vec21.indexOf("post"));
 //0
 //-1
 //-2
+
+
+console.log("------------------22-----------------");
+
+var v22;
+
+var v;
+
+v = v22+0;
+console.log(v);
+
+v = v22+1;
+console.log(v);
+
+v = v22*0;
+console.log(v);
+
+v = v22*1;
+console.log(v);
+console.log( typeof  v );
+console.log(v.toString() );
+
+v = 2/0;
+console.log(v);
+console.log( typeof  v );
+console.log(v.toString() );
+
+//NaN
+//NaN
+//NaN
+//NaN
+//number
+//NaN
+//Infinity
+//number
+//Infinity
+
+
+console.log("------------------23-----------------");
+
+var v23 = [];
+v23[10] = 0;
+v23.forEach(function(a, b, c, d) {
+    console.log(a, b, c, d);
+});
+
+// 0 10 [ , , , , , , , , , , 0 ] undefined
+
+console.log("------------------24-----------------");
+
+function func1() {
+    console.log(arguments.length);
+}
+
+function func2(a) {
+    console.log(arguments.length, a);
+}
+
+function func3(a, b) {
+    console.log(arguments.length, a, b);
+}
+
+func1();
+func2(1);
+func3(1, 2, 3);
+
+//0
+//1 1
+//3 1 2
+

@@ -52,7 +52,7 @@ DelayTime.prototype.isExpire = function(now) {
 
 function UpdateTime(cycle, start) {
     this.cycle = getNumber(cycle);
-    if ( this.cycle < 5000 ) {  //ÏÞÖÆÊ±¼ä£¬ ×îÐ¡Îª5Ãë
+    if ( this.cycle < 5000 ) {  //ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ ï¿½ï¿½Ð¡Îª5ï¿½ï¿½
         this.cycle = 5000;
     }
 
@@ -84,9 +84,9 @@ UpdateTime.prototype.resetNextTime = function() {
     var cycle = this.cycle;
     var last  = this.last;
 
-    this.next = this.next + cycle;  // µ±Ç°Ê±¼äÍùºóµ÷¿ÉÄÜÓÀÔ¶Ö´ÐÐ²»µ½
+    this.next = this.next + cycle;  // ï¿½ï¿½Ç°Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶Ö´ï¿½Ð²ï¿½ï¿½ï¿½
 
-    if ( last >= this.next ) {  //²»¿É´ïÊ±¼ä
+    if ( last >= this.next ) {  //ï¿½ï¿½ï¿½É´ï¿½Ê±ï¿½ï¿½
         var multi = (last- this.next) / cycle;
         multi = parseInt(multi) + 1;
         this.next = this.next + cycle * multi;
@@ -110,7 +110,7 @@ function UpdateWeek(updateDay) {
     var date = new Date();
     var day  = date.getDay() || 7;
     var difDay = updateDay - day;
-    if ( difDay < 0 ) {  // ¹ýÈ¥µÄ¼¸Ìì
+    if ( difDay < 0 ) {  // ï¿½ï¿½È¥ï¿½Ä¼ï¿½ï¿½ï¿½
         difDay += 7;
     }
 
@@ -130,7 +130,7 @@ UpdateWeek.prototype.checkUpdate = function() {
 function getWeek(time) {
     var curTime, week, date = new Date(time);
     var weekDay = date.getDay() || 7;
-    date.setDate( date.getDate() + 4 - weekDay );  //¼ÆËãÊµ¼ÊµÄÆ«ÒÆ
+    date.setDate( date.getDate() + 4 - weekDay );  //ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½Æ«ï¿½ï¿½
     curTime = date.getTime();
     date.setMonth(0);
     date.setDate(1);
@@ -153,7 +153,7 @@ function getWeekEx(time, startDay) {
         weekDay += 7;
     }
 
-    date.setDate(date.getDate() + 4 - weekDay );  //¼ÆËãÊµ¼ÊµÄÆ«ÒÆ
+    date.setDate(date.getDate() + 4 - weekDay );  //ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½Æ«ï¿½ï¿½
     curTime = date.getTime();
     date.setMonth(0);
     date.setDate(1);
@@ -161,7 +161,82 @@ function getWeekEx(time, startDay) {
     return week;
 }
 
-///////////////////////////////////²âÊÔÇø///////////////////////////////////////
+function doRepeat(num, fn, cb) {
+    for (var i= 0; i<num; i++) {
+        fn(i);
+    }
+    if ( "function" == typeof cb ) {
+        cb();
+    }
+}
+
+function doEach(vec, fn, cb) {
+    for (var i= 0; i<vec.length; i++) {
+        fn(i, vec[i]);
+    }
+    if ( "function" == typeof cb ) {
+        cb();
+    }
+}
+
+function doEachEx(obj, fn, cb) {
+    for (var key in obj) {
+        fn(key, obj[key]);
+    }
+    if ( "function" == typeof cb ) {
+        cb();
+    }
+}
+
+function cloneAll(obj) {
+    var sink = {};
+    if (obj instanceof Array) {
+        sink = [];
+    }
+    for ( var key in obj ) {
+        var val = obj[key];
+        sink[key] = ( "object" === typeof val || val instanceof Array ) ? arguments.callee(val) : val;
+    }
+    return sink;
+}
+
+function cloneByAttr(obj, attr) {  // mongoose æµ‹è¯•
+    var sink = {};
+    for ( var key in attr ) {
+        sink[key] = obj[key];
+    }
+    return sink;
+}
+
+function cloneForResetKey(pre, suf, obj) {
+    var tmp;
+    var sink = {};
+    for ( var key in obj ) {
+        tmp = pre + key + suf;
+        sink[tmp] = obj[key];
+    }
+    return sink;
+}
+
+module.exports = {
+    getTime: getTime,
+    getNumber: getNumber,
+    getDelayTime: getDelayTime,
+
+    DelayTime: DelayTime,
+    UpdateTime: UpdateTime,
+    UpdateWeek: UpdateWeek,
+
+    getWeek: getWeek,
+    getWeekEx: getWeekEx,
+
+    doRepeat: doRepeat,
+    cloneAll: cloneAll,
+    cloneByAttr: cloneByAttr,
+    cloneForResetKey: cloneForResetKey
+};
+
+///////////////////////////////////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½///////////////////////////////////////
 
 //var updateTimer1 = new UpdateTime(30*1000, 0);
 //var updateTimer2 = new UpdateTime(30*1000);
@@ -169,7 +244,7 @@ function getWeekEx(time, startDay) {
 //var tick = 0;
 //var check1 = function() {
 //
-//    var t2 = getTime() - t1; // ´ÓÉèÖÃµ½³ö·¢Ïà¸ôÔ¼1s
+//    var t2 = getTime() - t1; // ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼1s
 //
 //    tick++;
 //
@@ -214,111 +289,162 @@ function getWeekEx(time, startDay) {
 //date.setDate(3);
 //console.log(date);
 
-console.log("===========UpdateWeek==============");
+//console.log("===========UpdateWeek==============");
+//
+//var weekUpdate;
+//weekUpdate = new UpdateWeek(0);
+//console.log(new Date(weekUpdate.getNextTime()));
+//weekUpdate = new UpdateWeek(1);
+//console.log(new Date(weekUpdate.getNextTime()));
+//weekUpdate = new UpdateWeek(2);
+//console.log(new Date(weekUpdate.getNextTime()));
+//weekUpdate = new UpdateWeek(3);
+//console.log(new Date(weekUpdate.getNextTime()));
+//weekUpdate = new UpdateWeek(4);
+//console.log(new Date(weekUpdate.getNextTime()));
+//weekUpdate = new UpdateWeek(5);
+//console.log(new Date(weekUpdate.getNextTime()));
+//weekUpdate = new UpdateWeek(6);
+//console.log(new Date(weekUpdate.getNextTime()));
+//weekUpdate = new UpdateWeek(7);
+//console.log(new Date(weekUpdate.getNextTime()));
+//weekUpdate = new UpdateWeek(8);
+//console.log(new Date(weekUpdate.getNextTime()));
+//
+//console.log("===========getWeek==============");
+//
+//var time = getTime();
+//console.log(getWeek(time));
+//time = getTime() + CYCLE_WEEK;
+//console.log(getWeek(time));
+//time = getTime() + CYCLE_WEEK * 2;
+//console.log(getWeek(time));
+//time = getTime() + CYCLE_WEEK * 3;
+//console.log(getWeek(time));
+//time = getTime() - CYCLE_WEEK;
+//console.log(getWeek(time));
+//time = getTime() - CYCLE_WEEK * 2;
+//console.log(getWeek(time));
+//time = getTime() - CYCLE_WEEK * 3;
+//console.log(getWeek(time));
+//
+//console.log("===========getWeekEx==============");
+//
+//time = getTime();
+//console.log(getWeekEx(time));
+//console.log(getWeekEx(time, 0));
+//console.log(getWeekEx(time, 1));
+//console.log(getWeekEx(time, 2));
+//console.log(getWeekEx(time, 3));
+//console.log(getWeekEx(time, 4));
+//console.log(getWeekEx(time, 5));
+//console.log(getWeekEx(time, 6));
+//console.log(getWeekEx(time, 7));
+//console.log(getWeekEx(time, 8));
+//
+//console.log("===========getWeekEx 2==============");
+//
+//var date2 = new Date;
+//date2.setDate(1);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time, 5));
+//date2.setDate(2);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time, 5));
+//date2.setDate(3);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time, 5));
+//date2.setDate(4);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time, 5));
+//date2.setDate(5);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time, 5));
+//date2.setDate(6);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time, 5));
+//date2.setDate(7);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time, 5));
+//date2.setDate(8);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time, 5));
+//
+//console.log("===========getWeekEx 3==============");
+//
+//date2 = new Date;
+//date2.setDate(1);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time));
+//date2.setDate(2);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time));
+//date2.setDate(3);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time));
+//date2.setDate(4);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time));
+//date2.setDate(5);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time));
+//date2.setDate(6);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time));
+//date2.setDate(7);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time));
+//date2.setDate(8);
+//time = date2.getTime();
+//console.log(date2, getWeekEx(time));
+//
+//console.log("===========doRepeat==============");
 
-var weekUpdate;
-weekUpdate = new UpdateWeek(0);
-console.log(new Date(weekUpdate.getNextTime()));
-weekUpdate = new UpdateWeek(1);
-console.log(new Date(weekUpdate.getNextTime()));
-weekUpdate = new UpdateWeek(2);
-console.log(new Date(weekUpdate.getNextTime()));
-weekUpdate = new UpdateWeek(3);
-console.log(new Date(weekUpdate.getNextTime()));
-weekUpdate = new UpdateWeek(4);
-console.log(new Date(weekUpdate.getNextTime()));
-weekUpdate = new UpdateWeek(5);
-console.log(new Date(weekUpdate.getNextTime()));
-weekUpdate = new UpdateWeek(6);
-console.log(new Date(weekUpdate.getNextTime()));
-weekUpdate = new UpdateWeek(7);
-console.log(new Date(weekUpdate.getNextTime()));
-weekUpdate = new UpdateWeek(8);
-console.log(new Date(weekUpdate.getNextTime()));
+//var vec = [];
+//var obj = {};
+//doRepeat(10, function(i) {
+//    console.log(i);
+//    vec[i] = {};
+//    vec[i].a = i+100;
+//    obj[i] = {};
+//    obj[i].b = i+200;
+//}, function() {
+//    console.log("end");
+//});
+//
+//doEach(vec, function(i, obj) {
+//    if (obj) {
+//        obj.pos = i;
+//    }
+//}, function() {
+//    console.log("end, vec = ", vec);
+//});
+//
+//doEachEx(obj, function(key, obj) {
+//    if (obj) {
+//        obj.pos = key;
+//    }
+//}, function() {
+//    console.log("end, obj = ", obj);
+//});
 
-console.log("===========getWeek==============");
+//console.log("===========cloneAll==============");
+//
+//var a = {};
+//a.a = 1;
+//a.b = {};
+//a.b.c = 2;
+//
+//console.log(cloneAll(a));
+//
+//var v = [];
+//v[1] = a;
+//
+//var v1 = [];
+//v1[0] = v;
+//console.log(cloneAll(v));
+//console.log(cloneAll(v1));
 
-var time = getTime();
-console.log(getWeek(time));
-time = getTime() + CYCLE_WEEK;
-console.log(getWeek(time));
-time = getTime() + CYCLE_WEEK * 2;
-console.log(getWeek(time));
-time = getTime() + CYCLE_WEEK * 3;
-console.log(getWeek(time));
-time = getTime() - CYCLE_WEEK;
-console.log(getWeek(time));
-time = getTime() - CYCLE_WEEK * 2;
-console.log(getWeek(time));
-time = getTime() - CYCLE_WEEK * 3;
-console.log(getWeek(time));
-
-console.log("===========getWeekEx==============");
-
-time = getTime();
-console.log(getWeekEx(time));
-console.log(getWeekEx(time, 0));
-console.log(getWeekEx(time, 1));
-console.log(getWeekEx(time, 2));
-console.log(getWeekEx(time, 3));
-console.log(getWeekEx(time, 4));
-console.log(getWeekEx(time, 5));
-console.log(getWeekEx(time, 6));
-console.log(getWeekEx(time, 7));
-console.log(getWeekEx(time, 8));
-
-console.log("===========getWeekEx 2==============");
-
-var date2 = new Date;
-date2.setDate(1);
-time = date2.getTime();
-console.log(date2, getWeekEx(time, 5));
-date2.setDate(2);
-time = date2.getTime();
-console.log(date2, getWeekEx(time, 5));
-date2.setDate(3);
-time = date2.getTime();
-console.log(date2, getWeekEx(time, 5));
-date2.setDate(4);
-time = date2.getTime();
-console.log(date2, getWeekEx(time, 5));
-date2.setDate(5);
-time = date2.getTime();
-console.log(date2, getWeekEx(time, 5));
-date2.setDate(6);
-time = date2.getTime();
-console.log(date2, getWeekEx(time, 5));
-date2.setDate(7);
-time = date2.getTime();
-console.log(date2, getWeekEx(time, 5));
-date2.setDate(8);
-time = date2.getTime();
-console.log(date2, getWeekEx(time, 5));
-
-console.log("===========getWeekEx 3==============");
-
-date2 = new Date;
-date2.setDate(1);
-time = date2.getTime();
-console.log(date2, getWeekEx(time));
-date2.setDate(2);
-time = date2.getTime();
-console.log(date2, getWeekEx(time));
-date2.setDate(3);
-time = date2.getTime();
-console.log(date2, getWeekEx(time));
-date2.setDate(4);
-time = date2.getTime();
-console.log(date2, getWeekEx(time));
-date2.setDate(5);
-time = date2.getTime();
-console.log(date2, getWeekEx(time));
-date2.setDate(6);
-time = date2.getTime();
-console.log(date2, getWeekEx(time));
-date2.setDate(7);
-time = date2.getTime();
-console.log(date2, getWeekEx(time));
-date2.setDate(8);
-time = date2.getTime();
-console.log(date2, getWeekEx(time));
+//console.log("===========cloneForResetKey==============");
+//
+//console.log(cloneForResetKey("abc.", "", {"abc": 1}));
