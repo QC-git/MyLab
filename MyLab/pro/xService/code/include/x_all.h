@@ -7,4 +7,5 @@
 #include "../x_service_door_container.hpp"
 #include "../x_service_door_net.hpp"
 #include "../x_service_door_boost.hpp"
+#include "../x_service_door_kbe.hpp"
 #include "../x_service_door_dummy.hpp"

@@ -6,7 +6,7 @@
 
 _SERVOCE_DOOR_BEGIN
 
-namespace net
+namespace net_boost
 {
 	typedef boost::asio::ip::address Addr_t;
 	typedef boost::asio::ip::tcp Tcp_t;
@@ -33,14 +33,14 @@ public:
 	VOID_T Debug();
 
 private:
-	net::Addr_t m_cAddr;
+	net_boost::Addr_t m_cAddr;
 	U16_T m_uPort;
 };
 
 CNetIpImpl_ForBoost::CNetIpImpl_ForBoost(const CHAR_T* sAddr, U16_T uPort)
 	: CNetIp()
 {
-	m_cAddr = net::Addr_t::from_string(sAddr);
+	m_cAddr = net_boost::Addr_t::from_string(sAddr);
 	m_uPort = uPort;
 }
 
@@ -64,7 +64,7 @@ VOID_T CNetIpImpl_ForBoost::Debug()
 	;
 }
 
-///////////////////////////////////CNetServer///////////////////////////////////////
+///////////////////////////////////CNetPoint///////////////////////////////////////
 
 class CNetPointImpl_ForBoost : public CNetPoint
 {
@@ -88,9 +88,9 @@ public:
 	VOID_T Debug();
 
 private:
-	net::Service_t m_cIo;
-	net::Tcp_t::socket m_cSock;   // m_cIo 必须先于 m_cSock 被初始化
-	net::Service_t* m_pOutIo;
+	net_boost::Service_t m_cIo;
+	net_boost::Tcp_t::socket m_cSock;   // m_cIo 必须先于 m_cSock 被初始化
+	net_boost::Service_t* m_pOutIo;
 };
 
 CNetPointImpl_ForBoost::CNetPointImpl_ForBoost()
@@ -119,7 +119,7 @@ ERR_T CNetPointImpl_ForBoost::Connect(CNetIp* pRemoteIp)
 		return -1;
 	}
 
-	net::Tcp_t::endpoint endpoint(p->m_cAddr, p->m_uPort);
+	net_boost::Tcp_t::endpoint endpoint(p->m_cAddr, p->m_uPort);
 	try
 	{
 		m_cSock.connect(endpoint);
@@ -197,7 +197,7 @@ public:
 
 private:
 	EM_NET_TYPE m_eType;
-	net::Service_t m_cIo;
+	net_boost::Service_t m_cIo;
 	CNetHanlder* m_pCb;
 
 };
@@ -228,8 +228,8 @@ ERR_T CNetListener_ForBoost::Process(CNetIp* pHostIp, CNetHanlder* pCb)
 		return -1;
 	}
 
-	net::Tcp_t::endpoint endpoint(net::Tcp_t::v4(), p->m_uPort);
-	net::Tcp_t::acceptor acceptor(m_cIo, endpoint);
+	net_boost::Tcp_t::endpoint endpoint(net_boost::Tcp_t::v4(), p->m_uPort);
+	net_boost::Tcp_t::acceptor acceptor(m_cIo, endpoint);
 	while (true)
 	{
 		CNetPointImpl_ForBoost* pNew = new CNetPointImpl_ForBoost;
