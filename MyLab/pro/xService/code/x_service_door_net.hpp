@@ -126,7 +126,7 @@ public:
 	CNetManager() {;}
 	virtual ~CNetManager() {;}
 
-	VOID_T Local(EM_NET_MANAGER eType);
+	static VOID_T Local(EM_NET_MANAGER eType);
 
 public:
 	virtual CNetIp*    CreateIp(const CHAR_T* sAddr, U16_T uPort = 0) = 0;
