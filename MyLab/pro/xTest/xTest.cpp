@@ -10,13 +10,9 @@
 // #include "x_container.h"
 // #include "x_net.h"
 
-#include "x_all.h"
 
-#include "x_Interface.h"
-#include<windows.h>
- 
-#pragma comment(lib, "xService.lib")
-#pragma comment(lib, "xServer.lib")
+#include "xTest.h"
+
 
 namespace hhhh
 {
@@ -131,45 +127,7 @@ KBE_SINGLETON_INIT_TEST(CHello)
 //KBE_SINGLETON_INIT_TEST(CHello)
 //KBE_SINGLETON_INIT_TEST(CHello2)
 
-class CListenHandler : public X::CNetHanlder
-{
-public:
-	CListenHandler() {;}
-	~CListenHandler() {;}
 
-public:
-	virtual VOID_T OnAccept(X::CNetPoint* pNewPonit)
-	{
-
-		LEN_T uLen = 0;
-		ERR_T nErr = pNewPonit->Write("hello123", strlen("hello123")+1, uLen);
-		LOG_F("pNewPonit->Write, nErr = %d, uLen = %d", nErr, uLen);
-		while(true)
-		{
-			X::Sleep_f(1);
-		}
-
-		delete pNewPonit;
-	}
-
-	virtual VOID_T OnRecieve(X::CNetIp* pRemoteIp, CHAR_T* pData, LEN_T uDataLen)
-	{
-		;
-	}
-
-};
-
-// X::CNetListener g_cNetSvr(X::EM_NET_TCP);
-// 
-void TaskFunc(void*)
-{
-	CListenHandler cb;
-	X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
-	HANDLE_T h = X::NetManager()->CreateListener(X::EM_NET_TCP, pIp, &cb);
-
-	LOG_F("X::CreateNetListener_f, h = %d", h);
-}
-X::CThreadCreater g_cThreadCreater;
 
 // #define sas  #define AAA 111
 // sas
@@ -177,19 +135,49 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	LOG_F("xTest main()");
 
-// 	{
-// 		int n = 1;
-// 		auto a = n;
-// 		double d1 = n;
-// 		double d2 = a;
-// 
-// 		auto a1 = [](int i) { return i; };
-// 		auto a2 = a1(2);
-// 		while(true)
-// 		{
-// 			X::Sleep_f(1);
-// 		}
-// 	}
+
+	int arg = 4;
+	switch(arg)
+	{
+	case 1:
+		{
+			test_util();
+		}break;
+	case 2:
+		{
+			test_container();
+		}break;
+	case 3:
+		{
+			test_thread();
+		}break;
+	case 4:
+		{
+			test_net();
+		}break;		
+	case 5:
+		{
+			test_boost();
+		}break;	
+	case 6:
+		{
+			test_kbe();
+		}break;	
+	case 11:
+		{
+			test_db();
+		}break;	
+	case 12:
+		{
+			test_math();
+		}break;	
+	case 13:
+		{
+			test_design();
+		}break;	
+		
+	}
+
 
 // 	{
 // 		int n = X::Init(NULL);
@@ -201,54 +189,14 @@ int _tmain(int argc, _TCHAR* argv[])
 // 		X_HSER->Stop();
 // 		X_HSER->Destroy();
 // 	}
-
-	{
-		g_cThreadCreater.CreateThread(TaskFunc, NULL);
-		X::Sleep_f(500);
-		X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
-		X::CNetPoint* pNetP = X::NetManager()->CreatePoint();
-		pNetP->Connect(pIp);
-		CHAR_T pBuffer[100];
-		pBuffer[99] = '\0';
-		LEN_T uLen = 0;
-		ERR_T nErr = pNetP->Read(pBuffer, 99, uLen);
-		LOG_F("pNetP->Read, nErr = %d, uLen = %d, %s", nErr, uLen, pBuffer);
-
-		while(true)
-		{
-			X::Sleep_f(1);
-		}
-	}
 	
-// 	{
-// 		//CRITICAL_SECTION ds;
-// 		//_SERVICE_HMUTEX d;
-// 		//HMUTEX_D s;
-// 		//	X::DummyTest();
-// 		//	X::UtilTest();
-// 		//	X::ThreadTest();
-// 		//	X::ContainerTest();
-// 
-// 		//int n = g1.n;
-// 		//n = g2.n;
+	
+// 	{	
 // 
 // 		//int nVal = Singleton<CHello>::getSingletonPtr()->Value();
 // 
 // 		//PRINT_F();
 // 	}
-
-
-// 	{
-// 		//  [4/21/2015 Administrator]
-// 		// 	OUT_F<<1+10000<<2<<"hello"<<11.23<<"a";
-// 
-// 		// 	OUT_F<<1+10000<<2<<"hello"<<11.23<<"a";
-// 		// 	OUT_F<<1+10000<<2<<"hello"<<11.23<<"a";
-// 		// 	OUT_F<<1+10000<<2<<"hello"<<11.23<<"a";
-// 		// 	OUT_F<<1+10000<<2<<"hello"<<11.23<<"a";
-// 		// 	OUT_F<<1+10000<<2<<"hello"<<11.23<<"a";
-// 	}
-
 
 
 

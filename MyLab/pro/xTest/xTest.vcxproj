@@ -83,9 +83,19 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="xTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="test13_design.cpp" />
+    <ClCompile Include="test2_container.cpp" />
+    <ClCompile Include="test4_net.cpp" />
+    <ClCompile Include="test3_thread.cpp" />
+    <ClCompile Include="test1_util.cpp" />
+    <ClCompile Include="test5_boost.cpp" />
+    <ClCompile Include="test6_kbe.cpp" />
+    <ClCompile Include="test11_db.cpp" />
+    <ClCompile Include="test12_math.cpp" />
     <ClCompile Include="xTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

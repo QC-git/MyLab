@@ -24,12 +24,42 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="xTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="xTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test2_container.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test3_thread.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1_util.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test4_net.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test5_boost.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test6_kbe.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test11_db.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test12_math.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test13_design.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

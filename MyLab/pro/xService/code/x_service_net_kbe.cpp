@@ -87,7 +87,7 @@ VOID_T CNetIpImpl_ForKbe::Debug()
 class CNetPointImpl_ForKbe : public CNetPoint
 {
 public:
-	CNetPointImpl_ForKbe(BOOL_T isBlock = FALSE);
+	CNetPointImpl_ForKbe(BOOL_T isBlock = TRUE);
 	CNetPointImpl_ForKbe(net_kbe::Point_t* pPoint);
 	~CNetPointImpl_ForKbe();
 
@@ -117,12 +117,17 @@ CNetPointImpl_ForKbe::CNetPointImpl_ForKbe(BOOL_T isBlock)
 	: m_pPoint(NULL)
 {
 	net_kbe::Point_t::initNetwork();
+
 	m_pPoint = new net_kbe::Point_t;
 	m_pPoint->socket(SOCK_STREAM);
 	if (!isBlock)
 	{
 		m_pPoint->setnonblocking(true);
-		m_pPoint->setnodelay(true);
+		//m_pPoint->setnodelay(true);
+	}else
+	{
+		m_pPoint->setnonblocking(false);
+		//m_pPoint->setnodelay(false);
 	}
 	
 }
@@ -130,7 +135,6 @@ CNetPointImpl_ForKbe::CNetPointImpl_ForKbe(BOOL_T isBlock)
 CNetPointImpl_ForKbe::CNetPointImpl_ForKbe(net_kbe::Point_t* pPoint)
 	: m_pPoint(NULL)
 {
-	net_kbe::Point_t::initNetwork();
 	m_pPoint = pPoint;
 }
 
@@ -161,6 +165,7 @@ ERR_T CNetPointImpl_ForKbe::Connect(CNetIp* pRemoteIp)
 	int nRet = m_pPoint->connect();
 	if ( 0 != nRet ) 
 	{
+		int nErrr = WSAGetLastError();
 		return -2;
 	}
 	
@@ -179,6 +184,7 @@ ERR_T CNetPointImpl_ForKbe::Write(CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLe
 	int nRet  = m_pPoint->send((const void*)pData, (int)uDataLen);
 	if ( SOCKET_ERROR == nRet )
 	{
+		int nErrr = WSAGetLastError();
 		return -2;
 	}
 
@@ -194,9 +200,37 @@ ERR_T CNetPointImpl_ForKbe::Read(CHAR_T* pBuffer, LEN_T uBufferLen, LEN_T& uRead
 	}
 
 	uReadLen = 0;
-	int nRet = m_pPoint->recv((void*)pBuffer, (int)uBufferLen); // 一般为阻塞状态， 当为0时， 代表数据中断
+	int nRet = m_pPoint->recv((void*)pBuffer, (int)uBufferLen); // 一般为阻塞状态， 当为0时， 代表数据中断 // 默认不阻塞 ？
 	if ( SOCKET_ERROR == nRet )
 	{
+		int nErrr = WSAGetLastError();//EWOULDBLOCK//EAGAIN//或者
+		/*
+		WSANOTINITIALISED;//：在使用此API之前应首先成功地调用WSAStartup()。10093
+
+			WSAENETDOWN;//：WINDOWS套接口实现检测到网络子系统失效。 10050
+
+			WSAENOTCONN;//：套接口未连接。 10057
+
+			WSAEINTR;//：阻塞进程被WSACancelBlockingCall()取消。 10004
+
+			WSAEINPROGRESS;//：一个阻塞的WINDOWS套接口调用正在运行中。10036
+
+			WSAENOTSOCK;//：描述字不是一个套接口。10038
+
+			WSAEOPNOTSUPP;//：指定了MSG_OOB，但套接口不是SOCK_STREAM类型的。10045
+
+			WSAESHUTDOWN;//：套接口已被关闭。当一个套接口以0或2的how参数调用shutdown()关闭后，无法再用recv()接收数据。10058
+
+			WSAEWOULDBLOCK;//：套接口标识为非阻塞模式，但接收操作会产生阻塞。10035
+
+			WSAEMSGSIZE;//：数据报太大无法全部装入缓冲区，故被剪切。10040
+
+			WSAEINVAL;//：套接口未用bind()进行捆绑。10022
+
+			WSAECONNABORTED;//：由于超时或其他原因，虚电路失效。10053
+
+			WSAECONNRESET;//：远端强制中止了虚电路。10054
+			*/
 		return -2;
 	}
 
@@ -239,6 +273,8 @@ private:
 
 CNetListener_ForKbe::CNetListener_ForKbe(EM_NET_TYPE eType)
 {
+	net_kbe::Point_t::initNetwork();
+
 	m_eType = eType;
 	m_pCb = NULL;
 }
@@ -263,13 +299,25 @@ ERR_T CNetListener_ForKbe::Process(CNetIp* pHostIp, CNetHanlder* pCb)
 		return -1;
 	}
 
-	net_kbe::Point_t* m_pPoint = new net_kbe::Point_t(*(p->m_pAddr));
+	net_kbe::Point_t* m_pPoint = new net_kbe::Point_t();
+	if ( NULL == m_pPoint )
+	{
+		return -1;
+	}
+	m_pPoint->socket(SOCK_STREAM);
+	m_pPoint->bind(p->m_pAddr->port, p->m_pAddr->ip);
+	
+	//m_pPoint->setnonblocking(true);  当设置后 m_pPoint->accept() 会被阻塞
+
+	//m_pPoint->setnodelay(true); // 作用 ？
 
 	while (true)
 	{
 		int nRet = m_pPoint->listen();
+		
 		if ( SOCKET_ERROR == nRet )
 		{
+			int nErrr = WSAGetLastError();
 			return -2;
 		}
 		
