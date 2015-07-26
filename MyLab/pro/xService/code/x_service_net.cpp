@@ -43,8 +43,8 @@ _SERVICE_IMPLEMENT ERR_T NetTest()
 	CNetPoint* pPoint1 = NetManager()->CreatePoint();
 	delete pPoint1;
 
-	//HANDLE_T pListner1 = NetManager()->CreateListener(EM_NET_TCP);
-	//NetManager()->DestroyListener(pListner1);
+	CNetListener* pListner1 = NetManager()->CreateListener(EM_NET_TCP);
+	delete pListner1;
 
 	CNetManager::Local(EM_NET_MANAGER_KBE);
 
@@ -54,8 +54,8 @@ _SERVICE_IMPLEMENT ERR_T NetTest()
 	CNetPoint* pPoint2 = NetManager()->CreatePoint();
 	delete pPoint2;
 
-	//HANDLE_T pListner2 = NetManager()->CreateListener(EM_NET_TCP);
-	//NetManager()->DestroyListener(pListner1);
+	CNetListener* pListner2 = NetManager()->CreateListener(EM_NET_TCP);
+	delete pListner2;
 
 
 	return 0;

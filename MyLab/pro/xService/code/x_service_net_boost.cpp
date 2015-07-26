@@ -186,61 +186,94 @@ VOID_T CNetPointImpl_ForBoost::Debug()
 
 ///////////////////////////////////CNetListener///////////////////////////////////////
 
-class CNetListener_ForBoost
+class CNetListener_ForBoost : public CNetListener
 {
 public:
 	CNetListener_ForBoost(EM_NET_TYPE eType);
 	virtual ~CNetListener_ForBoost();
 
 public:
-	ERR_T Process(CNetIp* pHostIp, CNetHanlder* pCb);
+	virtual ERR_T Listen(CNetIp* pHostIp);
+
+	virtual ERR_T Run(CallBack* pCb, U32_T uFlag = 0);
 
 private:
 	EM_NET_TYPE m_eType;
+	CallBack* m_pCb;
+	net_boost::Tcp_t::acceptor* m_pAcceptor;
+
 	net_boost::Service_t m_cIo;
-	CNetHanlder* m_pCb;
 
 };
 
 CNetListener_ForBoost::CNetListener_ForBoost(EM_NET_TYPE eType)
+	: CNetListener(eType)
 {
 	m_eType = eType;
 	m_pCb = NULL;
+
+	m_pAcceptor = new net_boost::Tcp_t::acceptor(m_cIo);
+
 }
 
 CNetListener_ForBoost::~CNetListener_ForBoost()
 {
-	;
+	if (m_pAcceptor)
+	{
+		delete m_pAcceptor;  //注意与成员析构函数的先后顺序
+	}
 }
 
-ERR_T CNetListener_ForBoost::Process(CNetIp* pHostIp, CNetHanlder* pCb)
+ERR_T CNetListener_ForBoost::Listen(CNetIp* pHostIp)
 {
-	if ( !pHostIp || !pHostIp->IsEffect() || NULL == pCb )
+	if ( NULL == pHostIp || !pHostIp->IsEffect() || NULL == m_pAcceptor )
 	{
 		return -1;
 	}
 
-	m_pCb = pCb;
-	//CNetIpImpl* p = (CNetIpImpl*)pHostIp;
 	CNetIpImpl_ForBoost* p = dynamic_cast<CNetIpImpl_ForBoost*>(pHostIp) ;
 	if ( NULL == p )
 	{
 		return -1;
 	}
+	
+	try
+	{
+		net_boost::Tcp_t::endpoint endpoint(net_boost::Tcp_t::v4(), p->m_uPort);
+		m_pAcceptor->open(endpoint.protocol());
+		m_pAcceptor->bind(endpoint);
+		m_pAcceptor->listen();		
+	}
+	catch (std::exception& e)
+	{
+		std::exception& e1 = e;
+		return -2;
+	}
+	
 
-	net_boost::Tcp_t::endpoint endpoint(net_boost::Tcp_t::v4(), p->m_uPort);
-	net_boost::Tcp_t::acceptor acceptor(m_cIo, endpoint);
-	while (true)
+	return 0;
+
+}
+
+ERR_T CNetListener_ForBoost::Run(CallBack* pCb, U32_T uFlag)
+{
+	if ( NULL == pCb || NULL == m_pAcceptor )
+	{
+		return -1;
+	}
+	m_pCb = pCb;
+
+	do 
 	{
 		CNetPointImpl_ForBoost* pNew = new CNetPointImpl_ForBoost;
 		if ( NULL == pNew ) 
 		{
-			break;
+			return -2;
 		}
 
 		try
 		{
-			acceptor.accept(pNew->m_cSock);
+			m_pAcceptor->accept(pNew->m_cSock);
 		}
 		catch (std::exception& e)
 		{
@@ -248,12 +281,14 @@ ERR_T CNetListener_ForBoost::Process(CNetIp* pHostIp, CNetHanlder* pCb)
 			return -2;
 		}
 
-		m_pCb->OnAccept((CNetPoint*)pNew);
-	}
+		m_pCb->OnAccept(pNew);
+
+	} while (uFlag);
 
 
 	return 0;
 }
+
 
 ///////////////////////////////////CNetManager///////////////////////////////////////
 
@@ -264,11 +299,10 @@ public:
 	virtual ~CNetManagerImpl_Boost() {;}
 
 public:
-	virtual CNetIp*    CreateIp(const CHAR_T* sAddr, U16_T uPort = 0);
-	virtual CNetPoint* CreatePoint();
+	virtual CNetIp*			CreateIp(const CHAR_T* sAddr, U16_T uPort = 0);
+	virtual CNetPoint*		CreatePoint();
+	virtual CNetListener*	CreateListener(EM_NET_TYPE eType);
 
-	virtual HANDLE_T   CreateListener(EM_NET_TYPE eType, CNetIp* pHostIp, CNetHanlder* pCb);
-	virtual VOID_T     DestroyListener(HANDLE_T hListener);
 };
 
 CNetIp* CNetManagerImpl_Boost::CreateIp(const CHAR_T* sAddr, U16_T uPort)
@@ -294,38 +328,15 @@ CNetPoint* CNetManagerImpl_Boost::CreatePoint()
 	return p;
 }
 
-HANDLE_T CNetManagerImpl_Boost::CreateListener(EM_NET_TYPE eType, CNetIp* pHostIp, CNetHanlder* pCb)
+CNetListener* CNetManagerImpl_Boost::CreateListener(EM_NET_TYPE eType)
 {
-	if ( NULL == pHostIp || !pHostIp->IsEffect() || NULL == pCb )
-	{
-		return NULL;
-	}
-
-	CNetListener_ForBoost* p = new CNetListener_ForBoost(eType);
-	if ( NULL == p )
-	{
-		return NULL;
-	}
-
-	if ( 0 != p->Process(pHostIp, pCb) )
-	{
-		delete p;
-		return NULL;
-	}
-
+	CNetListener* p = new CNetListener_ForBoost(eType);
 	return p;
 }
 
-VOID_T CNetManagerImpl_Boost::DestroyListener(HANDLE_T hListener)
-{
-	CNetListener_ForBoost* p = (CNetListener_ForBoost*)hListener;
-	if (p)
-	{
-		delete p;
-	}
-}
 
 static CNetManagerImpl_Boost s_cNetMgr;
 CNetManager* g_pNetMgr_Boost = (CNetManager*)(&s_cNetMgr);
+
 
 _SERVOCE_DOOR_END

@@ -44,6 +44,34 @@ public:
 
 /*
 ************************************************************************************************************************
+*                                                    CNetTool
+*
+* Description: 网络句柄工具
+*
+* Arguments  : 无
+*
+* Returns    : 无
+*
+* Note(s)    : 完善缺乏的功能
+*
+************************************************************************************************************************
+*/
+
+class CNetTool
+{
+public:
+	CNetTool() {;}
+	virtual ~CNetTool() {;}
+
+// public:
+// 	virtual ERR_T GetFd() = 0;
+// 	virtual ERR_T Bind() = 0;
+// 	virtual ERR_T Set() = 0;
+
+};
+
+/*
+************************************************************************************************************************
 *                                                    CNetPoint
 *
 * Description: 网络端点, 类似sock
@@ -64,6 +92,7 @@ public:
 	virtual ~CNetPoint() {;}
 
 public:
+
 	virtual ERR_T Connect(CNetIp* pRemoteIp) = 0;
 
 	virtual ERR_T Write(CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp = NULL) = 0;
@@ -87,16 +116,23 @@ public:
 ************************************************************************************************************************
 */
 
-class CNetHanlder
+class CNetListener
 {
 public:
-	CNetHanlder() {;}
-	virtual ~CNetHanlder() {;}
+	CNetListener(EM_NET_TYPE eType) {;}
+	virtual ~CNetListener() {;}
+
+	class CallBack
+	{
+	public:
+		virtual VOID_T OnAccept(CNetPoint* pNewPonit) {;}    // 接受新的连接
+		virtual VOID_T OnRecieve(CNetIp* pRemoteIp, CHAR_T* pData, LEN_T uDataLen) {;}   // 接受新的消息
+	};
 
 public:
-	virtual VOID_T OnAccept(CNetPoint* pNewPonit) = 0;    // 接受新的连接
+	virtual ERR_T Listen(CNetIp* pHostIp) = 0;
 
-	virtual VOID_T OnRecieve(CNetIp* pRemoteIp, CHAR_T* pData, LEN_T uDataLen) = 0;   // 接受新的消息
+	virtual ERR_T Run(CallBack* pCb, U32_T uFlag=0) = 0;
 
 };
 
@@ -129,11 +165,10 @@ public:
 	static VOID_T Local(EM_NET_MANAGER eType);
 
 public:
-	virtual CNetIp*    CreateIp(const CHAR_T* sAddr, U16_T uPort = 0) = 0;
-	virtual CNetPoint* CreatePoint() = 0;
+	virtual CNetIp*         CreateIp(const CHAR_T* sAddr, U16_T uPort = 0) = 0;
+	virtual CNetPoint*      CreatePoint() = 0;
+	virtual CNetListener*   CreateListener(EM_NET_TYPE eType) = 0;
 
-	virtual HANDLE_T   CreateListener(EM_NET_TYPE eType, CNetIp* pHostIp, CNetHanlder* pCb) = 0;
-	virtual VOID_T     DestroyListener(HANDLE_T hListener) = 0;
 };
 
 _SERVICE_EXPORT CNetManager* NetManager();

@@ -110,25 +110,24 @@ public:
 
 private:
 	net_kbe::Point_t* m_pPoint;
+	BOOL_T m_isBlock;
 
 };
 
 CNetPointImpl_ForKbe::CNetPointImpl_ForKbe(BOOL_T isBlock)
 	: m_pPoint(NULL)
+	, m_isBlock(FALSE)
 {
 	net_kbe::Point_t::initNetwork();
 
 	m_pPoint = new net_kbe::Point_t;
-	m_pPoint->socket(SOCK_STREAM);
-	if (!isBlock)
+	assert(m_pPoint);
+	if (m_pPoint)
 	{
-		m_pPoint->setnonblocking(true);
-		//m_pPoint->setnodelay(true);
-	}else
-	{
-		m_pPoint->setnonblocking(false);
-		//m_pPoint->setnodelay(false);
+		m_pPoint->socket(SOCK_STREAM);		
 	}
+
+	m_isBlock = isBlock;
 	
 }
 
@@ -162,7 +161,7 @@ ERR_T CNetPointImpl_ForKbe::Connect(CNetIp* pRemoteIp)
 	}
 
 	m_pPoint->addr(*(p->m_pAddr));
-	int nRet = m_pPoint->connect();
+	int nRet = m_pPoint->connect(m_isBlock? false: true);
 	if ( 0 != nRet ) 
 	{
 		int nErrr = WSAGetLastError();
@@ -204,6 +203,11 @@ ERR_T CNetPointImpl_ForKbe::Read(CHAR_T* pBuffer, LEN_T uBufferLen, LEN_T& uRead
 	if ( SOCKET_ERROR == nRet )
 	{
 		int nErrr = WSAGetLastError();//EWOULDBLOCK//EAGAIN//或者
+		if ( WSAEINTR == nErrr || WSAEWOULDBLOCK == nErrr || EAGAIN == nErrr  )
+		{
+			nRet = m_pPoint->recv((void*)pBuffer, (int)uBufferLen);
+			return 0; //继续
+		}
 		/*
 		WSANOTINITIALISED;//：在使用此API之前应首先成功地调用WSAStartup()。10093
 
@@ -256,84 +260,107 @@ VOID_T CNetPointImpl_ForKbe::Debug()
 ///////////////////////////////////CNetListener///////////////////////////////////////
 
 
-class CNetListener_ForKbe
+class CNetListener_ForKbe : public CNetListener
 {
 public:
 	CNetListener_ForKbe(EM_NET_TYPE eType);
 	virtual ~CNetListener_ForKbe();
 
 public:
-	ERR_T Process(CNetIp* pHostIp, CNetHanlder* pCb);
+	virtual ERR_T Listen(CNetIp* pHostIp);
+
+	virtual ERR_T Run(CallBack* pCb, U32_T uFlag = 0);
 
 private:
 	EM_NET_TYPE m_eType;
-	CNetHanlder* m_pCb;
+	net_kbe::Point_t* m_pPoint;
+	CallBack* m_pCb;
 
 };
 
 CNetListener_ForKbe::CNetListener_ForKbe(EM_NET_TYPE eType)
+	: CNetListener(eType)
 {
 	net_kbe::Point_t::initNetwork();
 
+	m_pPoint = new net_kbe::Point_t();
+	assert(m_pPoint);
+	if (m_pPoint)
+	{
+		m_pPoint->socket(SOCK_STREAM);
+	}
+
 	m_eType = eType;
 	m_pCb = NULL;
+	
 }
 
 CNetListener_ForKbe::~CNetListener_ForKbe()
 {
-	;
+	if (m_pPoint)
+	{
+		delete m_pPoint;
+	}
 }
 
-ERR_T CNetListener_ForKbe::Process(CNetIp* pHostIp, CNetHanlder* pCb)
+ERR_T CNetListener_ForKbe::Listen(CNetIp* pHostIp)
 {
-	if ( !pHostIp || !pHostIp->IsEffect() || NULL == pCb )
+	if ( !pHostIp || !pHostIp->IsEffect() || NULL == m_pPoint )
 	{
 		return -1;
 	}
 
-	m_pCb = pCb;
-	//CNetIpImpl* p = (CNetIpImpl*)pHostIp;
 	CNetIpImpl_ForKbe* p = dynamic_cast<CNetIpImpl_ForKbe*>(pHostIp) ;
 	if ( NULL == p )
 	{
 		return -1;
 	}
 
-	net_kbe::Point_t* m_pPoint = new net_kbe::Point_t();
-	if ( NULL == m_pPoint )
+	int nRet = m_pPoint->bind(p->m_pAddr->port, p->m_pAddr->ip);
+	if ( SOCKET_ERROR == nRet )
+	{
+		int nErrr = WSAGetLastError();
+		return -2;
+	}	
+
+	nRet = m_pPoint->listen();
+	if ( SOCKET_ERROR == nRet )
+	{
+		int nErrr = WSAGetLastError();
+		return -2;
+	}
+
+	return 0;
+}
+
+ERR_T CNetListener_ForKbe::Run(CallBack* pCb, U32_T uFlag)
+{
+	if ( NULL == pCb || NULL == m_pPoint ) 
 	{
 		return -1;
 	}
-	m_pPoint->socket(SOCK_STREAM);
-	m_pPoint->bind(p->m_pAddr->port, p->m_pAddr->ip);
+	m_pCb = pCb;
 	
-	//m_pPoint->setnonblocking(true);  当设置后 m_pPoint->accept() 会被阻塞
-
-	//m_pPoint->setnodelay(true); // 作用 ？
-
-	while (true)
+	do 
 	{
-		int nRet = m_pPoint->listen();
-		
-		if ( SOCKET_ERROR == nRet )
-		{
-			int nErrr = WSAGetLastError();
-			return -2;
-		}
-		
 		CNetPointImpl_ForKbe* pNew = NULL;
 		net_kbe::Point_t* pSock = m_pPoint->accept();
 		if ( pSock )
 		{
 			pNew = new CNetPointImpl_ForKbe(pSock);
 		}
+		if ( NULL == pNew ) 
+		{
+			return -2;
+		}
 
-		m_pCb->OnAccept((CNetPoint*)pNew);
-	}
-
+		m_pCb->OnAccept(pNew);
+		
+	} while (uFlag);
 
 	return 0;
 }
+
 
 ///////////////////////////////////CNetManager///////////////////////////////////////
 
@@ -344,11 +371,10 @@ public:
 	virtual ~CNetManagerImpl_Kbe() {;}
 
 public:
-	virtual CNetIp*    CreateIp(const CHAR_T* sAddr, U16_T uPort = 0);
-	virtual CNetPoint* CreatePoint();
+	virtual CNetIp*			CreateIp(const CHAR_T* sAddr, U16_T uPort = 0);
+	virtual CNetPoint*		CreatePoint();
+	virtual CNetListener*   CreateListener(EM_NET_TYPE eType);
 
-	virtual HANDLE_T   CreateListener(EM_NET_TYPE eType, CNetIp* pHostIp, CNetHanlder* pCb);
-	virtual VOID_T     DestroyListener(HANDLE_T hListener);
 };
 
 CNetIp* CNetManagerImpl_Kbe::CreateIp(const CHAR_T* sAddr, U16_T uPort)
@@ -374,38 +400,15 @@ CNetPoint* CNetManagerImpl_Kbe::CreatePoint()
 	return p;
 }
 
-HANDLE_T CNetManagerImpl_Kbe::CreateListener(EM_NET_TYPE eType, CNetIp* pHostIp, CNetHanlder* pCb)
+CNetListener* CNetManagerImpl_Kbe::CreateListener(EM_NET_TYPE eType)
 {
-	if ( NULL == pHostIp || !pHostIp->IsEffect() || NULL == pCb )
-	{
-		return NULL;
-	}
-
-	CNetListener_ForKbe* p = new CNetListener_ForKbe(eType);
-	if ( NULL == p )
-	{
-		return NULL;
-	}
-
-	if ( 0 != p->Process(pHostIp, pCb) )
-	{
-		delete p;
-		return NULL;
-	}
-
+	CNetListener* p = new CNetListener_ForKbe(eType);
 	return p;
 }
 
-VOID_T CNetManagerImpl_Kbe::DestroyListener(HANDLE_T hListener)
-{
-	CNetListener_ForKbe* p = (CNetListener_ForKbe*)hListener;
-	if (p)
-	{
-		delete p;
-	}
-}
 
 static CNetManagerImpl_Kbe s_cNetMgr;
 CNetManager* g_pNetMgr_Kbe = (CNetManager*)(&s_cNetMgr);
+
 
 _SERVOCE_DOOR_END

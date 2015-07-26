@@ -2,18 +2,18 @@
 #include "xTest.h"
 
 
-class CListenHandler : public X::CNetHanlder
+class CListenCallBack : public X::CNetListener::CallBack
 {
 public:
-	CListenHandler() {;}
-	~CListenHandler() {;}
+	CListenCallBack() {;}
+	~CListenCallBack() {;}
 
 public:
 	virtual VOID_T OnAccept(X::CNetPoint* pNewPonit)
 	{
 
 		LEN_T uLen = 0;
-		ERR_T nErr = pNewPonit->Write("welcome to net1", strlen("welcome to net1")+1, uLen);
+		ERR_T nErr = pNewPonit->Write("welcome to X::net", strlen("welcome to net1")+1, uLen);
 		LOG_F("pNewPonit->Write, nErr = %d, uLen = %d", nErr, uLen);
 		while(true)
 		{
@@ -23,21 +23,23 @@ public:
 		delete pNewPonit;
 	}
 
-	virtual VOID_T OnRecieve(X::CNetIp* pRemoteIp, CHAR_T* pData, LEN_T uDataLen)
-	{
-		;
-	}
-
 };
 
 
-void TaskFunc(void*)
+void TaskFunction(void*)
 {
-	CListenHandler cb;
-	X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
-	HANDLE_T h = X::NetManager()->CreateListener(X::EM_NET_TCP, pIp, &cb);
+	CListenCallBack cb;
+	ERR_T nRet;
 
-	LOG_F("X::NetManager()->CreateListener(), h = %d", h);
+	X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
+	X::CNetListener* pListener = X::NetManager()->CreateListener(X::EM_NET_TCP);
+
+	nRet = pListener->Listen(pIp);
+	assert(0==nRet);
+
+	nRet = pListener->Run(&cb);
+	assert(0==nRet);
+
 }
 X::CThreadCreater g_cThreadCreater;
 
@@ -47,23 +49,22 @@ void test_net()
 {
 
 	{
-		//X::NetManager()->Local(X::EM_NET_MANAGER_BOOST);
-		X::NetManager()->Local(X::EM_NET_MANAGER_KBE);
+		X::NetManager()->Local(X::EM_NET_MANAGER_BOOST);
+		//X::NetManager()->Local(X::EM_NET_MANAGER_KBE);
 
-		g_cThreadCreater.CreateThread(TaskFunc, NULL);
+		g_cThreadCreater.CreateThread(TaskFunction, NULL);
 
 		X::Sleep_f(5000);
 		X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
 		X::CNetPoint* pNetP = X::NetManager()->CreatePoint();
 		pNetP->Connect(pIp);
 
-		//X::Sleep_f(5000);
+		X::Sleep_f(5000);
 		CHAR_T pBuffer[100];
 		pBuffer[99] = '\0';
 		LEN_T uLen = 0;
 		ERR_T nErr = pNetP->Read(pBuffer, 99, uLen);
 		LOG_F("pNetP->Read, nErr = %d, uLen = %d, %s", nErr, uLen, pBuffer);
-
 
 	}
 
@@ -71,4 +72,5 @@ void test_net()
 	{
 		X::Sleep_f(1);
 	}
+
 }
