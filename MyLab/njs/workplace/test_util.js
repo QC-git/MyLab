@@ -163,7 +163,9 @@ function getWeekEx(time, startDay) {
 
 function doRepeat(num, fn, cb) {
     for (var i= 0; i<num; i++) {
-        fn(i);
+        if ( fn(i)) {
+            break;
+        }
     }
     if ( "function" == typeof cb ) {
         cb();
@@ -172,7 +174,9 @@ function doRepeat(num, fn, cb) {
 
 function doEach(vec, fn, cb) {
     for (var i= 0; i<vec.length; i++) {
-        fn(i, vec[i]);
+        if ( fn(i, vec[i]) ) {
+            break;
+        }
     }
     if ( "function" == typeof cb ) {
         cb();
@@ -181,7 +185,9 @@ function doEach(vec, fn, cb) {
 
 function doEachEx(obj, fn, cb) {
     for (var key in obj) {
-        fn(key, obj[key]);
+        if ( fn(key, obj[key]) ) {
+            break;
+        }
     }
     if ( "function" == typeof cb ) {
         cb();
@@ -218,6 +224,93 @@ function cloneForResetKey(pre, suf, obj) {
     return sink;
 }
 
+function ListKeyHelper(listName, listCount) {
+    this.listName = listName;
+    this.listCount = listCount;
+}
+
+ListKeyHelper.prototype.check = function(pos) {
+    return pos >= 1 && pos <= this.listCount;
+};
+
+ListKeyHelper.prototype.getKey = function(pos) {
+    return this.listName + pos.toString();
+};
+
+ListKeyHelper.prototype.setValue = function(obj, pos, value) {
+    if ( !this.check(pos) ) {
+        return false;
+    }
+    var key = this.getKey(pos);
+    obj[key] = value;
+    return true;
+};
+
+ListKeyHelper.prototype.getValue = function(obj, pos) {
+    if ( !this.check(pos) ) {
+        return null;
+    }
+    var key = this.getKey(pos);
+    return obj[key];
+};
+
+ListKeyHelper.prototype.getPos = function(obj, value) {
+    if ( this.listCount < 1 ) {
+        return;
+    }
+    var self = this;
+    var pos  = 0;
+    var key;
+    doRepeat(self.listCount, function(i) {
+        i++;
+        key = self.getKey(i);
+        if ( value == obj[key] ) {
+            pos = i;
+            return true;
+        } //console.log(i);
+    });
+    return pos;
+};
+
+ListKeyHelper.prototype.getAllData = function(obj) {
+    if ( this.listCount < 1 ) {
+        return;
+    }
+    var self = this;
+    var sink = {};
+    var key, value;
+    doRepeat(self.listCount, function(i) {
+        i++;
+        key = self.getKey(i);
+        value = obj[key];
+        sink[key] = value;
+    });
+    return sink;
+};
+
+function getListItem(list, attrName, attrValue) {
+    var data = null;
+    doEach(list, function(i, item) {
+        if ( attrValue == item[attrName] ) {
+            data = item;
+            return true;
+        }
+    });
+    return data;
+}
+
+function checkNumber(data) {
+    return "number" == typeof data;
+}
+
+function checkString(data) {
+    return "string" == typeof data;
+}
+
+function checkObject(data) {
+    return "object" == typeof data;
+}
+
 module.exports = {
     getTime: getTime,
     getNumber: getNumber,
@@ -231,9 +324,15 @@ module.exports = {
     getWeekEx: getWeekEx,
 
     doRepeat: doRepeat,
+    doEach: doEach,
+    doEachEx: doEachEx,
+
     cloneAll: cloneAll,
     cloneByAttr: cloneByAttr,
-    cloneForResetKey: cloneForResetKey
+    cloneForResetKey: cloneForResetKey,
+
+    ListKeyHelper: ListKeyHelper,
+    getListItem: getListItem
 };
 
 ///////////////////////////////////������///////////////////////////////////////
@@ -399,7 +498,7 @@ module.exports = {
 //console.log(date2, getWeekEx(time));
 //
 //console.log("===========doRepeat==============");
-
+//
 //var vec = [];
 //var obj = {};
 //doRepeat(10, function(i) {
@@ -416,6 +515,9 @@ module.exports = {
 //    if (obj) {
 //        obj.pos = i;
 //    }
+//    if ( 5 == i ) {
+//        return true;
+//    }
 //}, function() {
 //    console.log("end, vec = ", vec);
 //});
@@ -423,6 +525,9 @@ module.exports = {
 //doEachEx(obj, function(key, obj) {
 //    if (obj) {
 //        obj.pos = key;
+//    }
+//    if ( 5 == key ) {
+//        return true;
 //    }
 //}, function() {
 //    console.log("end, obj = ", obj);
@@ -448,3 +553,39 @@ module.exports = {
 //console.log("===========cloneForResetKey==============");
 //
 //console.log(cloneForResetKey("abc.", "", {"abc": 1}));
+
+//console.log("===========ListKeyHelper==============");
+//
+//var obj = {};
+//obj.list1 = 111;
+//obj.list2 = 222;
+//obj.list3 = 333;
+//
+//var adapter = new ListKeyHelper("list", 3);
+//
+//adapter.setValue(obj, 2, 22222);
+//console.log(obj);
+//
+//console.log("==1==", adapter.getValue(obj, 0));
+//console.log("==1==", adapter.getValue(obj, 1));
+//console.log("==1==", adapter.getValue(obj, 2));
+//console.log("==1==", adapter.getValue(obj, 3));
+//console.log("==1==", adapter.getValue(obj, 4));
+//
+//console.log("==2==", adapter.getPos(obj, 0));
+//console.log("==2==", adapter.getPos(obj, 111));
+//console.log("==2==", adapter.getPos(obj, 222));
+//console.log("==2==", adapter.getPos(obj, 333));
+//console.log("==2==", adapter.getPos(obj, 444));
+//
+//console.log(obj);
+//console.log(adapter.getAllData(obj));
+//
+//var list = [];
+//list.push({a:1, b:11});
+//list.push({a:2, b:22});
+//
+//console.log(getListItem(list, "a", 1));
+//console.log(getListItem(list, "a", 2));
+
+

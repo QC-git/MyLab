@@ -61,10 +61,10 @@ var loadSchemeByAttr = function(Mod, attr, isCreate, cb) {
     })
 };
 
-var loadSchemeList = function(Mod, find, limit, sort, cb) {
-    var query = Mod.find({}, find);
-    query.limit(limit);
-    query.sort(sort);
+var loadSchemeList = function(Mod, params, cb) {
+    var query = Mod.find(params.condition, params.find);
+    query.limit(params.limit);
+    query.sort(params.sort);
     query.exec(cb);
 };
 
@@ -119,25 +119,6 @@ var PersonModel = Mongoose.model("person", Person);
 
 var strId;
 
-var TABLE_NAME_1 = "person1";
-
-var Person1 = new Schema({
-    map: {type: Schema.Types.Mixed},
-    vec: [Schema.Types.Mixed],
-    mix: Schema.Types.Mixed,
-    num: {type: Number, default: -1},
-    list:
-    [
-         {
-             data1: Schema.Types.Mixed,
-             data2: Number
-         }
-    ]
-
-}, {collection: TABLE_NAME_1, versionKey:false});
-var PersonModel1 = Mongoose.model(TABLE_NAME_1, Person1);
-
-
 var TABLE_NAME_2 = "person2";
 var Person2 = new Schema({
     id_1: Number,
@@ -146,6 +127,51 @@ var Person2 = new Schema({
     id_4: Schema.Types.Mixed
 }, {collection: TABLE_NAME_2, versionKey:false});
 var PersonModel2 = Mongoose.model(TABLE_NAME_2, Person2);
+
+var TABLE_NAME_1 = "person1";
+
+var Person1_1 = new Schema({
+    a: Number
+});
+
+var Person1 = new Schema({
+    map: {type: Schema.Types.Mixed},
+    vec: [Schema.Types.Mixed],
+    mix: Schema.Types.Mixed,
+    num: {type: Number, default: -1},
+    list: [
+         {
+             data1: Schema.Types.Mixed,
+             data2: Number
+         }
+    ],
+    map2: {
+        data1: Number,
+        data2: Number
+        //data3: Person1_1
+    },
+    person1: [Person1_1]
+
+   // person2: {type: Person2}
+
+}, {collection: TABLE_NAME_1, versionKey:false});
+
+Person1.statics.func = function() {
+    console.log("Person1.statics.func");
+};
+
+Person1.methods.func1 = function() {
+    console.log("PersonModel1.methods.func1");
+};
+
+Person1.methods.func2 = function() {
+    console.log("PersonModel2.methods.func2");
+    this.func1();
+};
+
+var PersonModel1 = Mongoose.model(TABLE_NAME_1, Person1);
+
+
 
 ////////////////////////////////////////////////////////
 
@@ -289,8 +315,41 @@ async.waterfall([  // �ص������ĸ�����������
     //},
     function(cb){
         console.log("\n-----------------5");
-        loadSchemeByKey(PersonModel1, "800000008000000080000003", function(err, scheme) {
-            console.log("loadSchemeById cb", err, scheme, scheme.num);
+        loadSchemeByKey(PersonModel1, "800000008000000080000004", function(err, scheme) {
+            console.log("loadSchemeById cb", err, scheme);
+            //scheme.list.push({data2: 111111});
+            //scheme.list.push({data2: 222222});
+            //var mark = 0;
+            //scheme.list[mark].data2 = mark + 1;
+            //scheme.save(function() {});
+            //util.doEach(scheme.list, function(i, item) {
+            //    var data = {};
+            //    //data = item;
+            //    console.log("");
+            //});
+            //scheme.func2();
+            cb(null);
+        });
+    },
+    function(cb){
+        console.log("\n-----------------5-1");
+        loadSchemeList(PersonModel1, {condition: {"list.data2": {$gt:0}}, find:{}, limit:1000, sort:{}}, function(err, list) {
+            console.log("loadSchemeList cb", err, list.length, list);
+            var item = list[1];
+            item.list[1].data2 +=10;
+            item.map2.data1 = 2;
+            //list[0].markModified("list");
+            console.log("item = ", item);
+            //
+            //list[0].list.push({});
+            //item.person1.push({});
+            //item.save(function(err){console.log(err)});
+
+            var p1 = item.person1[0];
+            p1.a = 2;
+            p1.save(function(err){console.log(err)});
+            //item.save(function(err){console.log(err)});
+
             cb(null);
         });
     }
