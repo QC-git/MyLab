@@ -1,6 +1,10 @@
 
 #include "xTest.h"
 
+namespace space_test_net
+{
+
+
 
 class CListenCallBack : public X::CNetListener::CallBack
 {
@@ -44,7 +48,7 @@ void TaskFunction(void*)
 }
 X::CThreadCreater g_cThreadCreater;
 
-
+}
 
 void test_net()
 {
@@ -53,7 +57,7 @@ void test_net()
 		X::NetManager()->Local(X::ENetManagerType_BOOST);
 		//X::NetManager()->Local(X::ENetManagerType_KBE);
 
-		g_cThreadCreater.CreateThread(TaskFunction, NULL);
+		space_test_net::g_cThreadCreater.CreateThread(space_test_net::TaskFunction, NULL);
 
 		X::Sleep_f(5000);
 		X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
