@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>D:\boost_1_57_0\stage\lib;.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
+    <LibraryPath>../../dep\libs;D:\boost_1_57_0\stage\lib;.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\QC-nd\svn\MyLab\trunk\MyLab\dep\libs_src\uv\include;D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
     <IntDir>.\..\..\bld\tmp\$(ProjectName)\Debug</IntDir>
     <OutDir>.\..\..\bin\Debug</OutDir>
   </PropertyGroup>
@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="test13_design.cpp" />
+    <ClCompile Include="test14_async.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
     <ClCompile Include="test3_thread.cpp" />

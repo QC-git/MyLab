@@ -4,12 +4,8 @@
 #include "stdafx.h"
 //#include <windows.h>
 
-// #include "x_dummy.h"
-// #include "x_util.h"
-// #include "x_thread.h"
-// #include "x_container.h"
-// #include "x_net.h"
-
+#include "x_all.h"
+#include "x_Interface.h"
 
 #include "xTest.h"
 
@@ -20,7 +16,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main()");
 
 
-	int arg = 4;
+	int arg = 14;
 	switch(arg)
 	{
 	case 1:
@@ -58,6 +54,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	case 13:
 		{
 			test_design();
+		}break;	
+	case 14:
+		{
+			test_async();
 		}break;	
 		
 	}

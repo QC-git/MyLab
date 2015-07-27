@@ -1,8 +1,11 @@
 
+#include "x_all.h"
+//#include<windows.h>
+
+#pragma comment(lib, "xService.lib")
+#pragma comment(lib, "xServer.lib")
 
 #include "xTest.h"
-
-
 
 void test1()
 {
