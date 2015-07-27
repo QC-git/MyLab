@@ -141,7 +141,7 @@ public:
 
 static CLogFile s_cLogFile(NULL);
 
-_SERVICE_EXPORT VOID_T Log_f(E_LOG_LEVEL emLevel, const CHAR_T* sFmt, ...)
+_SERVICE_EXPORT VOID_T Log_f(ELogLevel emLevel, const CHAR_T* sFmt, ...)
 {
 	//printf("\n no implement");
 	
@@ -161,16 +161,16 @@ _SERVICE_EXPORT VOID_T Log_f(E_LOG_LEVEL emLevel, const CHAR_T* sFmt, ...)
 	TCHAR   sLevel[36] = {0};
 	switch (emLevel)
 	{
-	case E_LOG_LEVEL_NORMAL:
+	case ELogLevel_NORMAL:
 		sprintf_s(sLevel, 36, "[DB-LOG]");
 		break;
-	case E_LOG_LEVEL_DEBUG:
+	case ELogLevel_DEBUG:
 		sprintf_s(sLevel, 36, "[DB-DEBUG]");
 		break;
-	case E_LOG_LEVEL_WARNING:
+	case ELogLevel_WARNING:
 		sprintf_s(sLevel, 36, "[DB-WANING]");
 		break;
-	case E_LOG_LEVEL_ERROR:
+	case ELogLevel_ERROR:
 		sprintf_s(sLevel, 36, "[DB-ERROR]");
 		break;
 	default:
@@ -180,7 +180,7 @@ _SERVICE_EXPORT VOID_T Log_f(E_LOG_LEVEL emLevel, const CHAR_T* sFmt, ...)
 
 	PRINT_F("\n\n%s %s", sLevel, sTmp);
 
-	if ( emLevel > E_LOG_LEVEL_NORMAL )
+	if ( emLevel > ELogLevel_NORMAL )
 	{
 		// 获取日期
 		TCHAR   sDataTime[36] = {0};
@@ -198,24 +198,24 @@ VOID_T UtilTest1()
 {
 	for (int n=0; n<50; n++)
 	{
-		_SERVICE_LOG_F(E_LOG_LEVEL_NORMAL, "%d", n+1, n+1);
+		_SERVICE_LOG_F(ELogLevel_NORMAL, "%d", n+1, n+1);
 	}
 
 	for (int n=0; n<50; n++)
 	{
-		_SERVICE_LOG_F(E_LOG_LEVEL_DEBUG, "%d", n);
+		_SERVICE_LOG_F(ELogLevel_DEBUG, "%d", n);
 	}
 
 	for (int n=0; n<50; n++)
 	{
-		_SERVICE_LOG_F(E_LOG_LEVEL_WARNING, "123");
+		_SERVICE_LOG_F(ELogLevel_WARNING, "123");
 	}
 
 	const CHAR_T* s = "hello";
 	for (int n=0; n<50; n++)
 	{
 		printf("\n%s-%s", s, "qqq");
-		_SERVICE_LOG_F(E_LOG_LEVEL_ERROR, "%s-%s", s, "ddd");
+		_SERVICE_LOG_F(ELogLevel_ERROR, "%s-%s", s, "ddd");
 	}
 }
 #endif // X_SERVICE_HAVE_LOGFILE > 0
@@ -348,43 +348,43 @@ public:
 	//@override
 	void Log(const CHAR_T* sFmt, ...)
 	{
-		_LOG_NEXT_F(E_LOG_LEVEL_NORMAL);
+		_LOG_NEXT_F(ELogLevel_NORMAL);
 	}
 
 	//@override
 	void LogF(const CHAR_T* sFmt, ...)
 	{
-		_LOG_NEXT_F(E_LOG_LEVEL_DEBUG);
+		_LOG_NEXT_F(ELogLevel_DEBUG);
 	}
 
 	//@override
 	void LogE(const CHAR_T* sFmt, ...)
 	{
-		_LOG_NEXT_F(E_LOG_LEVEL_WARNING);
+		_LOG_NEXT_F(ELogLevel_WARNING);
 	}
 
 	//@override
 	void LogErr(const CHAR_T* sFmt, ...)
 	{
-		_LOG_NEXT_F(E_LOG_LEVEL_ERROR);
+		_LOG_NEXT_F(ELogLevel_ERROR);
 	}
 
 protected:
-	virtual void _Log(E_LOG_LEVEL emLevel, const CHAR_T* sStr)
+	virtual void _Log(ELogLevel emLevel, const CHAR_T* sStr)
 	{
 		TCHAR   sLevel[36] = {0};
 		switch (emLevel)
 		{
-		case E_LOG_LEVEL_NORMAL:
+		case ELogLevel_NORMAL:
 			sprintf_s(sLevel, 36, "[DB-LOG]");
 			break;
-		case E_LOG_LEVEL_DEBUG:
+		case ELogLevel_DEBUG:
 			sprintf_s(sLevel, 36, "[DB-DEBUG]");
 			break;
-		case E_LOG_LEVEL_WARNING:
+		case ELogLevel_WARNING:
 			sprintf_s(sLevel, 36, "[DB-WANING]");
 			break;
-		case E_LOG_LEVEL_ERROR:
+		case ELogLevel_ERROR:
 			sprintf_s(sLevel, 36, "[DB-ERROR]");
 			break;
 		default:
@@ -394,7 +394,7 @@ protected:
 
 		PRINT_F("\n\n%s %s %s", m_sName, sLevel, sStr);
 
-		if ( emLevel > E_LOG_LEVEL_NORMAL )
+		if ( emLevel > ELogLevel_NORMAL )
 		{
 			// 获取日期
 			TCHAR   sDataTime[36] = {0};

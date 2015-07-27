@@ -25,19 +25,19 @@ _SERVICE_EXPORT VOID_T Print_f();
 #endif
 
 #if X_SERVICE_HAVE_LOGFILE > 0
-enum E_LOG_LEVEL
+enum ELogLevel
 {
-	E_LOG_LEVEL_NORMAL	= 0,
-	E_LOG_LEVEL_DEBUG    = 1,
-	E_LOG_LEVEL_WARNING  = 2,
-	E_LOG_LEVEL_ERROR    = 3
+	ELogLevel_NORMAL   = 0,
+	ELogLevel_DEBUG    = 1,
+	ELogLevel_WARNING  = 2,
+	ELogLevel_ERROR    = 3
 };
-_SERVICE_EXPORT VOID_T Log_f(E_LOG_LEVEL emLevel, const CHAR_T* sFmt, ...);
+_SERVICE_EXPORT VOID_T Log_f(ELogLevel emLevel, const CHAR_T* sFmt, ...);
 #	define _SERVICE_LOG_F _SERVICE_NAME::Log_f
-#	define LOG_F(fmt, ...)    _SERVICE_LOG_F(_SERVICE_NAME::E_LOG_LEVEL_NORMAL,  fmt, __VA_ARGS__)
-#	define LOGD_F(fmt, ...)   _SERVICE_LOG_F(_SERVICE_NAME::E_LOG_LEVEL_DEBUG,   fmt, __VA_ARGS__)
-#	define LOGW_F(fmt, ...)   _SERVICE_LOG_F(_SERVICE_NAME::E_LOG_LEVEL_WARNING, fmt, __VA_ARGS__)
-#	define LOGERR_F(fmt, ...) _SERVICE_LOG_F(_SERVICE_NAME::E_LOG_LEVEL_ERROR,   fmt, __VA_ARGS__)
+#	define LOG_F(fmt, ...)    _SERVICE_LOG_F(_SERVICE_NAME::ELogLevel_NORMAL,  fmt, __VA_ARGS__)
+#	define LOGD_F(fmt, ...)   _SERVICE_LOG_F(_SERVICE_NAME::ELogLevel_DEBUG,   fmt, __VA_ARGS__)
+#	define LOGW_F(fmt, ...)   _SERVICE_LOG_F(_SERVICE_NAME::ELogLevel_WARNING, fmt, __VA_ARGS__)
+#	define LOGERR_F(fmt, ...) _SERVICE_LOG_F(_SERVICE_NAME::ELogLevel_ERROR,   fmt, __VA_ARGS__)
 #else
 #	define LOG_F(fmt, ...)    PRINT_F("\n\n[DB-LOG] "fmt,     __VA_ARGS__)
 #	define LOGD_F(fmt, ...)   PRINT_F("\n\n[DB-DEBUG] "fmt,   __VA_ARGS__)

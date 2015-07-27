@@ -98,7 +98,7 @@ public:
 	ERR_T Connect(CNetIp* pRemoteIp);
 
 	//Ovrride
-	ERR_T Write(CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp);
+	ERR_T Write(const CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp);
 
 	//Ovrride
 	ERR_T Read(CHAR_T* pBuffer, LEN_T uBufferLen, LEN_T& uReadLen, CNetIp* pRemoteIp);
@@ -172,7 +172,7 @@ ERR_T CNetPointImpl_ForKbe::Connect(CNetIp* pRemoteIp)
 	return 0;
 }
 
-ERR_T CNetPointImpl_ForKbe::Write(CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp)
+ERR_T CNetPointImpl_ForKbe::Write(const CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp)
 {
 	if ( NULL == pData || 0 == uDataLen || !IsEffect() )
 	{
@@ -263,7 +263,7 @@ VOID_T CNetPointImpl_ForKbe::Debug()
 class CNetListener_ForKbe : public CNetListener
 {
 public:
-	CNetListener_ForKbe(EM_NET_TYPE eType);
+	CNetListener_ForKbe(ENetType eType);
 	virtual ~CNetListener_ForKbe();
 
 public:
@@ -272,13 +272,13 @@ public:
 	virtual ERR_T Run(CallBack* pCb, U32_T uFlag = 0);
 
 private:
-	EM_NET_TYPE m_eType;
+	ENetType m_eType;
 	net_kbe::Point_t* m_pPoint;
 	CallBack* m_pCb;
 
 };
 
-CNetListener_ForKbe::CNetListener_ForKbe(EM_NET_TYPE eType)
+CNetListener_ForKbe::CNetListener_ForKbe(ENetType eType)
 	: CNetListener(eType)
 {
 	net_kbe::Point_t::initNetwork();
@@ -373,7 +373,7 @@ public:
 public:
 	virtual CNetIp*			CreateIp(const CHAR_T* sAddr, U16_T uPort = 0);
 	virtual CNetPoint*		CreatePoint();
-	virtual CNetListener*   CreateListener(EM_NET_TYPE eType);
+	virtual CNetListener*   CreateListener(ENetType eType);
 
 };
 
@@ -400,7 +400,7 @@ CNetPoint* CNetManagerImpl_Kbe::CreatePoint()
 	return p;
 }
 
-CNetListener* CNetManagerImpl_Kbe::CreateListener(EM_NET_TYPE eType)
+CNetListener* CNetManagerImpl_Kbe::CreateListener(ENetType eType)
 {
 	CNetListener* p = new CNetListener_ForKbe(eType);
 	return p;

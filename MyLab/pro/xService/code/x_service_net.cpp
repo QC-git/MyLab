@@ -9,9 +9,9 @@ _SERVOCE_DOOR_BEGIN
 extern CNetManager* g_pNetMgr_Boost;
 extern CNetManager* g_pNetMgr_Kbe;
 
-static EM_NET_MANAGER s_eNetMgrType = EM_NET_MANAGER_BOOST;
+static ENetManagerType s_eNetMgrType = ENetManagerType_BOOST;
 
-VOID_T CNetManager::Local(EM_NET_MANAGER eType)
+VOID_T CNetManager::Local(ENetManagerType eType)
 {
 	s_eNetMgrType = eType;
 }
@@ -20,9 +20,9 @@ CNetManager* NetManager()
 {
 	switch(s_eNetMgrType)
 	{
-	case EM_NET_MANAGER_BOOST:
+	case ENetManagerType_BOOST:
 		return g_pNetMgr_Boost;
-	case EM_NET_MANAGER_KBE:
+	case ENetManagerType_KBE:
 		return g_pNetMgr_Kbe;
 	default:
 		return NULL;
@@ -35,7 +35,7 @@ _SERVICE_IMPLEMENT ERR_T NetTest()
 {
 	LOG_F("NetTest()");
 
-	CNetManager::Local(EM_NET_MANAGER_BOOST);
+	CNetManager::Local(ENetManagerType_BOOST);
 
 	CNetIp* pIp1       = NetManager()->CreateIp("127.0.0.1", 9001);
 	delete pIp1;
@@ -43,10 +43,10 @@ _SERVICE_IMPLEMENT ERR_T NetTest()
 	CNetPoint* pPoint1 = NetManager()->CreatePoint();
 	delete pPoint1;
 
-	CNetListener* pListner1 = NetManager()->CreateListener(EM_NET_TCP);
+	CNetListener* pListner1 = NetManager()->CreateListener(ENetType_TCP);
 	delete pListner1;
 
-	CNetManager::Local(EM_NET_MANAGER_KBE);
+	CNetManager::Local(ENetManagerType_KBE);
 
 	CNetIp* pIp2       = NetManager()->CreateIp("127.0.0.1", 9001);
 	delete pIp2;
@@ -54,7 +54,7 @@ _SERVICE_IMPLEMENT ERR_T NetTest()
 	CNetPoint* pPoint2 = NetManager()->CreatePoint();
 	delete pPoint2;
 
-	CNetListener* pListner2 = NetManager()->CreateListener(EM_NET_TCP);
+	CNetListener* pListner2 = NetManager()->CreateListener(ENetType_TCP);
 	delete pListner2;
 
 

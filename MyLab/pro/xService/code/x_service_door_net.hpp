@@ -11,6 +11,16 @@
 //////////////////////////////////////////////////////////////////////////
 _SERVOCE_DOOR_BEGIN
 
+enum ENetType{
+	ENetType_TCP,
+	ENetType_UDP
+};
+
+enum ENetManagerType{
+	ENetManagerType_BOOST,
+	ENetManagerType_KBE
+};
+
 /*
 ************************************************************************************************************************
 *                                                    CIp
@@ -25,11 +35,6 @@ _SERVOCE_DOOR_BEGIN
 *
 ************************************************************************************************************************
 */
-
-enum EM_NET_TYPE{
-	EM_NET_TCP,
-	EM_NET_UDP
-};
 
 class CNetIp
 {
@@ -95,7 +100,7 @@ public:
 
 	virtual ERR_T Connect(CNetIp* pRemoteIp) = 0;
 
-	virtual ERR_T Write(CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp = NULL) = 0;
+	virtual ERR_T Write(const CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp = NULL) = 0;
 
 	virtual ERR_T Read(CHAR_T* pBuffer, LEN_T uBufferLen, LEN_T& uReadLen, CNetIp* pRemoteIp = NULL) = 0;
 
@@ -119,7 +124,7 @@ public:
 class CNetListener
 {
 public:
-	CNetListener(EM_NET_TYPE eType) {;}
+	CNetListener(ENetType eType) {;}
 	virtual ~CNetListener() {;}
 
 	class CallBack
@@ -151,23 +156,18 @@ public:
 ************************************************************************************************************************
 */
 
-enum EM_NET_MANAGER{
-	EM_NET_MANAGER_BOOST,
-	EM_NET_MANAGER_KBE
-};
-
 class _SERVICE_CLASS CNetManager 
 {
 public:
 	CNetManager() {;}
 	virtual ~CNetManager() {;}
 
-	static VOID_T Local(EM_NET_MANAGER eType);
+	static VOID_T Local(ENetManagerType eType);
 
 public:
 	virtual CNetIp*         CreateIp(const CHAR_T* sAddr, U16_T uPort = 0) = 0;
 	virtual CNetPoint*      CreatePoint() = 0;
-	virtual CNetListener*   CreateListener(EM_NET_TYPE eType) = 0;
+	virtual CNetListener*   CreateListener(ENetType eType) = 0;
 
 };
 

@@ -13,7 +13,8 @@ public:
 	{
 
 		LEN_T uLen = 0;
-		ERR_T nErr = pNewPonit->Write("welcome to X::net", strlen("welcome to net1")+1, uLen);
+		const CHAR_T* sMsg = "welcome to X::net";
+		ERR_T nErr = pNewPonit->Write(sMsg, strlen(sMsg)+1, uLen);
 		LOG_F("pNewPonit->Write, nErr = %d, uLen = %d", nErr, uLen);
 		while(true)
 		{
@@ -32,7 +33,7 @@ void TaskFunction(void*)
 	ERR_T nRet;
 
 	X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
-	X::CNetListener* pListener = X::NetManager()->CreateListener(X::EM_NET_TCP);
+	X::CNetListener* pListener = X::NetManager()->CreateListener(X::ENetType_TCP);
 
 	nRet = pListener->Listen(pIp);
 	assert(0==nRet);
@@ -49,8 +50,8 @@ void test_net()
 {
 
 	{
-		X::NetManager()->Local(X::EM_NET_MANAGER_BOOST);
-		//X::NetManager()->Local(X::EM_NET_MANAGER_KBE);
+		X::NetManager()->Local(X::ENetManagerType_BOOST);
+		//X::NetManager()->Local(X::ENetManagerType_KBE);
 
 		g_cThreadCreater.CreateThread(TaskFunction, NULL);
 

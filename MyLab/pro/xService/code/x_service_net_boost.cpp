@@ -79,7 +79,7 @@ public:
 	ERR_T Connect(CNetIp* pRemoteIp);
 
 	//Ovrride
-	ERR_T Write(CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp);
+	ERR_T Write(const CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp);
 
 	//Ovrride
 	ERR_T Read(CHAR_T* pBuffer, LEN_T uBufferLen, LEN_T& uReadLen, CNetIp* pRemoteIp);
@@ -133,7 +133,7 @@ ERR_T CNetPointImpl_ForBoost::Connect(CNetIp* pRemoteIp)
 	return 0;
 }
 
-ERR_T CNetPointImpl_ForBoost::Write(CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp)
+ERR_T CNetPointImpl_ForBoost::Write(const CHAR_T* pData, LEN_T uDataLen, LEN_T& uWriteLen, CNetIp* pRemoteIp)
 {
 	if ( NULL == pData || 0 == uDataLen )
 	{
@@ -189,7 +189,7 @@ VOID_T CNetPointImpl_ForBoost::Debug()
 class CNetListener_ForBoost : public CNetListener
 {
 public:
-	CNetListener_ForBoost(EM_NET_TYPE eType);
+	CNetListener_ForBoost(ENetType eType);
 	virtual ~CNetListener_ForBoost();
 
 public:
@@ -198,7 +198,7 @@ public:
 	virtual ERR_T Run(CallBack* pCb, U32_T uFlag = 0);
 
 private:
-	EM_NET_TYPE m_eType;
+	ENetType m_eType;
 	CallBack* m_pCb;
 	net_boost::Tcp_t::acceptor* m_pAcceptor;
 
@@ -206,7 +206,7 @@ private:
 
 };
 
-CNetListener_ForBoost::CNetListener_ForBoost(EM_NET_TYPE eType)
+CNetListener_ForBoost::CNetListener_ForBoost(ENetType eType)
 	: CNetListener(eType)
 {
 	m_eType = eType;
@@ -301,7 +301,7 @@ public:
 public:
 	virtual CNetIp*			CreateIp(const CHAR_T* sAddr, U16_T uPort = 0);
 	virtual CNetPoint*		CreatePoint();
-	virtual CNetListener*	CreateListener(EM_NET_TYPE eType);
+	virtual CNetListener*	CreateListener(ENetType eType);
 
 };
 
@@ -328,7 +328,7 @@ CNetPoint* CNetManagerImpl_Boost::CreatePoint()
 	return p;
 }
 
-CNetListener* CNetManagerImpl_Boost::CreateListener(EM_NET_TYPE eType)
+CNetListener* CNetManagerImpl_Boost::CreateListener(ENetType eType)
 {
 	CNetListener* p = new CNetListener_ForBoost(eType);
 	return p;
