@@ -13,7 +13,7 @@ void test_container();
 
 void test_thread();
 
-void test_net();
+void test_net(int nFlag);
 
 void test_boost();
 
@@ -25,4 +25,4 @@ void test_math();
 
 void test_design();
 
-void test_async();
+void test_async(int nFlag);

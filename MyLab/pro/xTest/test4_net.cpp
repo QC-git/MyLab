@@ -3,6 +3,8 @@
 
 #include "xTest.h"
 
+#pragma comment(lib, "ws2_32.lib")
+
 namespace space_test_net
 {
 
@@ -52,7 +54,7 @@ X::CThreadCreater g_cThreadCreater;
 
 }
 
-void test_net()
+void test_net(int nFlag)
 {
 
 	{
@@ -61,21 +63,21 @@ void test_net()
 
 		space_test_net::g_cThreadCreater.CreateThread(space_test_net::TaskFunction, NULL);
 
-		X::Sleep_f(5000);
-		X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
-		X::CNetPoint* pNetP = X::NetManager()->CreatePoint();
-		pNetP->Connect(pIp);
-
-		X::Sleep_f(5000);
-		CHAR_T pBuffer[100];
-		pBuffer[99] = '\0';
-		LEN_T uLen = 0;
-		ERR_T nErr = pNetP->Read(pBuffer, 99, uLen);
-		LOG_F("pNetP->Read, nErr = %d, uLen = %d, %s", nErr, uLen, pBuffer);
+// 		X::Sleep_f(5000);
+// 		X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
+// 		X::CNetPoint* pNetP = X::NetManager()->CreatePoint();
+// 		pNetP->Connect(pIp);
+// 
+// 		X::Sleep_f(5000);
+// 		CHAR_T pBuffer[100];
+// 		pBuffer[99] = '\0';
+// 		LEN_T uLen = 0;
+// 		ERR_T nErr = pNetP->Read(pBuffer, 99, uLen);
+// 		LOG_F("pNetP->Read, nErr = %d, uLen = %d, %s", nErr, uLen, pBuffer);
 
 	}
 
-	while(true)
+	while(nFlag)
 	{
 		X::Sleep_f(1);
 	}

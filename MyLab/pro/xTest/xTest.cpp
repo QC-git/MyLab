@@ -33,7 +33,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		}break;
 	case 4:
 		{
-			test_net();
+			test_net(true);
 		}break;		
 	case 5:
 		{
@@ -57,7 +57,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		}break;	
 	case 14:
 		{
-			test_async();
+			//test_net(false);
+			test_async(true);
 		}break;	
 		
 	}
