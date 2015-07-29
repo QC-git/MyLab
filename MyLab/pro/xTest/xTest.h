@@ -7,6 +7,18 @@
 // #pragma comment(lib, "xService.lib")
 // #pragma comment(lib, "xServer.lib")
 
+#define TEST_ASSERT(expr)                        \
+	do {                                         \
+	if (!(expr)) {                               \
+	fprintf(stderr,                              \
+	"Assertion failed in %s on line %d: %s\n",   \
+	__FILE__,                                    \
+	__LINE__,                                    \
+#expr);											 \
+	abort();									 \
+	}                                            \
+	} while (0)
+
 void test_util();
 
 void test_container();

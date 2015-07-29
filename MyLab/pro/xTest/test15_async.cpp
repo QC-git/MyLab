@@ -136,22 +136,13 @@ void test1()
 // 	ASSERT(shutdown_cb_called == 1);
 // 	ASSERT(connect_cb_called == 1);
 // 	ASSERT(write_cb_called == 1);
-// 	ASSERT(close_cb_called == 1);
+// 	ASSERT(close_cb_called == 1);
+
 }
 
 //--------------------test2: libpomelo-------------------//
 
-#define PC_TEST_ASSERT(expr)                                          \
-	do {                                                         \
-	if (!(expr)) {                                           \
-	fprintf(stderr,                                      \
-	"Assertion failed in %s on line %d: %s\n",   \
-	__FILE__,                                    \
-	__LINE__,                                    \
-#expr);                                      \
-	abort();                                             \
-	}                                                        \
-	} while (0)
+
 
 
 static pc_client_t* client;
@@ -221,35 +212,35 @@ static int local_storage_cb(pc_local_storage_op_t op, char* data, size_t* len, v
 static void event_cb(pc_client_t* client, int ev_type, void* ex_data, const char* arg1, const char* arg2)
 {
 
-	PC_TEST_ASSERT(ex_data == EV_HANDLER_EX);
+	TEST_ASSERT(ex_data == EV_HANDLER_EX);
 	printf("test: get event %s, arg1: %s, arg2: %s\n", pc_client_ev_str(ev_type),
 		arg1 ? arg1 : "", arg2 ? arg2 : "");
 }
 
 static void request_cb(const pc_request_t* req, int rc, const char* resp)
 {
-	PC_TEST_ASSERT(rc == PC_RC_OK);
-	PC_TEST_ASSERT(resp);
+	TEST_ASSERT(rc == PC_RC_OK);
+	TEST_ASSERT(resp);
 
 	printf("test get resp %s\n", resp);
 	fflush(stdout);
 
-	PC_TEST_ASSERT(pc_request_client(req) == client);
-	PC_TEST_ASSERT(!strcmp(pc_request_route(req), REQ_ROUTE));
-	PC_TEST_ASSERT(!strcmp(pc_request_msg(req), REQ_MSG));
-	PC_TEST_ASSERT(pc_request_ex_data(req) == REQ_EX);
-	PC_TEST_ASSERT(pc_request_timeout(req) == REQ_TIMEOUT);
+	TEST_ASSERT(pc_request_client(req) == client);
+	TEST_ASSERT(!strcmp(pc_request_route(req), REQ_ROUTE));
+	TEST_ASSERT(!strcmp(pc_request_msg(req), REQ_MSG));
+	TEST_ASSERT(pc_request_ex_data(req) == REQ_EX);
+	TEST_ASSERT(pc_request_timeout(req) == REQ_TIMEOUT);
 }
 
 static void notify_cb(const pc_notify_t* noti, int rc)
 {
-	PC_TEST_ASSERT(rc == PC_RC_OK);
+	TEST_ASSERT(rc == PC_RC_OK);
 
-	PC_TEST_ASSERT(pc_notify_client(noti) == client);
-	PC_TEST_ASSERT(!strcmp(pc_notify_route(noti), NOTI_ROUTE));
-	PC_TEST_ASSERT(!strcmp(pc_notify_msg(noti), NOTI_MSG));
-	PC_TEST_ASSERT(pc_notify_ex_data(noti) == NOTI_EX);
-	PC_TEST_ASSERT(pc_notify_timeout(noti) == NOTI_TIMEOUT);
+	TEST_ASSERT(pc_notify_client(noti) == client);
+	TEST_ASSERT(!strcmp(pc_notify_route(noti), NOTI_ROUTE));
+	TEST_ASSERT(!strcmp(pc_notify_msg(noti), NOTI_MSG));
+	TEST_ASSERT(pc_notify_ex_data(noti) == NOTI_EX);
+	TEST_ASSERT(pc_notify_timeout(noti) == NOTI_TIMEOUT);
 }
 
 void test2()
@@ -260,13 +251,13 @@ void test2()
 
 	client = (pc_client_t*)malloc(pc_client_size());
 
-	PC_TEST_ASSERT(client);
+	TEST_ASSERT(client);
 
 	config.local_storage_cb = local_storage_cb;
 	pc_client_init(client, (void*)0x11, &config);
 
-	PC_TEST_ASSERT(pc_client_ex_data(client) == (void*)0x11);
-	PC_TEST_ASSERT(pc_client_state(client) == PC_ST_INITED);
+	TEST_ASSERT(pc_client_ex_data(client) == (void*)0x11);
+	TEST_ASSERT(pc_client_state(client) == PC_ST_INITED);
 
 	handler_id = pc_client_add_ev_handler(client, event_cb, EV_HANDLER_EX, NULL);
 
@@ -284,7 +275,7 @@ void test2()
 
 	pc_client_cleanup(client);
 
-	PC_TEST_ASSERT(pc_client_state(client) == PC_ST_NOT_INITED);
+	TEST_ASSERT(pc_client_state(client) == PC_ST_NOT_INITED);
 
 	free(client);
 

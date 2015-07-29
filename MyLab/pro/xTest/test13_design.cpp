@@ -105,9 +105,38 @@ void test1()
 
 //-----------------test2: 策略模式-----------------//
 
+class C2_0
+{
+public:
+	C2_0(C1_0* p) { m_p = p;}
+	~C2_0() 
+	{ 
+		delete m_p;		
+	}
+
+	int Data() { return m_p->Value(); };
+
+private:
+	C1_0* m_p;
+};
+
 void test2()
 {
-	LOG_F("test21: 策略模式");
+	LOG_F("test2: 策略模式");
+
+	C2_0* p1 = new C2_0(new C1_1);
+	C2_0* p2 = new C2_0(new C1_2);
+
+	LOG_F("%d", p1->Data());
+	LOG_F("%d", p2->Data());
+
+	delete p1;
+	delete p2;
+
+// 	[DB-LOG] 1
+// 
+// 	[DB-LOG] 2
+
 }
 
 //-----------------test8: 工厂方法模式-----------------//
@@ -324,8 +353,110 @@ void test21()
 
 }
 
+//-----------------test28: 访问者模式-----------------//
+
+class C28_1;
+class C28_2;
+
+class C28_Visitor
+{
+public:
+	virtual void Visit1(C28_1* p) = 0;
+	virtual void Visit2(C28_2* p) = 0;
+};
+
+class C28_Visitor1 : public C28_Visitor
+{
+public:
+	virtual void Visit1(C28_1* p)
+	{
+		LOG_F("hello C28_1");
+	}
+
+	virtual void Visit2(C28_2* p)
+	{
+		LOG_F("hello C28_2");
+	}
+};
+
+// class C28_Visitor2 : public C28_Visitor
+// {
+// public:
+// 	void Visit1() = 0;
+// 	void Visit2() = 0;
+// };
+
+class C28_0
+{
+public:
+	virtual void Hello(C28_Visitor* p) = 0;
+};
+
+class C28_1 : public C28_0
+{
+public:
+	virtual void Hello(C28_Visitor* p)
+	{
+		p->Visit1(this);
+	}
+};
+
+class C28_2 : public C28_0
+{
+public:
+	virtual void Hello(C28_Visitor* p)
+	{
+		p->Visit2(this);
+	}
+};
+
+class C28_3
+{
+public:
+	C28_3()
+	{
+		m_p1 = new C28_1;
+		m_p2 = new C28_2;
+	}
+	~C28_3() 
+	{
+		delete m_p1;
+		delete m_p2;
+	}
+
+	void Hello(C28_Visitor* p)
+	{
+		m_p1->Hello(p);
+		m_p2->Hello(p);
+	}
+	
+private:
+	C28_1* m_p1;
+	C28_2* m_p2;
+	
+};
+
+void test28()
+{
+	LOG_F("test28: 访问者模式");
+
+	C28_3* p = new C28_3;
+	C28_Visitor* p_visitor = new C28_Visitor1;
+
+	p->Hello(p_visitor);
+
+	delete p_visitor;
+	delete p;
+
+// 	[DB-LOG] hello C28_1
+// 
+// 	[DB-LOG] hello C28_2
 
 }
+
+}
+
+//-----------------测试-----------------//
 
 void test_design()
 {	
@@ -335,6 +466,7 @@ void test_design()
 	space_test_design::test8();
 	space_test_design::test15();
 	space_test_design::test21();
+	space_test_design::test28();
 
 
 	while(true)

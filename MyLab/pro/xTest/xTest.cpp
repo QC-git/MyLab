@@ -16,7 +16,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main()");
 
 
-	int arg = 14;
+	int arg = 13;
 	switch(arg)
 	{
 	case 1:
