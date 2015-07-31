@@ -1,12 +1,5 @@
 #pragma once
 
-// #include "x_all.h"
-// #include "x_Interface.h"
-// #include<windows.h>
-// 
-// #pragma comment(lib, "xService.lib")
-// #pragma comment(lib, "xServer.lib")
-
 #define TEST_ASSERT(expr)                        \
 	do {                                         \
 	if (!(expr)) {                               \

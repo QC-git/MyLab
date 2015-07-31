@@ -40,7 +40,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>../../dep\libs;D:\boost_1_57_0\stage\lib;.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>../..\dep\libs_src\pomelo2\include;../..\dep\libs_src\uv\include;D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
+    <IncludePath>./test_boost;../..\dep\libs_src\pomelo2\include;../..\dep\libs_src\uv\include;D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
     <IntDir>.\..\..\bld\tmp\$(ProjectName)\Debug</IntDir>
     <OutDir>.\..\..\bin\Debug</OutDir>
   </PropertyGroup>
@@ -83,6 +83,23 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_base.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_client.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_connector.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_object_pool.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_packer.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_server.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_server_socket.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_service_pump.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_socket.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_ssl.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_tcp_client.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_tcp_socket.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_timer.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_udp_client.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_udp_socket.h" />
+    <ClInclude Include="test_boost\include\st_asio_wrapper_unpacker.h" />
     <ClInclude Include="xTest.h" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +114,7 @@
     <ClCompile Include="test6_kbe.cpp" />
     <ClCompile Include="test11_db.cpp" />
     <ClCompile Include="test12_math.cpp" />
+    <ClCompile Include="test_boost\test_src\asio_server.cpp" />
     <ClCompile Include="xTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

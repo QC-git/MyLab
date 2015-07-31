@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="test_boost">
+      <UniqueIdentifier>{4f63e625-d7b7-4e9a-aab2-14bde9776876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test_boost\include">
+      <UniqueIdentifier>{857ed2a3-4883-43ed-aabd-4e150b8d8469}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -26,6 +32,57 @@
     </ClInclude>
     <ClInclude Include="xTest.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_base.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_client.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_connector.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_object_pool.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_packer.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_server.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_server_socket.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_service_pump.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_socket.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_ssl.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_tcp_client.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_tcp_socket.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_timer.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_udp_client.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_udp_socket.h">
+      <Filter>test_boost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\include\st_asio_wrapper_unpacker.h">
+      <Filter>test_boost\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +121,9 @@
     </ClCompile>
     <ClCompile Include="test15_async.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_boost\test_src\asio_server.cpp">
+      <Filter>test_boost</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,7 +9,6 @@ namespace space_test_net
 {
 
 
-
 class CListenCallBack : public X::CNetListener::CallBack
 {
 public:
@@ -52,30 +51,35 @@ void TaskFunction(void*)
 }
 X::CThreadCreater g_cThreadCreater;
 
+void test1()
+{
+	X::NetManager()->Local(X::ENetManagerType_BOOST);
+	//X::NetManager()->Local(X::ENetManagerType_KBE);
+
+	space_test_net::g_cThreadCreater.CreateThread(space_test_net::TaskFunction, NULL);
+
+	// 		X::Sleep_f(5000);
+	// 		X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
+	// 		X::CNetPoint* pNetP = X::NetManager()->CreatePoint();
+	// 		pNetP->Connect(pIp);
+	// 
+	// 		X::Sleep_f(5000);
+	// 		CHAR_T pBuffer[100];
+	// 		pBuffer[99] = '\0';
+	// 		LEN_T uLen = 0;
+	// 		ERR_T nErr = pNetP->Read(pBuffer, 99, uLen);
+	// 		LOG_F("pNetP->Read, nErr = %d, uLen = %d, %s", nErr, uLen, pBuffer);
+}
+
 }
 
 void test_net(int nFlag)
 {
-
 	{
-		X::NetManager()->Local(X::ENetManagerType_BOOST);
-		//X::NetManager()->Local(X::ENetManagerType_KBE);
-
-		space_test_net::g_cThreadCreater.CreateThread(space_test_net::TaskFunction, NULL);
-
-// 		X::Sleep_f(5000);
-// 		X::CNetIp* pIp = X::NetManager()->CreateIp("127.0.0.1", 1234);
-// 		X::CNetPoint* pNetP = X::NetManager()->CreatePoint();
-// 		pNetP->Connect(pIp);
-// 
-// 		X::Sleep_f(5000);
-// 		CHAR_T pBuffer[100];
-// 		pBuffer[99] = '\0';
-// 		LEN_T uLen = 0;
-// 		ERR_T nErr = pNetP->Read(pBuffer, 99, uLen);
-// 		LOG_F("pNetP->Read, nErr = %d, uLen = %d, %s", nErr, uLen, pBuffer);
-
+		X::NetTest();
 	}
+
+	space_test_net::test1();
 
 	while(nFlag)
 	{

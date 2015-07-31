@@ -12,7 +12,7 @@
 namespace space_test_async
 {
 
-//--------------------test1: libuv-------------------//
+//--------------------test1: libuv客户端-------------------//
 
 static int shutdown_cb_called = 0;
 static int connect_cb_called = 0;
@@ -28,7 +28,7 @@ void startup(void)
 #ifdef _WIN32
 	struct WSAData wsa_data;
 	int r = WSAStartup(MAKEWORD(2, 2), &wsa_data);
-	//ASSERT(r == 0);
+	TEST_ASSERT(r == 0);
 #endif
 }
 
@@ -38,9 +38,9 @@ uv_os_sock_t create_tcp_socket(void)
 
 	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
 #ifdef _WIN32
-	//ASSERT(sock != INVALID_SOCKET);
+	TEST_ASSERT(sock != INVALID_SOCKET);
 #else
-	ASSERT(sock >= 0);
+	TEST_ASSERT(sock >= 0);
 #endif
 
 #ifndef _WIN32
@@ -67,14 +67,14 @@ void alloc_cb(uv_handle_t* handle,
 
 void read_cb(uv_stream_t* tcp, ssize_t nread, const uv_buf_t* buf) 
 {
-	//ASSERT(tcp != NULL);
+	TEST_ASSERT(tcp != NULL);
 
 	if (nread >= 0) {
-		//ASSERT(nread == 4);
-		//ASSERT(memcmp("PING", buf->base, nread) == 0);
+		TEST_ASSERT(nread == 4);
+		TEST_ASSERT(memcmp("PING", buf->base, nread) == 0);
 	}
 	else {
-		//ASSERT(nread == UV_EOF);
+		TEST_ASSERT(nread == UV_EOF);
 		printf("GOT EOF\n");
 		//uv_close((uv_handle_t*)tcp, close_cb);
 	}
@@ -86,22 +86,22 @@ void connect_cb(uv_connect_t* req, int status)
 	uv_stream_t* stream;
 	int r;
 
-	//ASSERT(req == &connect_req);
-	//ASSERT(status == 0);
+	//TEST_ASSERT(req == &connect_req);
+	//TEST_ASSERT(status == 0);
 
 	stream = req->handle;
 	connect_cb_called++;
 
 	//r = uv_write(&write_req, stream, &buf, 1, write_cb);
-	//ASSERT(r == 0);
+	TEST_ASSERT(r == 0);
 
 	/* Shutdown on drain. */
 	//r = uv_shutdown(&shutdown_req, stream, shutdown_cb);
-	//ASSERT(r == 0);
+	//TEST_ASSERT(r == 0);
 
 	/* Start reading */
 	r = uv_read_start(stream, alloc_cb, read_cb);
-	//ASSERT(r == 0);
+	TEST_ASSERT(r == 0);
 }
 
 void test1()
@@ -113,23 +113,23 @@ void test1()
 	uv_os_sock_t sock;
 	int r;
 
-	int nRet = uv_ip4_addr("127.0.0.1", 1234, &addr);
-	//ASSERT(0 == uv_ip4_addr("127.0.0.1", TEST_PORT, &addr));
+	//int nRet = uv_ip4_addr("127.0.0.1", 1234, &addr);
+	TEST_ASSERT(0 == uv_ip4_addr("127.0.0.1", 1234, &addr));
 
 	startup();
 	sock = create_tcp_socket();
 
 	r = uv_tcp_init(uv_default_loop(), &client);
-	//ASSERT(r == 0);
+	TEST_ASSERT(r == 0);
 
 	r = uv_tcp_open(&client, sock);
-	//ASSERT(r == 0);
+	TEST_ASSERT(r == 0);
 
 	r = uv_tcp_connect(&connect_req,
 		&client,
 		(const struct sockaddr*) &addr,
 		connect_cb);
-	//ASSERT(r == 0);
+	TEST_ASSERT(r == 0);
 
 	uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 
@@ -138,6 +138,50 @@ void test1()
 // 	ASSERT(write_cb_called == 1);
 // 	ASSERT(close_cb_called == 1);
 
+}
+
+
+//--------------------test1: libuv服务端-------------------//
+
+static uv_tcp_t server;
+
+static void close_cb(uv_handle_t* handle) {
+	TEST_ASSERT(handle != NULL);
+	close_cb_called++;
+}
+
+
+static void connection_cb(uv_stream_t* tcp, int status) {
+	TEST_ASSERT(status == 0);
+	uv_close((uv_handle_t*)&server, close_cb);
+	//connection_cb_called++;
+}
+
+
+static void start_server(void) {
+	struct sockaddr_in addr;
+	int r;
+
+	TEST_ASSERT(0 == uv_ip4_addr("127.0.0.1", 1234, &addr));
+
+	r = uv_tcp_init(uv_default_loop(), &server);
+	TEST_ASSERT(r == 0);
+
+	r = uv_tcp_bind(&server, (const struct sockaddr*) &addr, 0);
+	TEST_ASSERT(r == 0);
+
+	r = uv_listen((uv_stream_t*)&server, 128, connection_cb);
+	TEST_ASSERT(r == 0);
+
+	r = uv_listen((uv_stream_t*)&server, 128, connection_cb);
+	TEST_ASSERT(r == 0);
+}
+
+void test2()
+{
+	start_server();
+
+	uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 }
 
 //--------------------test2: libpomelo-------------------//
@@ -243,7 +287,7 @@ static void notify_cb(const pc_notify_t* noti, int rc)
 	TEST_ASSERT(pc_notify_timeout(noti) == NOTI_TIMEOUT);
 }
 
-void test2()
+void test3()
 {
 	pc_client_config_t config = PC_CLIENT_CONFIG_DEFAULT;
 	int handler_id;
@@ -288,8 +332,7 @@ void test_async(int nFlag)
 {
 	//space_test_async::test1();
 	space_test_async::test2();
-
-	//pc_client_size();
+	//space_test_async::test3();
 
 	while (nFlag)
 	{

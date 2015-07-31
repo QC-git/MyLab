@@ -55,7 +55,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			test_design();
 		}break;	
-	case 14:
+	case 15:
 		{
 			//test_net(false);
 			test_async(true);

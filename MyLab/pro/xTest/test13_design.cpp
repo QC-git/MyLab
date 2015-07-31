@@ -139,6 +139,151 @@ void test2()
 
 }
 
+//-----------------test6: 装饰模式-----------------//
+
+class C6_0
+{
+public:
+	C6_0() {;}
+	virtual ~C6_0() {;}
+
+	virtual void Show() { LOG_F("C6_0"); }
+
+};
+
+class C6_1 : public C6_0
+{
+public:
+	C6_1() {;}
+	virtual ~C6_1() {;}
+
+	void Set(C6_0* p) { m_p = p; }
+
+	virtual void Show() { m_p->Show(); }
+
+private:
+	C6_0* m_p;
+
+};
+
+class C6_2 : public C6_1
+{
+public:
+	C6_2() {;}
+	virtual ~C6_2() {;}
+
+	virtual void Show() { LOG_F("C6_2"); C6_1::Show(); }
+};
+
+class C6_3 : public C6_1
+{
+public:
+	C6_3() {;}
+	virtual ~C6_3() {;}
+
+	virtual void Show() { LOG_F("C6_3"); C6_1::Show(); }
+};
+
+
+void test6()
+{
+	LOG_F("test6: 装饰模式");
+
+	C6_0* p = new C6_0;
+
+	C6_2* p1 = new C6_2;
+	C6_3* p2 = new C6_3;
+
+	p1->Set(p);
+	p2->Set(p1);
+	p2->Show();
+
+	delete p;
+	delete p1;
+	delete p2;
+
+// 	[DB-LOG] C6_3
+// 
+// 	[DB-LOG] C6_2
+// 
+// 	[DB-LOG] C6_0
+
+
+}
+
+//-----------------test7: 代理模式-----------------//
+
+class C7_0
+{
+public:
+	C7_0() {;}
+	virtual ~C7_0() {;}
+
+	virtual void Give1() = 0;
+	virtual void Give2() = 0;
+
+};
+
+class C7_1 : public C7_0
+{
+public:
+	C7_1(int nId) { m_nId = nId; }
+	virtual ~C7_1() {;}
+
+	virtual void Give1()
+	{
+		LOG_F("C7_1, Give1, %d", m_nId);
+	}
+
+	virtual void Give2()
+	{
+		LOG_F("C7_1, Give2, %d", m_nId);
+	}
+
+private:
+	int m_nId;
+
+};
+
+class C7_Proxy : public C7_0
+{
+public:
+	C7_Proxy(int nId) { m_p = new C7_1(nId); }
+	virtual ~C7_Proxy() { delete m_p;}
+
+	virtual void Give1()
+	{
+		m_p->Give1();
+	}
+
+	virtual void Give2()
+	{
+		m_p->Give2();
+	}
+
+private:
+	C7_1* m_p;
+
+};
+
+
+void test7()
+{
+	LOG_F("test7: 代理模式");
+
+	C7_Proxy* p = new C7_Proxy(123);
+	p->Give1();
+	p->Give2();
+
+	delete p;
+
+// 	[DB-LOG] C7_1, Give1, 123
+// 
+// 	[DB-LOG] C7_1, Give2, 123
+
+
+}
+
 //-----------------test8: 工厂方法模式-----------------//
 
 class C8_0 
@@ -202,6 +347,440 @@ void test8()
 
 }
 
+//-----------------test9: 原型模式-----------------//
+
+//prototype
+class C9_Prototype
+{
+public:
+	C9_Prototype(int nData1, int nData2) { m_nData1 = nData1; m_nData2 = nData2; }
+	virtual ~C9_Prototype() {;}
+
+	void Show() 
+	{ 
+		LOG_F("%d, %d", m_nData1, m_nData2);
+	}
+	void setData1(int nData) { m_nData1 = nData; }
+
+	virtual C9_Prototype* Clone() = 0;
+
+protected:
+	int m_nData1;
+	int m_nData2;
+
+};
+
+class C9_1 : public C9_Prototype
+{
+public:
+	C9_1(int nData1, int nData2) : C9_Prototype(nData1, nData2) {;}
+	virtual ~C9_1() {;}
+
+	virtual C9_Prototype* Clone()
+	{
+		C9_Prototype* p = new C9_1(m_nData1, m_nData2);
+		return p;
+	}
+
+};
+
+void test9()
+{
+	LOG_F("test9: 原型模式");
+
+	C9_1* p1 = new C9_1(1, 2);
+	C9_1* p2 = (C9_1*)p1->Clone();
+	p2->setData1(11);
+
+	p1->Show();
+	p2->Show();
+
+	delete p1;
+	delete p2;
+	
+// 	[DB-LOG] 1, 2
+// 
+// 	[DB-LOG] 11, 2
+
+}
+
+//-----------------test10: 模板方法模式-----------------//
+
+class C10_0
+{
+public:
+	C10_0() {;}
+	virtual ~C10_0() {;}
+
+	void Opt() 
+	{
+		Opt1();
+		Opt2();
+	}
+
+protected:
+	virtual void Opt1() = 0;
+	virtual void Opt2() = 0;
+
+};
+
+class C10_1 : public C10_0
+{
+public:
+	C10_1() {;}
+	virtual ~C10_1() {;}
+
+protected:
+	void Opt1() 
+	{
+		LOG_F("C10_1, Opt1");
+	}
+
+	void Opt2() 
+	{
+		LOG_F("C10_1, Opt2");
+	}
+
+};
+
+class C10_2 : public C10_0
+{
+public:
+	C10_2() {;}
+	virtual ~C10_2() {;}
+
+protected:
+	void Opt1() 
+	{
+		LOG_F("C10_2, Opt1");
+	}
+
+	void Opt2() 
+	{
+		LOG_F("C10_2, Opt2");
+	}
+
+};
+
+void test10()
+{
+	LOG_F("test10: 模板方法模式");
+
+	C10_0* p1 = new C10_1;
+	C10_0* p2 = new C10_2;
+
+	p1->Opt();
+	p2->Opt();
+
+	delete p1;
+	delete p2;
+
+// 	[DB-LOG] C10_1, Opt1
+// 
+// 	[DB-LOG] C10_1, Opt2
+// 
+// 	[DB-LOG] C10_2, Opt1
+// 
+// 	[DB-LOG] C10_2, Opt2
+
+}
+
+//-----------------test12: 外观模式-----------------//
+
+class C12_1 // 与建造者模式相似, 但是流程不固定
+{
+public:
+	C12_1() {;}
+	~C12_1() {;}
+
+	void Show()
+	{
+		LOG_F("C12_1");
+	}
+
+};
+
+class C12_2
+{
+public:
+	C12_2() {;}
+	~C12_2() {;}
+
+	void Show()
+	{
+		LOG_F("C12_2");
+	}
+
+};
+
+class C12_3
+{
+public:
+	C12_3() {;}
+	~C12_3() {;}
+
+	void Show()
+	{
+		LOG_F("C12_3");
+	}
+
+};
+
+class C12_Facade
+{
+public:
+	C12_Facade() 
+	{
+		m_p1 = new C12_1;
+		m_p2 = new C12_2;
+		m_p3 = new C12_3;
+	}
+	~C12_Facade()
+	{
+		delete m_p1;
+		delete m_p2;
+		delete m_p3;
+	}
+
+	void Show1()
+	{
+		m_p1->Show();
+		m_p2->Show();
+	}
+
+	void Show2()
+	{
+		m_p1->Show();
+		m_p3->Show();
+	}
+
+private:
+	C12_1* m_p1;
+	C12_2* m_p2;
+	C12_3* m_p3;
+
+};
+
+void test12()
+{
+	LOG_F("test12: 外观模式");
+
+	C12_Facade* p = new C12_Facade;
+	p->Show1();
+	p->Show2();
+	delete p;
+
+// 	[DB-LOG] C12_1
+// 
+// 	[DB-LOG] C12_2
+// 
+// 	[DB-LOG] C12_1
+// 
+// 	[DB-LOG] C12_3
+
+}
+
+//-----------------test13: 建造者模式-----------------//
+
+class C13_Product  // 与外观模式相似, 但是流程固定
+{
+public:
+	C13_Product() { m_nData = 0; }
+	~C13_Product() {;}
+
+	void Add(int nData) { m_nData += nData; }
+
+	void Show() 
+	{
+		LOG_F("%d", m_nData);
+	}
+
+private:
+	int m_nData;
+
+};
+
+class C13_0
+{
+public:
+	C13_0() {;}
+	virtual ~C13_0() {;}
+
+	virtual void Add1() = 0;
+	virtual void Add2() = 0;
+	virtual C13_Product* get() = 0;
+
+};
+
+class C13_1 : public C13_0
+{
+public:
+	C13_1() { m_p = new C13_Product; }
+	virtual ~C13_1() { delete m_p; }
+
+	virtual void Add1()
+	{
+		m_p->Add(1);
+	};
+	virtual void Add2()
+	{
+		m_p->Add(2);
+	}
+
+	virtual C13_Product* get()
+	{
+		return m_p;
+	}
+
+private:
+	C13_Product* m_p;
+
+};
+
+class C13_2 : public C13_0
+{
+public:
+	C13_2() { m_p = new C13_Product; }
+	virtual ~C13_2() { delete m_p; }
+
+	virtual void Add1()
+	{
+		m_p->Add(10);
+	};
+	virtual void Add2()
+	{
+		m_p->Add(20);
+	}
+
+	virtual C13_Product* get()
+	{
+		return m_p;
+	}
+
+private:
+	C13_Product* m_p;
+
+};
+
+class C13_Director
+{
+public:
+	C13_Director() {;}
+	~C13_Director() {;}
+
+	void Construct(C13_0* p)
+	{
+		p->Add1();
+		p->Add2();
+	}
+
+};
+
+void test13()
+{
+	LOG_F("test13: 建造者模式");
+
+	C13_Director* p = new C13_Director;
+	C13_0* p1 = new C13_1;
+	C13_0* p2 = new C13_2;
+	p->Construct(p1);
+	p->Construct(p2);
+
+	p1->get()->Show();
+	p2->get()->Show();
+
+	delete p;
+	delete p1;
+	delete p2;
+
+// 	[DB-LOG] 3
+// 
+// 	[DB-LOG] 30
+
+}
+
+//-----------------test14: 观察者模式-----------------//
+
+class C14_Observer  //观察者
+{
+public:
+	C14_Observer() {;}
+	virtual ~C14_Observer() {;}
+
+	virtual void update() {;}
+
+};
+
+class C14_0  //被观察者或通知者
+{
+public:
+	C14_0() {;}
+	virtual ~C14_0() {;}
+
+	void AddObservre(C14_Observer* p1, C14_Observer* p2) { m_p1 = p1; m_p2 = p2; }
+
+	void Notify()
+	{
+		//应为列表轮询， 这里简化
+		if(m_p1)
+			m_p1->update();
+		if(m_p2)
+			m_p2->update();
+	}
+
+private:
+	C14_Observer* m_p1;  //应为列表， 这里简化
+	C14_Observer* m_p2;
+
+};
+
+class C14_1 : public C14_0
+{
+public:
+	C14_1() { m_nState = 0; }
+	virtual ~C14_1() {;}
+
+	int m_nState;
+};
+
+class C14_ConcreteObserver : public C14_Observer //观察者实现
+{
+public:
+	C14_ConcreteObserver(C14_1* p, int nName) { m_p = p; m_nName = nName; }
+	virtual ~C14_ConcreteObserver() {;}
+
+	virtual void update() 
+	{
+		LOG_F("observer name = %d, observered state = %d", m_nName, m_p->m_nState);
+	}
+
+private:
+	int m_nName;
+	C14_1* m_p;
+
+};
+
+void test14()
+{
+	LOG_F("test14: 观察者模式");
+
+	C14_1* p = new C14_1;
+	C14_ConcreteObserver* m_pObserver1 = new C14_ConcreteObserver(p, 111);
+	C14_ConcreteObserver* m_pObserver2 = new C14_ConcreteObserver(p, 222);
+	p->AddObservre(m_pObserver1, m_pObserver2);
+
+	p->m_nState = 9;
+	p->Notify();
+
+	delete p;
+	delete m_pObserver1;
+	delete m_pObserver2;
+
+// 	[DB-LOG] observer name = 111, observered state = 9
+// 
+// 	[DB-LOG] observer name = 222, observered state = 9
+
+}
 
 //-----------------test15: 抽象工厂模式-----------------//
 
@@ -463,7 +1042,14 @@ void test_design()
 
 	space_test_design::test1();
 	space_test_design::test2();
+	space_test_design::test6();
+	space_test_design::test7();
 	space_test_design::test8();
+	space_test_design::test9();
+	space_test_design::test10();
+	space_test_design::test12();
+	space_test_design::test13();
+	space_test_design::test14();
 	space_test_design::test15();
 	space_test_design::test21();
 	space_test_design::test28();
