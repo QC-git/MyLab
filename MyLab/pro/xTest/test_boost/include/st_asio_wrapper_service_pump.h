@@ -118,7 +118,9 @@ public:
 	{
 		if (!is_service_started())
 		{
-			service_thread = boost::thread([this, thread_num]() {ST_THIS run_service(thread_num);});
+			service_thread = boost::thread([this, thread_num]() {
+				ST_THIS run_service(thread_num);
+			});
 			auto loop_num = 10;
 			while (--loop_num >= 0 && !is_service_started())
 				boost::this_thread::sleep(boost::get_system_time() + boost::posix_time::milliseconds(50));
@@ -230,7 +232,10 @@ private:
 		--thread_num;
 		boost::thread_group tg;
 		for (auto i = 0; i < thread_num; ++i)
-			tg.create_thread([this]() {boost::system::error_code ec; ST_THIS run(ec);});
+			tg.create_thread([this]() {
+			boost::system::error_code ec; 
+			ST_THIS run(ec);}
+		);
 		boost::system::error_code ec; run(ec);
 		tg.join_all();
 

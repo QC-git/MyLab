@@ -22,6 +22,7 @@ static int close_cb_called = 0;
 static uv_connect_t connect_req;
 static uv_shutdown_t shutdown_req;
 static uv_write_t write_req;
+static uv_tcp_t tcp_peer; /* client socket as accept()-ed by server */
 
 void startup(void) 
 {
@@ -68,16 +69,26 @@ void alloc_cb(uv_handle_t* handle,
 void read_cb(uv_stream_t* tcp, ssize_t nread, const uv_buf_t* buf) 
 {
 	TEST_ASSERT(tcp != NULL);
-
+	
 	if (nread >= 0) {
-		TEST_ASSERT(nread == 4);
-		TEST_ASSERT(memcmp("PING", buf->base, nread) == 0);
+		char tmp[1024];
+		memcpy(tmp, buf->base, nread);
+		tmp[nread] = '\0';
+		printf("收到一条新消息： %s", &tmp[2]);	
+
+		TEST_ASSERT( nread > 2);
+		//TEST_ASSERT(memcmp("PING", buf->base, nread) == 0);
 	}
 	else {
 		TEST_ASSERT(nread == UV_EOF);
 		printf("GOT EOF\n");
 		//uv_close((uv_handle_t*)tcp, close_cb);
 	}
+}
+
+void write_cb(uv_write_t *req, int status) {
+	TEST_ASSERT( 0 == status );
+	//uv_close((uv_handle_t*) req->handle, NULL);
 }
 
 void connect_cb(uv_connect_t* req, int status) 
@@ -92,7 +103,7 @@ void connect_cb(uv_connect_t* req, int status)
 	stream = req->handle;
 	connect_cb_called++;
 
-	//r = uv_write(&write_req, stream, &buf, 1, write_cb);
+	r = uv_write(&write_req, stream, &buf, 1, write_cb);
 	TEST_ASSERT(r == 0);
 
 	/* Shutdown on drain. */
@@ -144,6 +155,7 @@ void test1()
 //--------------------test1: libuv服务端-------------------//
 
 static uv_tcp_t server;
+//static uv_tcp_t tcp_server;
 
 static void close_cb(uv_handle_t* handle) {
 	TEST_ASSERT(handle != NULL);
@@ -152,9 +164,28 @@ static void close_cb(uv_handle_t* handle) {
 
 
 static void connection_cb(uv_stream_t* tcp, int status) {
-	TEST_ASSERT(status == 0);
-	uv_close((uv_handle_t*)&server, close_cb);
+	int r;
+	uv_buf_t buf;
+
 	//connection_cb_called++;
+	//TEST_ASSERT(tcp == (uv_stream_t*)&tcp_server);
+	TEST_ASSERT(status == 0);
+
+	r = uv_tcp_init(tcp->loop, &tcp_peer);
+	TEST_ASSERT(r == 0);
+
+	r = uv_accept(tcp, (uv_stream_t*)&tcp_peer);
+	TEST_ASSERT(r == 0);
+
+	r = uv_read_start((uv_stream_t*)&tcp_peer, alloc_cb, read_cb);
+	TEST_ASSERT(r == 0);
+
+	buf.base = "welcome to X net\n";
+	buf.len = strlen(buf.base);
+
+	r = uv_write(&write_req, (uv_stream_t*)&tcp_peer, &buf, 1, write_cb);
+	TEST_ASSERT(r == 0);
+
 }
 
 
@@ -173,8 +204,6 @@ static void start_server(void) {
 	r = uv_listen((uv_stream_t*)&server, 128, connection_cb);
 	TEST_ASSERT(r == 0);
 
-	r = uv_listen((uv_stream_t*)&server, 128, connection_cb);
-	TEST_ASSERT(r == 0);
 }
 
 void test2()

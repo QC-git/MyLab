@@ -47,6 +47,13 @@ protected:
 	{
 		if (!ST_THIS get_io_service().stopped())
 		{
+			{
+				packer cPack;
+				char* str = "welcome to X net";	
+				packer::msg_type&& msg = cPack.pack_msg(str);
+				do_direct_send_msg(std::move(msg));
+			}
+			
 			ST_THIS do_recv_msg();
 			return true;
 		}

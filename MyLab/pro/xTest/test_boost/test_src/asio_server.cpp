@@ -117,7 +117,7 @@ public:
 
 int test_boost_asio_server_main(int argc, const char* argv[])
 {
-	printf("usage: asio_server [<port=%d> [ip=0.0.0.0]]\n", SERVER_PORT);
+	//printf("usage: asio_server [<port=%d> [ip=0.0.0.0]]\n", SERVER_PORT);
 	puts("normal server's port will be 100 larger.");
 	puts("type " QUIT_COMMAND " to end.");
 
@@ -142,7 +142,7 @@ int test_boost_asio_server_main(int argc, const char* argv[])
 	else
 		server_.set_server_addr(1234); // SERVER_PORT + 100
 
-	service_pump.start_service(1);
+	service_pump.start_service(3);
 	while(service_pump.is_running())
 	{
 		std::string str;
