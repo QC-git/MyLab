@@ -1239,6 +1239,218 @@ void test23()
 }
 
 
+//-----------------test24: 职责链模式-----------------//
+
+class C24_0
+{
+public:
+	C24_0() { m_p = NULL; }
+	virtual ~C24_0() {}
+
+	void SetNextStep(C24_0* p) { m_p = p; }
+
+	void Handle()
+	{
+		OnHandle();
+		if (m_p)
+		{
+			m_p->Handle();
+		}
+	}
+
+	virtual void OnHandle() = 0;
+
+private:
+	C24_0* m_p;
+};
+
+class C24_1 : public C24_0
+{
+public:
+	C24_1() {}
+	virtual ~C24_1() {}
+
+	virtual void OnHandle()
+	{
+		LOG_F("C24_1");
+	}
+
+};
+
+class C24_2 : public C24_0
+{
+public:
+	C24_2() {}
+	virtual ~C24_2() {}
+
+	virtual void OnHandle()
+	{
+		LOG_F("C24_2");
+	}
+
+};
+
+class C24_3 : public C24_0
+{
+public:
+	C24_3() {}
+	virtual ~C24_3() {}
+
+	virtual void OnHandle()
+	{
+		LOG_F("C24_3");
+	}
+
+};
+
+void test24()
+{
+	LOG_F("test24: 职责链模式");
+
+	C24_1* p1 = new C24_1;
+	C24_2* p2 = new C24_2;
+	C24_3* p3 = new C24_3;
+
+	p1->SetNextStep(p3);
+	p3->SetNextStep(p2);
+
+	p1->Handle();
+
+	delete p1;
+	delete p2;
+	delete p3;
+
+// 	[DB-LOG] C24_1
+// 
+// 	[DB-LOG] C24_3
+// 
+// 	[DB-LOG] C24_2
+
+}
+
+
+//-----------------test25: 中介者模式-----------------//
+
+class C25_0;
+
+class C25_Mediator
+{
+public:
+	C25_Mediator() {}
+	virtual ~C25_Mediator() {}
+
+	virtual void Send(int nMsg, C25_0* pSender) = 0;
+
+};
+
+class C25_0
+{
+public:
+	C25_0(C25_Mediator* p) { m_p = p; }
+	virtual ~C25_0() {}
+
+	virtual void onRecieve(C25_0* pSender, int nMsg) = 0;
+
+	virtual void send(int nMsg) = 0;
+
+protected:
+	C25_Mediator* m_p;
+
+};
+
+class C25_ConcreteMediator : public C25_Mediator  // 类似于房间
+{
+public:
+	C25_ConcreteMediator() {}
+	virtual ~C25_ConcreteMediator() {}
+
+	void Set(C25_0* p1, C25_0* p2)
+	{
+		m_p1 = p1;
+		m_p2 = p2;
+	}
+
+	void Send(int nMsg, C25_0* pSender)
+	{
+		if ( pSender != m_p1 )
+			m_p1->onRecieve(pSender, nMsg);
+
+		if ( pSender != m_p2 )
+			m_p2->onRecieve(pSender, nMsg);
+	}
+
+private:
+	C25_0* m_p1;
+	C25_0* m_p2;
+
+};
+
+class C25_1 : public C25_0
+{
+public:
+	C25_1(C25_Mediator* p) : C25_0(p) {}
+	virtual ~C25_1() {}
+
+	virtual void onRecieve(C25_0* pSender, int nMsg)
+	{
+		LOG_F("(%d)收到(%d)的消息：%d", this, pSender, nMsg);
+	}
+
+	virtual void send(int nMsg)
+	{
+		LOG_F("(%d)发送消息：%d", this, nMsg);
+		m_p->Send(nMsg, this);
+	}
+
+};
+
+void test25()
+{
+	LOG_F("test25: 中介者模式");
+
+	C25_ConcreteMediator* p = new C25_ConcreteMediator;
+	C25_0* p1 = new C25_1(p);
+	C25_0* p2 = new C25_1(p);
+
+	p->Set(p1, p2);
+
+	p1->send(1);
+	p2->send(2);
+
+	delete p1;
+	delete p2;
+	delete p;
+
+// 	[DB-LOG] (2001832)发送消息：1
+// 
+// 	[DB-LOG] (2001904)收到(2001832)的消息：1
+// 
+// 	[DB-LOG] (2001904)发送消息：2
+// 
+// 	[DB-LOG] (2001832)收到(2001904)的消息：2
+
+}
+
+
+//-----------------test26: 享元模式-----------------//
+// 
+// void test26()
+// {
+// 	LOG_F("test26: 享元模式");
+// 
+// 
+// }
+
+
+//-----------------test27: 解释器模式-----------------//
+// 
+// void test27()  // 类似工厂模式
+// {
+// 	LOG_F("test27: 解释器模式");
+// 
+// 
+// }
+
 //-----------------test28: 访问者模式-----------------//
 
 class C28_1;
@@ -1347,32 +1559,36 @@ void test28()
 void test_design()
 {	
 
-	space_test_design::test1();
-	space_test_design::test2();
-	space_test_design::test6();
-	space_test_design::test7();
-	space_test_design::test8();
-	space_test_design::test9();
-	space_test_design::test10();
+	space_test_design::test1();   // 工厂模式
+	space_test_design::test2();   // 策略模式
+	space_test_design::test6();   // 装饰模式
+	space_test_design::test7();   // 代理模式
+	space_test_design::test8();   // 工厂方法模式
+	space_test_design::test9();   // 原型模式
+	space_test_design::test10();  // 模板方法模式
 
-	space_test_design::test12();
-	space_test_design::test13();
-	space_test_design::test14();
-	space_test_design::test15();
-	space_test_design::test16();
-	space_test_design::test17();
-	space_test_design::test18();
-	space_test_design::test19();
-	space_test_design::test20();
+	space_test_design::test12();  // 外观模式
+	space_test_design::test13();  // 建造者模式
+	space_test_design::test14();  // 观察者模式
+	space_test_design::test15();  // 抽象工厂模式
+	space_test_design::test16();  // 状态模式
+	space_test_design::test17();  // 适配器模式
+	space_test_design::test18();  // 备忘录模式
+	space_test_design::test19();  // 组合模式
+	space_test_design::test20();  // 迭代器模式
 
-	space_test_design::test21();
-	//space_test_design::test22();
-	space_test_design::test23();
-	space_test_design::test28();
-
+	space_test_design::test21();  // 单例模式
+//  space_test_design::test22();  // 桥接模式
+	space_test_design::test23();  // 命令模式
+	space_test_design::test24();  // 职责链模式
+	space_test_design::test25();  // 中介者模式
+//  space_test_design::test26();  // 享元模式
+//	space_test_design::test27();  // 解释器模式
+	space_test_design::test28();  // 访问者模式
 
 	while(true)
 	{
 		X::Sleep_f(1);
 	}
+
 }
