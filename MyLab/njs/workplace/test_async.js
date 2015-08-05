@@ -1,7 +1,7 @@
 
 var async = require("../modules/async");
 
-async.waterfall([  // »Øµ÷²ÎÊıµÄ¸öÊı±ØĞëµÈÓÚÏÂÒ»²ãµÄ²ÎÊı¸öÊı£¬ ²ÎÊı´«µİ¹ı³ÌÊÇ¶ÔºÅÈë×ù£¬´«µİ¸öÊı²»¶Ôµ¼ÖÂcbÒì³£
+async.waterfall([  // å›è°ƒå‚æ•°çš„ä¸ªæ•°å¿…é¡»ç­‰äºä¸‹ä¸€å±‚çš„å‚æ•°ä¸ªæ•°ï¼Œ å‚æ•°ä¼ é€’è¿‡ç¨‹æ˜¯å¯¹å·å…¥åº§ï¼Œä¼ é€’ä¸ªæ•°ä¸å¯¹å¯¼è‡´cbå¼‚å¸¸
     function(fn){
         fn(null, 1, 2);
     },
@@ -21,30 +21,30 @@ async.waterfall([  // »Øµ÷²ÎÊıµÄ¸öÊı±ØĞëµÈÓÚÏÂÒ»²ãµÄ²ÎÊı¸öÊı£¬ ²ÎÊı´«µİ¹ı³ÌÊÇ¶Ôº
     console.log("async.waterfall cb", err);
 });
 
-async.eachSeries([1,3,2], function(item, fn) {  // Ö´ĞĞ´íÎó£¬ºóĞøÍ£Ö¹Ö´ĞĞ
+async.eachSeries([1,3,2], function(item, fn) {  // æ‰§è¡Œé”™è¯¯ï¼Œåç»­åœæ­¢æ‰§è¡Œ
     console.log("eachSeries", item);
     fn(null);
-    }, function(err) {
+}, function(err) {
     console.log("async.eachSeries cb", err);
 });
 
-async.each([1,3,2], function(item, fn) {  // Ö´ĞĞ´íÎó£¬ºóĞø¼ÌĞøÖ´ĞĞ
+async.each([1,3,2], function(item, fn) {  // æ‰§è¡Œé”™è¯¯ï¼Œåç»­ç»§ç»­æ‰§è¡Œ
     console.log("each", item);
     fn(null);
 }, function(err) {
     console.log("async.each cb", err);
 });
 
-async.series([  // »áËÑ¼¯·µ»ØÖµ
-        function(fn){
-            fn(null, 1);
-        },
-        function(fn){
-            fn(null, 1, [2, 3]);
-        },
-        function(fn){
-            fn(null);
-        }
+async.series([  // ä¼šæœé›†è¿”å›å€¼
+    function(fn){
+        fn(null, 1);
+    },
+    function(fn){
+        fn(null, 1, [2, 3]);
+    },
+    function(fn){
+        fn(null);
+    }
 ], function(err, results){
     console.log("async.series cb", err,  results);
 });

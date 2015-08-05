@@ -22,7 +22,7 @@ function calcDiv(v1, v2) {
     return v1 / v2;
 }
 
-//////////////////////²âÊÔ/////////////////////
+//////////////////////æµ‹è¯•/////////////////////
 
 console.log(adjustFloat(12321.1251231));
 console.log(adjustFloat(12321));
