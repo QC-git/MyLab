@@ -288,6 +288,78 @@ ListKeyHelper.prototype.getAllData = function(obj) {
     return sink;
 };
 
+function ListHelper(list, keyName) {
+    this.list = list;
+    this.keyName = keyName;
+    this.map = {};
+    this.updateMap();
+}
+
+ListHelper.prototype.updateMap = function() {
+    var self = this;
+    var keyName = self.keyName;
+    self.map = {};
+    doEach(self.list, function(i, item) {
+        var _key = item[keyName];
+        self.map[_key] = item;
+    })
+};
+
+ListHelper.prototype.updateMapByKey = function(key) {
+    var self = this;
+    var keyName = self.keyName;
+    var sink = null;
+    doEach(self.list, function(i, item) {
+        var _key = item[keyName];
+        if ( key == _key ) {
+            sink = self.map[_key] = item;
+            return true;
+        }
+    });
+    return sink;
+};
+
+ListHelper.prototype.get = function(key) {
+    return this.map[key];
+};
+
+ListHelper.prototype.getList = function() {
+    return this.list;
+};
+
+ListHelper.prototype.getListEx = function(attrList) {
+    var list = [];
+    var self = this;
+    doEach(self.list, function(i, item) {
+        var sink = cloneByAttr(item, attrList);
+        list.push(sink);
+    });
+    return list;
+};
+
+ListHelper.prototype.push = function(obj) {
+    var key = obj[this.keyName];
+    if (!key) {
+        return false;
+    }
+    this.list.push(obj);
+    this.map[key] = obj;
+    return true;
+};
+
+ListHelper.prototype.pushKey = function(key, isReload) {
+    var obj = {};
+    obj[this.keyName] = key;
+    this.list.push(obj);
+    if (!isReload) {
+        this.map[key] = obj;
+    } else {
+        obj = this.updateMapByKey(key);
+    }
+
+    return obj;
+};
+
 function getListItem(list, attrName, attrValue) {
     var data = null;
     doEach(list, function(i, item) {
@@ -311,6 +383,57 @@ function checkObject(data) {
     return "object" == typeof data;
 }
 
+var gDebugEnable = true;
+var gDebugList = [
+    "",
+    "DEBUG",
+    "A"
+];
+function Debugger(name) {
+    this.enable = gDebugEnable;
+    this.name = name;
+}
+
+Debugger.prototype.enabled = function () {
+    var self = this;
+    if (!self.enable) {
+        return false;
+    }
+
+    var find = false;
+    doEach(gDebugList, function(i, item) {
+        if ( item === self.name ) {
+            find = true;
+            return true;
+        }
+    });
+
+    return find;
+};
+
+Debugger.prototype.log = function() {
+    var self = this;
+    if ( !self.enabled() ) {
+        return;
+    }
+    var vec = Array.prototype.slice.call(arguments, 0);
+    if ( self.name ) {
+        var name = "["+self.name+"]";
+        vec.splice(0, 0, name);
+    }
+    console.log.apply(null, vec);
+};
+
+var tag = function(name) {
+    return new Debugger(name);
+};
+
+var log = function() {
+    var vec = Array.prototype.slice.call(arguments, 0);
+    vec.splice(0, 0, "[LOG]");
+    console.log.apply(null, vec);
+};
+
 module.exports = {
     getTime: getTime,
     getNumber: getNumber,
@@ -332,7 +455,11 @@ module.exports = {
     cloneForResetKey: cloneForResetKey,
 
     ListKeyHelper: ListKeyHelper,
-    getListItem: getListItem
+    ListHelper: ListHelper,
+    getListItem: getListItem,
+
+    tag: tag,
+    log: log
 };
 
 ///////////////////////////////////������///////////////////////////////////////
@@ -587,5 +714,18 @@ module.exports = {
 //
 //console.log(getListItem(list, "a", 1));
 //console.log(getListItem(list, "a", 2));
+
+//console.log("===========debug==============");
+//
+//ab = "ab";
+//tag("").log("hello", 123, ab);
+//tag("A").log("hello", 123, ab);
+//tag("AA").log("hello", 123, ab);
+//log("hello", 123, ab);
+//
+//hello 123 ab
+//[A] hello 123 ab
+//[LOG] hello 123 ab
+
 
 

@@ -134,6 +134,8 @@ var Person1_1 = new Schema({
     a: Number
 });
 
+var PersonModel1_1 = Mongoose.model("", Person1_1);
+
 var Person1 = new Schema({
     map: {type: Schema.Types.Mixed},
     vec: [Schema.Types.Mixed],
@@ -142,7 +144,7 @@ var Person1 = new Schema({
     list: [
          {
              data1: Schema.Types.Mixed,
-             data2: Number
+             data2: {type: Number, default: -1}
          }
     ],
     map2: {
@@ -317,6 +319,22 @@ async.waterfall([  // �ص������ĸ�����������
         console.log("\n-----------------5");
         loadSchemeByKey(PersonModel1, "800000008000000080000004", function(err, scheme) {
             console.log("loadSchemeById cb", err, scheme);
+
+            var obj = new PersonModel1_1();
+            scheme.person1.push(obj);
+
+            obj.a = 999;
+
+            console.log(obj);
+            console.log(scheme.person1);
+
+            var p1 = scheme.person1[0];
+            var p2 = scheme.person1[1];
+
+            p1.a =9999999;
+            p2.a =9999999;
+
+            console.log(scheme.person1);
             //scheme.list.push({data2: 111111});
             //scheme.list.push({data2: 222222});
             //var mark = 0;
@@ -330,29 +348,29 @@ async.waterfall([  // �ص������ĸ�����������
             //scheme.func2();
             cb(null);
         });
-    },
-    function(cb){
-        console.log("\n-----------------5-1");
-        loadSchemeList(PersonModel1, {condition: {"list.data2": {$gt:0}}, find:{}, limit:1000, sort:{}}, function(err, list) {
-            console.log("loadSchemeList cb", err, list.length, list);
-            var item = list[1];
-            item.list[1].data2 +=10;
-            item.map2.data1 = 2;
-            //list[0].markModified("list");
-            console.log("item = ", item);
-            //
-            //list[0].list.push({});
-            //item.person1.push({});
-            //item.save(function(err){console.log(err)});
-
-            var p1 = item.person1[0];
-            p1.a = 2;
-            p1.save(function(err){console.log(err)});
-            //item.save(function(err){console.log(err)});
-
-            cb(null);
-        });
     }
+    //function(cb){
+    //    console.log("\n-----------------5-1");
+    //    loadSchemeList(PersonModel1, {condition: {"list.data2": {$gt:0}}, find:{}, limit:1000, sort:{}}, function(err, list) {
+    //        console.log("loadSchemeList cb", err, list.length, list);
+    //        //var item = list[1];
+    //        //item.list[1].data2 +=10;
+    //        //item.map2.data1 = 2;
+    //        ////list[0].markModified("list");
+    //        //console.log("item = ", item);
+    //        //
+    //        //list[0].list.push({});
+    //        //item.person1.push({});
+    //        //item.save(function(err){console.log(err)});
+    //
+    //        //var p1 = item.person1[0];
+    //        //p1.a = 2;
+    //        //p1.save(function(err){console.log(err)});
+    //        //item.save(function(err){console.log(err)});
+    //
+    //        cb(null);
+    //    });
+    //}
     //function(cb){
     //    console.log("\n-----------------6");
     //    var attr = {id_1:1, id_2:"2", id_3: 3};
