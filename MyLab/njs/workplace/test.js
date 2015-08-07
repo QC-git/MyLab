@@ -843,3 +843,101 @@ func3(1, 2, 3);
 //1 1
 //3 1 2
 
+console.log("------------------25-----------------");
+
+var os = require('os');
+
+var info = {};
+
+info.hostname = os.hostname;
+
+info.type = os.type;
+
+info.platform = os.platform;
+
+info.arch = os.arch;
+
+info.release = os.release;
+
+info.uptime = os.uptime;
+
+info.loadavg = os.loadavg;
+
+info.totalmem = os.totalmem;
+
+info.freemem = os.freemem;
+
+info.cpus = os.cpus;
+
+info.networkInterfaces = os.networkInterfaces;
+
+info.versions = function(){return process.versions};
+
+info.arch = function(){return process.arch};
+
+info.platform = function(){return process.platform};
+
+info.memoryUsage = process.memoryUsage;
+
+info.uptime = process.uptime;
+
+//console.log(info);
+
+function getBasicInfo() {
+    var result = {};
+    for (var key in info) {
+        result[key] = info[key]();
+    }
+    return result;
+}
+
+var result = getBasicInfo();
+
+console.log(result);
+
+//{ hostname: 'ND--20150717EAU',
+//    type: 'Windows_NT',
+//    platform: 'win32',
+//    arch: 'ia32',
+//    release: '6.1.7601',
+//    uptime: 0.126,
+//    loadavg: [ 0, 0, 0 ],
+//    totalmem: 17119252480,
+//    freemem: 12172103680,
+//    cpus:
+//    [ { model: 'Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz',
+//        speed: 3591,
+//        times: [Object] },
+//        { model: 'Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz',
+//            speed: 3591,
+//            times: [Object] },
+//        { model: 'Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz',
+//            speed: 3591,
+//            times: [Object] },
+//        { model: 'Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz',
+//            speed: 3591,
+//            times: [Object] },
+//        { model: 'Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz',
+//            speed: 3591,
+//            times: [Object] },
+//        { model: 'Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz',
+//            speed: 3591,
+//            times: [Object] },
+//        { model: 'Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz',
+//            speed: 3591,
+//            times: [Object] },
+//        { model: 'Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz',
+//            speed: 3591,
+//            times: [Object] } ],
+//        networkInterfaces:
+//    { 'æ¬å°è¿æ¥': [ [Object], [Object] ],
+//        'Loopback Pseudo-Interface 1': [ [Object], [Object] ] },
+//    versions:
+//    { http_parser: '2.3',
+//        node: '0.12.2',
+//        v8: '3.28.73',
+//        uv: '1.4.2-node1',
+//        zlib: '1.2.8',
+//        modules: '14',
+//        openssl: '1.0.1m' },
+//    memoryUsage: { rss: 16199680, heapTotal: 9555584, heapUsed: 3662836 } }
