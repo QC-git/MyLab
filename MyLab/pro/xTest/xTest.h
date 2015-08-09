@@ -31,3 +31,5 @@ void test_math();
 void test_design();
 
 void test_async(int nFlag);
+
+void test_lua();

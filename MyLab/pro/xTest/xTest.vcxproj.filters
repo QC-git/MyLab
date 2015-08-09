@@ -125,5 +125,8 @@
     <ClCompile Include="test_boost\test_src\asio_server.cpp">
       <Filter>test_boost</Filter>
     </ClCompile>
+    <ClCompile Include="test16_lua.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
