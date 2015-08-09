@@ -19,9 +19,15 @@
     <Filter Include="test_boost\include">
       <UniqueIdentifier>{857ed2a3-4883-43ed-aabd-4e150b8d8469}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test_lua">
+      <UniqueIdentifier>{915d896d-c297-477d-87f1-554e7e62ec24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="test_lua\test_config.lua">
+      <Filter>test_lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

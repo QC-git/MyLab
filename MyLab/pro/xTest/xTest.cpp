@@ -16,7 +16,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main()");
 
 
-	int arg = 5;
+	int arg = 16;
 	switch(arg)
 	{
 	case 1:
@@ -58,7 +58,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	case 15:
 		{
 			//test_net(false);
-			test_async(true);
+			test_async(true); 
+		}break;	
+	case 16:
+		{
+			test_lua(); 
 		}break;	
 		
 	}
@@ -86,6 +90,7 @@ int _tmain(int argc, _TCHAR* argv[])
 // 
 // 	}
 	
+	LOG_F("xTest main(), end");
 	while(true)
 	{
 		X::Sleep_f(1);
