@@ -79,7 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="test_lua\test_config.lua" />
+    <None Include="test_lua\lua_test_config.lua" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -117,6 +117,8 @@
     <ClCompile Include="test11_db.cpp" />
     <ClCompile Include="test12_math.cpp" />
     <ClCompile Include="test_boost\test_src\asio_server.cpp" />
+    <ClCompile Include="test_lua\lua_test_main.c" />
+    <ClCompile Include="test_lua\lua_test_mainc.c" />
     <ClCompile Include="xTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

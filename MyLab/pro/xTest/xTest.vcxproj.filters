@@ -25,7 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="test_lua\test_config.lua">
+    <None Include="test_lua\lua_test_config.lua">
       <Filter>test_lua</Filter>
     </None>
   </ItemGroup>
@@ -133,6 +133,12 @@
     </ClCompile>
     <ClCompile Include="test16_lua.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_lua\lua_test_main.c">
+      <Filter>test_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="test_lua\lua_test_mainc.c">
+      <Filter>test_lua</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
