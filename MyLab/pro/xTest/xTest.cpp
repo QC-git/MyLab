@@ -16,7 +16,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main()");
 
 
-	int arg = 16;
+	int arg = 17;
 	switch(arg)
 	{
 	case 1:
@@ -63,6 +63,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	case 16:
 		{
 			test_lua(); 
+		}break;	
+	case 17:
+		{
+			test_js(); 
 		}break;	
 		
 	}

@@ -22,11 +22,17 @@
     <Filter Include="test_lua">
       <UniqueIdentifier>{915d896d-c297-477d-87f1-554e7e62ec24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test_js">
+      <UniqueIdentifier>{fb93e41e-b066-4e30-a99a-f755a2c9957b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
     <None Include="test_lua\lua_test_config.lua">
       <Filter>test_lua</Filter>
+    </None>
+    <None Include="test_js\test_cfg.json">
+      <Filter>test_js</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="test_lua\lua_test_mainc.c">
       <Filter>test_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="test17_js.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

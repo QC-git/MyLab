@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="test_js\test_cfg.json" />
     <None Include="test_lua\lua_test_config.lua" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +109,7 @@
     <ClCompile Include="test13_design.cpp" />
     <ClCompile Include="test15_async.cpp" />
     <ClCompile Include="test16_lua.cpp" />
+    <ClCompile Include="test17_js.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
     <ClCompile Include="test3_thread.cpp" />
