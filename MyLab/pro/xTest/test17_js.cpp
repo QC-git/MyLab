@@ -113,6 +113,7 @@ namespace space_test_js
 // }
 
 
+// Ê¹ÓÃboost½âÎö
 // http://blog.csdn.net/flyfish1986/article/details/44808157
 
 const std::string file_path= "E:\\QC-nd\\svn\\MyLab\\trunk\\MyLab\\pro\\xTest\\test_js\\test_cfg2.json";
