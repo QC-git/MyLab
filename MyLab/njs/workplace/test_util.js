@@ -194,6 +194,20 @@ function doEachEx(obj, fn, cb) {
     }
 }
 
+function doEachEx2(obj, fn, cb) {
+    cb = cb || function() {};
+    for (var key in obj) {
+        var obj2 = obj[key];
+        for (var key2 in obj2 ) {
+            if ( fn(key, key2, obj2[key2]) ) {
+                cb();
+                return;
+            }
+        }
+    }
+    cb();
+}
+
 function cloneAll(obj) {
     var sink = {};
     if (obj instanceof Array) {
@@ -449,6 +463,7 @@ module.exports = {
     doRepeat: doRepeat,
     doEach: doEach,
     doEachEx: doEachEx,
+    doEachEx2: doEachEx2,
 
     cloneAll: cloneAll,
     cloneByAttr: cloneByAttr,
@@ -727,5 +742,43 @@ module.exports = {
 //[A] hello 123 ab
 //[LOG] hello 123 ab
 
+
+//console.log("===========doEachEx2==============");
+//
+//var obj = {
+//    "1": {
+//        "11": "a",
+//        "22": "b"
+//    },
+//    "2": {
+//        "11": "c",
+//        "22": "d"
+//    }
+//};
+//
+//doEachEx2(obj, function(key1, key2, obj) {
+//    console.log(key1, key2, obj);
+//}, function() {
+//    console.log("end");
+//});
+//
+//doEachEx2(obj, function(key1, key2, obj) {
+//    console.log(key1, key2, obj);
+//    if ( 2 == key1 && 11 == key2 ) {
+//        return true;
+//    }
+//}, function() {
+//    console.log("end");
+//});
+//
+//1 11 a
+//1 22 b
+//2 11 c
+//2 22 d
+//end
+//1 11 a
+//1 22 b
+//2 11 c
+//end
 
 

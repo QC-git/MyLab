@@ -1,91 +1,111 @@
 
+var util = require("./test_util");
+var async = require("../modules/async");
 var net = require('net');
 
 var HOST = '127.0.0.1';
 var PORT = 1234;
+var gSn = 0;
 
-//net.createServer(function(sock) {
-//
-//    // ���ǻ��һ������ - �������Զ�����һ��socket����
-//    console.log('CONNECTED: ' +
-//        sock.remoteAddress + ':' + sock.remotePort);
-//
-//    // Ϊ���socketʵ�����һ��"data"�¼�������
-//    sock.on('data', function(data) {
-//        console.log('DATA ' + sock.remoteAddress + ': ' + data);
-//        // �ط������ݣ��ͻ��˽��յ����Է���˵�����
-//        sock.write('You said "' + data + '"');
-//    });
-//
-//    // Ϊ���socketʵ�����һ��"close"�¼�������
-//    sock.on('close', function(data) {
-//        console.log('CLOSED: ' +
-//            sock.remoteAddress + ' ' + sock.remotePort);
-//    });
-//
-//}).listen(PORT, HOST);
-//
-//console.log('Server listening on ' + HOST +':'+ PORT);
-////�����Ҳ�������Բ�ͬ�ķ�ʽ����TCP���ӣ�����ʽ����"connection"�¼�:
-//
-//    var server = net.createServer();
-//server.listen(PORT, HOST);
-//console.log('Server listening on ' +
-//    server.address().address + ':' + server.address().port);
-//
-//server.on('connection', function(sock) {
-//
-//    console.log('CONNECTED: ' +
-//        sock.remoteAddress +':'+ sock.remotePort);
-//    // ����������ǰ����ͬ
-//
+function NetClient(ip, port, cb) {
+    cb = cb || function() {};
+    var self = this;
+    var sock = new net.Socket();
+    sock.connect(port,ip, function() {
+        if ( port > 65535 ) {
+            port -= 65536;
+        }
+        console.log("connect to: ", ip, port);
+        //sock.destroy();
+    });
+
+    sock.on('data', function(data) {
+        console.log('receive ', ip, port, data.toString("utf8"));
+        //client.destroy();
+    });
+
+    sock.on('close', function() {
+        console.log('sock closed', ip, port);
+        cb();
+    });
+
+    sock.on('error', function(err) {
+        //console.log('sock error', ip, port, err);
+    });
+
+    self.sock = sock;
+    self.sn = ++gSn;
+}
+
+
+
+var portList = [
+    135,
+    316,
+    1025,
+    1026,
+    1028,
+    1030,
+    1060,
+    1062,
+    1234,
+    //1545,  // 靠谱助手
+    //1546,  // 靠谱助手
+    //1547,  // 靠谱助手
+    //1548,  // 靠谱助手
+    2122,
+    2861,
+    2871,
+    3005,
+    3010,
+    //3306,  // mysql
+    3389,
+    4300,
+    4301,
+    5037,
+    5399,
+    6379,
+    6399,
+    6555,
+    6942,
+    7399,
+    9399,
+    9873,
+    9874,
+    9875,
+    9876,
+    9984,
+    9990,
+    10101,
+    11807,
+    22468,
+    22469,
+    22471,
+    22500,
+    22666,
+    23401,
+    25000,
+    //27017,  //mongodb
+    41415,
+    46361,
+    63342
+];
+
+var list = [];
+
+util.doEach(portList, function(i, port) {
+    console.log("new client", port);
+    list[i] = new NetClient(HOST, port);
+    //list[i] = i+600;
+});
+
+//var list2 = {};
+//async.eachSeries(list, function(item, fn) {  // 执行错误，后续停止执行
+//    console.log("eachSeries", item);
+//    list2[item] = new NetClient(HOST, item, fn);
+//    //fn(null);
+//}, function(err) {
+//    console.log("async.eachSeries cb", err);
 //});
 
-var client = new net.Socket();
-client.connect(PORT, HOST, function() {
 
-    console.log('CONNECTED TO: ' + HOST + ':' + PORT);
-    //client.write("I am Chuck Norris! hahaha !");
-    //client.write("I am Chuck Norris!, 你好，ni hao !");
-
-    var buf = new Buffer("--1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
-    buf[0] = 0;
-    buf[1] = 15;
-    console.log(buf);
-    //client.write(buf);
-});
-
-client.on('data', function(data) {
-
-    console.log('DATA: ' + data);
-    //client.destroy();
-});
-
-client.on('close', function() {
-    console.log('Connection closed');
-});
-
-
-var client1 = new net.Socket();
-client1.connect(PORT, HOST, function() {
-
-    console.log('1, CONNECTED TO: ' + HOST + ':' + PORT);
-    //client.write("I am Chuck Norris! hahaha !");
-    //client.write("I am Chuck Norris!, 你好，ni hao !");
-
-    var buf = new Buffer("--1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
-    buf[0] = 0;
-    buf[1] = 15;
-    console.log(buf);
-    client.write(buf);
-});
-
-client1.on('data', function(data) {
-
-    console.log('DATA1: ' + data);
-    //client.destroy();
-});
-
-client1.on('close', function() {
-    console.log('Connection1 closed');
-});
