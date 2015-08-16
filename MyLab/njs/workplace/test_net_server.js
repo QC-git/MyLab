@@ -25,7 +25,7 @@ server.listen(PORT, HOST);
 
 server.on('connection', function(sock) {
     console.log('connection: ' + sock.remoteAddress +':'+ sock.remotePort);
-    sock.write("welcome to X net");
+    //sock.write("welcome to X net");
 
     sock.on('close', function() {
         console.log('connection closed: ' + sock.remoteAddress +':'+ sock.remotePort);
@@ -34,6 +34,11 @@ server.on('connection', function(sock) {
     sock.on('error', function(err) {
         //console.log('connection error', err);
     });
+
+    sock.on("data", function(data) {
+        console.log('connection data', data);
+        console.log(data.toString("utf-8"));
+    })
 
 });
 
