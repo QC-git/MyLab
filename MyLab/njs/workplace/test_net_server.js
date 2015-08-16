@@ -19,16 +19,19 @@ var PORT = 1234;
 //
 //}).listen(PORT, HOST);
 
+var debugSock = function(sock, name) {
+    console.log(name + sock.remoteAddress +':'+ sock.remotePort);
+};
+
 console.log('Server listening on ' + HOST +':'+ PORT);
 var server = net.createServer();
 server.listen(PORT, HOST);
 
 server.on('connection', function(sock) {
-    console.log('connection: ' + sock.remoteAddress +':'+ sock.remotePort);
-    //sock.write("welcome to X net");
+    debugSock(sock, "new connect from ");
 
     sock.on('close', function() {
-        console.log('connection closed: ' + sock.remoteAddress +':'+ sock.remotePort);
+        debugSock(sock, "connection close: ");
     });
 
     sock.on('error', function(err) {
@@ -36,7 +39,8 @@ server.on('connection', function(sock) {
     });
 
     sock.on("data", function(data) {
-        console.log('connection data', data);
+        debugSock(sock, "receive data from ");
+        console.log(data);
         console.log(data.toString("utf-8"));
     })
 
