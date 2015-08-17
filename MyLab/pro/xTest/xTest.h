@@ -36,3 +36,5 @@ void test_lua();
 
 void test_js();
 
+void test_proto();
+

@@ -25,6 +25,9 @@
     <Filter Include="test_js">
       <UniqueIdentifier>{fb93e41e-b066-4e30-a99a-f755a2c9957b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test_proto">
+      <UniqueIdentifier>{b92c6216-10f2-47e1-a814-773d34608725}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -33,6 +36,12 @@
     </None>
     <None Include="test_js\test_cfg.json">
       <Filter>test_js</Filter>
+    </None>
+    <None Include="test_proto\generate.bat">
+      <Filter>test_proto</Filter>
+    </None>
+    <None Include="test_proto\test_person.proto">
+      <Filter>test_proto</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +105,9 @@
     <ClInclude Include="test_boost\include\st_asio_wrapper_unpacker.h">
       <Filter>test_boost\include</Filter>
     </ClInclude>
+    <ClInclude Include="test_proto\test_person.pb.h">
+      <Filter>test_proto</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -148,6 +160,12 @@
     </ClCompile>
     <ClCompile Include="test17_js.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test18_proto.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_proto\test_person.pb.cc">
+      <Filter>test_proto</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -40,7 +40,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>../../dep\libs;D:\boost_1_57_0\stage\lib;.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>../..\dep\libs_src;./test_boost;../..\dep\libs_src\pomelo2\include;../..\dep\libs_src\uv\include;D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
+    <IncludePath>../..\dep\libs_src\protobuf-2.6.1\src;../..\dep\libs_src;./test_boost;../..\dep\libs_src\pomelo2\include;../..\dep\libs_src\uv\include;D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
     <IntDir>.\..\..\bld\tmp\$(ProjectName)\Debug</IntDir>
     <OutDir>.\..\..\bin\Debug</OutDir>
   </PropertyGroup>
@@ -81,6 +81,8 @@
     <None Include="ReadMe.txt" />
     <None Include="test_js\test_cfg.json" />
     <None Include="test_lua\lua_test_config.lua" />
+    <None Include="test_proto\generate.bat" />
+    <None Include="test_proto\test_person.proto" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -102,6 +104,7 @@
     <ClInclude Include="test_boost\include\st_asio_wrapper_udp_client.h" />
     <ClInclude Include="test_boost\include\st_asio_wrapper_udp_socket.h" />
     <ClInclude Include="test_boost\include\st_asio_wrapper_unpacker.h" />
+    <ClInclude Include="test_proto\test_person.pb.h" />
     <ClInclude Include="xTest.h" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +113,7 @@
     <ClCompile Include="test15_async.cpp" />
     <ClCompile Include="test16_lua.cpp" />
     <ClCompile Include="test17_js.cpp" />
+    <ClCompile Include="test18_proto.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
     <ClCompile Include="test3_thread.cpp" />
@@ -121,6 +125,7 @@
     <ClCompile Include="test_boost\test_src\asio_server.cpp" />
     <ClCompile Include="test_lua\lua_test_main.c" />
     <ClCompile Include="test_lua\lua_test_mainc.c" />
+    <ClCompile Include="test_proto\test_person.pb.cc" />
     <ClCompile Include="xTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

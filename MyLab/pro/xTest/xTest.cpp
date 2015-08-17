@@ -9,14 +9,12 @@
 
 #include "xTest.h"
 
-
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	LOG_F("xTest main()");
 
 
-	int arg = 17;
+	int arg = 18;
 	switch(arg)
 	{
 	case 1:
@@ -67,6 +65,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	case 17:
 		{
 			test_js(); 
+		}break;	
+	case 18:
+		{
+			test_proto(); 
 		}break;	
 		
 	}
