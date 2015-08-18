@@ -1,12 +1,17 @@
 
 var util = require("./test_util");
 var net = require("net");
+var dns = require('dns');
+var http = require("http");
 var async = require("../modules/async");
+var iconv = require("../modules/iconv-lite/lib");
 //var sockIo = require("../modules/socket.io");
 
 var HOST = '127.0.0.1';
 var PORT = 1234;
 var gSn = 0;
+
+
 
 function NetClient(ip, port, cb) {
     cb = cb || function() {};
@@ -21,8 +26,13 @@ function NetClient(ip, port, cb) {
     });
 
     sock.on('data', function(data) {
-        console.log('receive ', ip, port, data.toString("utf8"));
-        //client.destroy();
+        console.log('receive ', ip, port);
+        console.log(data);
+
+        var data1 = data.toString("utf8");
+        var data2 = iconv.decode(data, "gbk");
+        console.log(data1);
+        console.log(data2);
     });
 
     sock.on('close', function() {
@@ -37,8 +47,6 @@ function NetClient(ip, port, cb) {
     self.sock = sock;
     self.sn = ++gSn;
 }
-
-
 
 var portList = [
     135,
@@ -92,53 +100,62 @@ var portList = [
     63342
 ];
 
-//var list = [];
-//
-//util.doEach(portList, function(i, port) {
-//    console.log("new client", port);
-//    list[i] = new NetClient(HOST, port);
-//    //list[i] = i+600;
-//});
+function test1() {
+    console.log("\n test1 \n");
 
-//var list2 = {};
-//async.eachSeries(list, function(item, fn) {  // 执行错误，后续停止执行
-//    console.log("eachSeries", item);
-//    list2[item] = new NetClient(HOST, item, fn);
-//    //fn(null);
-//}, function(err) {
-//    console.log("async.eachSeries cb", err);
-//});
+    //var list = [];
+    //
+    //util.doEach(portList, function(i, port) {
+    //    console.log("new client", port);
+    //    list[i] = new NetClient(HOST, port);
+    //    //list[i] = i+600;
+    //});
 
-var dns = require('dns');
-var http = require("http");
-var func;
-func = function() {
-    var s = "www.google.com";
-    dns.resolve4(s, function (err, addresses) {
-        console.log(s, err, addresses);
-    } );
-};
-func();
+    //var list2 = {};
+    //async.eachSeries(list, function(item, fn) {  // 执行错误，后续停止执行
+    //    console.log("eachSeries", item);
+    //    list2[item] = new NetClient(HOST, item, fn);
+    //    //fn(null);
+    //}, function(err) {
+    //    console.log("async.eachSeries cb", err);
+    //});
 
-func = function() {
-    var s = "www.baidu.com";
-    dns.resolve4(s, function (err, addresses) {
-        console.log(s, err, addresses);
-    } );
-};
-func();
+    var client = new NetClient(HOST, PORT);
+}
 
-func = function() {
-    var s = "www.taobao.com";
-    dns.resolve4(s, function (err, addresses) {
-        console.log(s, err, addresses);
-    } );
-};
-func();
+function test2() {
+    console.log("\n test2 \n");
 
+    var func;
+    func = function() {
+        var s = "www.google.com";
+        dns.resolve4(s, function (err, addresses) {
+            console.log(s, err, addresses);
+        } );
+    };
+    func();
 
-//console.log(http);
-//{ parsers: { name: 'parsers', constructor: [Function], max: 1000, list: [] },
+    func = function() {
+        var s = "www.baidu.com";
+        dns.resolve4(s, function (err, addresses) {
+            console.log(s, err, addresses);
+        } );
+    };
+    func();
+
+    func = function() {
+        var s = "www.taobao.com";
+        dns.resolve4(s, function (err, addresses) {
+            console.log(s, err, addresses);
+        } );
+    };
+    func();
+}
+
+function test3() {
+    console.log("\n test3 \n");
+
+    //console.log(http);
 //    STATUS_CODES:
 //    { '100': 'Continue',
 //        '101': 'Switching Protocols',
@@ -196,84 +213,32 @@ func();
 //        '509': 'Bandwidth Limit Exceeded',
 //        '510': 'Not Extended',
 //        '511': 'Network Authentication Required' },
-//    IncomingMessage:
-//    { [Function: IncomingMessage]
-//        super_:
-//        { [Function: Readable]
-//            ReadableState: [Function: ReadableState],
-//            super_: [Object],
-//                _fromList: [Function: fromList] } },
-//    OutgoingMessage:
-//    { [Function: OutgoingMessage]
-//        super_:
-//        { [Function: Stream]
-//            super_: [Object],
-//                Readable: [Object],
-//            Writable: [Object],
-//            Duplex: [Object],
-//            Transform: [Object],
-//            PassThrough: [Object],
-//            Stream: [Circular] } },
-//    ServerResponse: { [Function: ServerResponse] super_: { [Function: OutgoingMessage] super_: [Object] } },
-//    Agent:
-//    { [Function: Agent]
-//        super_: { [Function: EventEmitter] listenerCount: [Function] },
-//        defaultMaxSockets: 5 },
-//    globalAgent:
-//    { domain: null,
-//        _events: { free: [Function] },
-//        _maxListeners: 10,
-//            options: {},
-//        requests: {},
-//        sockets: {},
-//        maxSockets: 5,
-//            createConnection: [Function] },
-//    ClientRequest: { [Function: ClientRequest] super_: { [Function: OutgoingMessage] super_: [Object] } },
-//    request: [Function],
-//        get: [Function],
-//    Server: { [Function: Server] super_: { [Function: Server] super_: [Object] } },
-//    createServer: [Function],
-//        _connectionListener: [Function: connectionListener],
-//    Client: [Function: deprecated],
-//    createClient: [Function: deprecated] }
 
 //console.log(http.ClientRequest);
-//{ [Function: ClientRequest]
-//    super_:
-//    { [Function: OutgoingMessage]
-//        super_:
-//        { [Function: Stream]
-//            super_: [Object],
-//                Readable: [Object],
-//            Writable: [Object],
-//            Duplex: [Object],
-//            Transform: [Object],
-//            PassThrough: [Object],
-//            Stream: [Circular] } } }
 
-var options = {};
-options.host = "127.0.0.1";
-options.port = 1234;
-options.method = "GET";
-options.path = "/";
-var req = new http.ClientRequest(options);
-req.setHeader("X", "hello");
-req.sendDate = true;
-req.on('error', function(e) {
-    console.log(e);
-});
-console.log("", req._header, typeof req._header, !!req._header);
-console.log("_headers = ", req._headers);
-console.log("_headerNames = ", req._headerNames);
-console.log("_renderHeaders = ", req._renderHeaders());
+    //var options = {};
+//options.host = "127.0.0.1";
+//options.port = 1234;
+//options.method = "GET";
+//options.path = "/";
+//var req = new http.ClientRequest(options);
+//req.setHeader("X", "hello");
+//req.sendDate = true;
+//req.on('error', function(e) {
+//    console.log(e);
+//});
+//console.log("", req._header, typeof req._header, !!req._header);
+//console.log("_headers = ", req._headers);
+//console.log("_headerNames = ", req._headerNames);
+//console.log("_renderHeaders = ", req._renderHeaders());
 //string false
 //_headers =  { host: '127.0.0.1:1234', x: 'hello' }
 //_headerNames =  { host: 'Host', x: 'X' }
 //_renderHeaders =  { Host: '127.0.0.1:1234', X: 'hello' }
 
-req.end();
-
-console.log("", req._header, typeof req._header, !!req._header);
+//req.end();
+//
+//console.log("", req._header, typeof req._header, !!req._header);
 //GET / HTTP/1.1
 //Host: 127.0.0.1:1234
 //X: hello
@@ -281,20 +246,39 @@ console.log("", req._header, typeof req._header, !!req._header);
 //Connection: keep-alive
 // string true
 
+}
+
+
+function test4() {
+    console.log("\n test4 \n");
+
+    //var req2 = http.request(options, function (res) {
+//    console.log('STATUS: ' + res.statusCode);
+//    console.log('HEADERS: ' + JSON.stringify(res.headers));
+//    res.setEncoding('utf8');
+//    res.on('data', function (chunk) {
+//        console.log('BODY: ' + chunk);
+//    });
+//});
+//req2.on('error', function (e) {
+//    console.log('problem with request: ' + e.message);
+//});
+//req2.end();
+
+}
+
 //////////////////////////////////////////////////
 
-var req2 = http.request(options, function (res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    res.setEncoding('utf8');
-    res.on('data', function (chunk) {
-        console.log('BODY: ' + chunk);
-    });
-});
-req2.on('error', function (e) {
-    console.log('problem with request: ' + e.message);
-});
-req2.end();
+
+function test_net() {
+    test1();
+    //test2();
+    //test3();
+    //test4();
+}
+
+test_net();
+
 
 
 

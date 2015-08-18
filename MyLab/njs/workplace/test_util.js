@@ -781,4 +781,22 @@ module.exports = {
 //2 11 c
 //end
 
+//var iconv = require("../modules/iconv-lite/lib");
+//
+//var str = "欢迎光临";
+//console.log(str);
+//
+//var data1 = iconv.encode(str, "utf8");  console.log(data1.toString(), data1);
+//
+//var data2 = iconv.encode(str, "gbk");   console.log("data = ", data2);
+//data2 = iconv.decode(data2, "gbk");     console.log("data = ", data2);
+//
+//
+//var data3 = iconv.encode(str, "gbk");   console.log("data = ", data3);
+//data3 = iconv.decode(data3, "utf8");    console.log("data = ", data3);
+//data3 = iconv.encode(data3, "utf8");    console.log("data = ", data3);
+//data3 = iconv.decode(data3, "gbk");     console.log("data = ", data3);
 
+//gbk编码转utf时， 出现不可逆性
+
+//str = iconv.decode(new Buffer([0x68, 0x65, 0x6c, 0x6c, 0x6f]), 'win1251');
