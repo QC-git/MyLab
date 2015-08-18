@@ -11,10 +11,10 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	LOG_F("xTest main()");
+	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 18;
+	int arg = 15;
 	switch(arg)
 	{
 	case 1:

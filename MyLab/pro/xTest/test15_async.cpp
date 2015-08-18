@@ -5,9 +5,11 @@
 
 #pragma comment(lib, "libuv_d.lib")
 #pragma comment(lib, "libpomelo2_d.lib")
+#pragma comment(lib, "libiconv_d.lib")
 
 #include "uv.h"
 #include "pomelo_trans.h"
+#include "libiconv-1.14\include\iconv.h"
 
 namespace space_test_async
 {
@@ -66,6 +68,12 @@ void alloc_cb(uv_handle_t* handle,
 		buf->len = sizeof(slab);
 }
 
+
+void close_cb(uv_handle_t* handle) {
+	TEST_ASSERT(handle != NULL);
+	close_cb_called++;
+}
+
 void read_cb(uv_stream_t* tcp, ssize_t nread, const uv_buf_t* buf) 
 {
 	TEST_ASSERT(tcp != NULL);
@@ -80,9 +88,9 @@ void read_cb(uv_stream_t* tcp, ssize_t nread, const uv_buf_t* buf)
 		//TEST_ASSERT(memcmp("PING", buf->base, nread) == 0);
 	}
 	else {
-		TEST_ASSERT(nread == UV_EOF);
+		//TEST_ASSERT(nread == UV_EOF);
 		printf("GOT EOF\n");
-		//uv_close((uv_handle_t*)tcp, close_cb);
+		uv_close((uv_handle_t*)tcp, close_cb);
 	}
 }
 
@@ -114,6 +122,7 @@ void connect_cb(uv_connect_t* req, int status)
 	r = uv_read_start(stream, alloc_cb, read_cb);
 	TEST_ASSERT(r == 0);
 }
+
 
 void test1()
 {
@@ -157,11 +166,37 @@ void test1()
 static uv_tcp_t server;
 //static uv_tcp_t tcp_server;
 
-static void close_cb(uv_handle_t* handle) {
-	TEST_ASSERT(handle != NULL);
-	close_cb_called++;
+int ChangeCode( 
+	const char* pFromCode,
+	const char* pToCode,
+	const char* pInBuf, size_t uInLen,
+	char* pOutBuf, size_t uOutLen )
+{
+	iconv_t hIconv = iconv_open(pToCode, pFromCode);
+	if ( -1 == (int)hIconv )
+	{
+		return -1;
+	}
+
+	char* pIn  = (char*)pInBuf;  // pIn 会被改变, 但是内部内容不会改变
+	size_t uLeft = uOutLen;
+	int nRet = iconv(hIconv, &pIn, &uInLen, &pOutBuf, &uLeft);
+
+	iconv_close(hIconv);
+
+	int nUseLen = uOutLen - uLeft;
+	if ( 0 != nRet || nUseLen<0 )
+	{
+		return -2;
+	}
+
+	return nUseLen;
 }
 
+int GbkToUtf8(const char* pSrc, size_t uSrcLen, char* pBuff, size_t uBuffLen) 
+{
+	return ChangeCode("GB2312", "UTF-8", pSrc, uSrcLen, pBuff, uBuffLen);
+}
 
 static void connection_cb(uv_stream_t* tcp, int status) {
 	int r;
@@ -180,11 +215,27 @@ static void connection_cb(uv_stream_t* tcp, int status) {
 	r = uv_read_start((uv_stream_t*)&tcp_peer, alloc_cb, read_cb);
 	TEST_ASSERT(r == 0);
 
-	buf.base = "welcome to X net\n";
-	buf.len = strlen(buf.base);
+	char* str1 = "welcome to X net, -欢迎光临- \n";
+	char* str2 = "你好";
+	char* str3 = "nihao";
+
+	char* str = str1;
+	size_t uStrLen = strlen(str);
+
+	size_t uBuffLen = 1024;
+	char* pBuff = new char[uBuffLen];
+	memset(pBuff, 0, uBuffLen);
+
+	int nLen = GbkToUtf8(str, uStrLen, pBuff, uBuffLen);
+	TEST_ASSERT(nLen > 0);
+
+	buf.base = pBuff;
+	buf.len = nLen;
 
 	r = uv_write(&write_req, (uv_stream_t*)&tcp_peer, &buf, 1, write_cb);
 	TEST_ASSERT(r == 0);
+
+	delete pBuff;
 
 }
 
