@@ -37,10 +37,10 @@
     <None Include="test_js\test_cfg.json">
       <Filter>test_js</Filter>
     </None>
-    <None Include="test_proto\generate.bat">
+    <None Include="test_proto\test_person.proto">
       <Filter>test_proto</Filter>
     </None>
-    <None Include="test_proto\test_person.proto">
+    <None Include="test_proto\test_generate.bat">
       <Filter>test_proto</Filter>
     </None>
   </ItemGroup>

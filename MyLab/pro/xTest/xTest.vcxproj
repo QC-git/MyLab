@@ -81,7 +81,7 @@
     <None Include="ReadMe.txt" />
     <None Include="test_js\test_cfg.json" />
     <None Include="test_lua\lua_test_config.lua" />
-    <None Include="test_proto\generate.bat" />
+    <None Include="test_proto\test_generate.bat" />
     <None Include="test_proto\test_person.proto" />
   </ItemGroup>
   <ItemGroup>
