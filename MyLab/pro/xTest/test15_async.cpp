@@ -193,9 +193,14 @@ int ChangeCode(
 	return nUseLen;
 }
 
-int GbkToUtf8(const char* pSrc, size_t uSrcLen, char* pBuff, size_t uBuffLen) 
+int GbToUtf(const char* pSrc, size_t uSrcLen, char* pBuff, size_t uBuffLen) 
 {
 	return ChangeCode("GB2312", "UTF-8", pSrc, uSrcLen, pBuff, uBuffLen);
+}
+
+int UtfToGb(const char* pSrc, size_t uSrcLen, char* pBuff, size_t uBuffLen) 
+{
+	return ChangeCode("UTF-8", "GB2312", pSrc, uSrcLen, pBuff, uBuffLen);
 }
 
 static void connection_cb(uv_stream_t* tcp, int status) {
@@ -226,7 +231,7 @@ static void connection_cb(uv_stream_t* tcp, int status) {
 	char* pBuff = new char[uBuffLen];
 	memset(pBuff, 0, uBuffLen);
 
-	int nLen = GbkToUtf8(str, uStrLen, pBuff, uBuffLen);
+	int nLen = GbToUtf(str, uStrLen, pBuff, uBuffLen);
 	TEST_ASSERT(nLen > 0);
 
 	buf.base = pBuff;
@@ -271,9 +276,6 @@ void test2()
 
 static pc_client_t* client;
 
-#define REQ_ROUTE "connector.connectorHandler.entry"
-#define REQ_MSG "{\"name\": \"test\"}"
-#define REQ_EX ((void*)0x22)
 #define REQ_TIMEOUT 10
 
 #define NOTI_ROUTE "test.testHandler.notify"
@@ -346,13 +348,22 @@ static void request_cb(const pc_request_t* req, int rc, const char* resp)
 	TEST_ASSERT(rc == PC_RC_OK);
 	TEST_ASSERT(resp);
 
+	char pBuff[1024]; 
+	{
+		int nUseLen = UtfToGb(resp, strlen(resp), pBuff, 1024);
+		TEST_ASSERT(nUseLen > 0);
+		pBuff[nUseLen] = '\0';
+		resp = pBuff;
+	}
+
 	printf("test get resp %s\n", resp);
 	fflush(stdout);
 
+	const char* sRoute = pc_request_route(req);
+	const char* sMsg = pc_request_msg(req);
+	int nExData = (int)pc_request_ex_data(req);
+
 	TEST_ASSERT(pc_request_client(req) == client);
-	TEST_ASSERT(!strcmp(pc_request_route(req), REQ_ROUTE));
-	TEST_ASSERT(!strcmp(pc_request_msg(req), REQ_MSG));
-	TEST_ASSERT(pc_request_ex_data(req) == REQ_EX);
 	TEST_ASSERT(pc_request_timeout(req) == REQ_TIMEOUT);
 }
 
@@ -388,9 +399,32 @@ void test3()
 	pc_client_connect(client, "127.0.0.1", 3010, NULL);
 
 	SLEEP(1);
-	pc_request_with_timeout(client, REQ_ROUTE, REQ_MSG, REQ_EX, REQ_TIMEOUT, request_cb);
 
-	pc_notify_with_timeout(client, NOTI_ROUTE, NOTI_MSG, NOTI_EX, NOTI_TIMEOUT, notify_cb);
+	if(0)
+	{
+		const char* sRoute = "connector.connectorHandler.entry";
+		const char* sMsg = "{\"name\": \"test\"}";
+		pc_request_with_timeout(client, sRoute, sMsg, (void*)101, REQ_TIMEOUT, request_cb);
+	}
+
+	if(1)
+	{
+		const char* sRoute = "room.roomHandler.test";
+		const char* sMsg = "{\"name\": \"ÇëÇó\"}";
+
+		char pBuff[1024]; 
+		{
+			int nUseLen = GbToUtf(sMsg, strlen(sMsg), pBuff, 1024);
+			TEST_ASSERT(nUseLen > 0);
+			pBuff[nUseLen] = '\0';
+			sMsg = pBuff;
+		}
+		
+		pc_request_with_timeout(client, sRoute, sMsg, (void*)102, REQ_TIMEOUT, request_cb);
+	}
+	
+	//pc_notify_with_timeout(client, NOTI_ROUTE, NOTI_MSG, NOTI_EX, NOTI_TIMEOUT, notify_cb);
+
 	SLEEP(50);
 
 	pc_client_disconnect(client);
@@ -411,8 +445,8 @@ void test3()
 void test_async(int nFlag)
 {
 	//space_test_async::test1();
-	space_test_async::test2();
-	//space_test_async::test3();
+	//space_test_async::test2();
+	space_test_async::test3();
 
 	while (nFlag)
 	{
