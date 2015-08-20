@@ -413,6 +413,7 @@ void test3()
 		const char* sMsg = "{\"name\": \"ÇëÇó\"}";
 
 		char pBuff[1024]; 
+		if(1)
 		{
 			int nUseLen = GbToUtf(sMsg, strlen(sMsg), pBuff, 1024);
 			TEST_ASSERT(nUseLen > 0);
