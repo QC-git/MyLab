@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>../../dep\libs;D:\boost_1_57_0\stage\lib;.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>../..\dep\libs_src\protobuf-2.6.1\src;../..\dep\libs_src;./test_boost;../..\dep\libs_src\pomelo2\include;../..\dep\libs_src\uv\include;D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86;../../dep\libs;../../shr/GLUT;D:\boost_1_57_0\stage\lib;.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;../../shr;../..\dep\libs_src\protobuf-2.6.1\src;../..\dep\libs_src;./test_boost;../..\dep\libs_src\pomelo2\include;../..\dep\libs_src\uv\include;D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
     <IntDir>.\..\..\bld\tmp\$(ProjectName)\Debug</IntDir>
     <OutDir>.\..\..\bin\Debug</OutDir>
   </PropertyGroup>
@@ -114,6 +114,8 @@
     <ClCompile Include="test1006_lua.cpp" />
     <ClCompile Include="test1007_js.cpp" />
     <ClCompile Include="test1008_proto.cpp" />
+    <ClCompile Include="test1010_graph_gl.cpp" />
+    <ClCompile Include="test1011_graph_d3d.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
     <ClCompile Include="test3_thread.cpp" />

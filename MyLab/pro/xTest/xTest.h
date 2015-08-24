@@ -38,3 +38,7 @@ void test_js();
 
 void test_proto();
 
+void test_graph();
+
+void test_graph_d3d();
+

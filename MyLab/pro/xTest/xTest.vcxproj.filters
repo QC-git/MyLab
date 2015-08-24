@@ -167,5 +167,11 @@
     <ClCompile Include="test1008_proto.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="test1011_graph_d3d.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1010_graph_gl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
