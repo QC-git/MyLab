@@ -109,19 +109,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="test13_design.cpp" />
-    <ClCompile Include="test15_async.cpp" />
-    <ClCompile Include="test16_lua.cpp" />
-    <ClCompile Include="test17_js.cpp" />
-    <ClCompile Include="test18_proto.cpp" />
+    <ClCompile Include="test1003_design.cpp" />
+    <ClCompile Include="test1005_async.cpp" />
+    <ClCompile Include="test1006_lua.cpp" />
+    <ClCompile Include="test1007_js.cpp" />
+    <ClCompile Include="test1008_proto.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
     <ClCompile Include="test3_thread.cpp" />
     <ClCompile Include="test1_util.cpp" />
     <ClCompile Include="test5_boost.cpp" />
     <ClCompile Include="test6_kbe.cpp" />
-    <ClCompile Include="test11_db.cpp" />
-    <ClCompile Include="test12_math.cpp" />
+    <ClCompile Include="test1001_db.cpp" />
+    <ClCompile Include="test1002_math.cpp" />
     <ClCompile Include="test_boost\test_src\asio_server.cpp" />
     <ClCompile Include="test_lua\lua_test_main.c" />
     <ClCompile Include="test_lua\lua_test_mainc.c" />

@@ -14,7 +14,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 15;
+	int arg = 1005;
 	switch(arg)
 	{
 	case 1:
@@ -41,32 +41,32 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			test_kbe();
 		}break;	
-	case 11:
+	case 1001:
 		{
 			test_db();
 		}break;	
-	case 12:
+	case 1002:
 		{
 			test_math();
 		}break;	
-	case 13:
+	case 1003:
 		{
 			test_design();
 		}break;	
-	case 15:
+	case 1005:
 		{
 			//test_net(false);
 			test_async(true); 
 		}break;	
-	case 16:
+	case 1006:
 		{
 			test_lua(); 
 		}break;	
-	case 17:
+	case 1007:
 		{
 			test_js(); 
 		}break;	
-	case 18:
+	case 1008:
 		{
 			test_proto(); 
 		}break;	

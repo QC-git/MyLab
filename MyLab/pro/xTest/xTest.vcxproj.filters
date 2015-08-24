@@ -134,23 +134,8 @@
     <ClCompile Include="test6_kbe.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="test11_db.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test12_math.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test13_design.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test15_async.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="test_boost\test_src\asio_server.cpp">
       <Filter>test_boost</Filter>
-    </ClCompile>
-    <ClCompile Include="test16_lua.cpp">
-      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="test_lua\lua_test_main.c">
       <Filter>test_lua</Filter>
@@ -158,14 +143,29 @@
     <ClCompile Include="test_lua\lua_test_mainc.c">
       <Filter>test_lua</Filter>
     </ClCompile>
-    <ClCompile Include="test17_js.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test18_proto.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="test_proto\test_person.pb.cc">
       <Filter>test_proto</Filter>
+    </ClCompile>
+    <ClCompile Include="test1001_db.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1002_math.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1003_design.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1005_async.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1006_lua.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1007_js.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1008_proto.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
