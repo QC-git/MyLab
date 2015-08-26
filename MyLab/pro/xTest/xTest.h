@@ -42,3 +42,5 @@ void test_graph();
 
 void test_graph_d3d();
 
+void test_cv();
+

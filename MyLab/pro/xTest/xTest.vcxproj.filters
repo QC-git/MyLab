@@ -173,5 +173,8 @@
     <ClCompile Include="test1010_graph_gl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="test1013_cv.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

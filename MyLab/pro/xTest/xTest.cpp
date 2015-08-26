@@ -14,7 +14,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 1011;
+	int arg = 1013;
 	switch(arg)
 	{
 	case 1:
@@ -77,6 +77,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	case 1011:
 		{
 			test_graph_d3d();
+		}break;
+	case 1013:
+		{
+			test_cv();
 		}break;
 		
 	}

@@ -166,7 +166,7 @@ namespace space_test_graph_d3d {
 		LPCSTR strFile1 = "E:\\QC-nd\\svn\\MyLab\\trunk\\MyLab\\bin\\Debug\\Tutorial02.fx";
 		LPCSTR strFile2 = "Tutorial02.fx";
 
-		hr = D3DX11CompileFromFile(strFile2, NULL, NULL, szEntryPoint, szShaderModel, 
+		hr = D3DX11CompileFromFile(strFile1, NULL, NULL, szEntryPoint, szShaderModel, 
 			dwShaderFlags, 0, NULL, ppBlobOut, &pErrorBlob, NULL );
 		if( FAILED(hr) )
 		{
