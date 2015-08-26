@@ -781,11 +781,26 @@ module.exports = {
 //2 11 c
 //end
 
-//var iconv = require("../modules/iconv-lite/lib");
-//
-//var str = "欢迎光临";
+var iconv = require("../modules/iconv-lite/lib");
+
+var str = "帅";
 //console.log(str);
-//
+//console.log(new Buffer(str));
+//console.log(str.charCodeAt(0));
+//console.log(String.fromCharCode(35831,27714));
+//console.log(new Buffer(String.fromCharCode(35831,27714)));
+//console.log(String.fromCharCode(232, 175, 183, 230, 177, 130));
+
+console.log(new Buffer(str));
+console.log(iconv.encode(str, "gbk"));
+
+//请求
+//<Buffer e8 af b7 e6 b1 82>
+//35831
+//请求
+//<Buffer e8 af b7 e6 b1 82>
+//è¯·æ±
+
 //var data1 = iconv.encode(str, "utf8");  console.log(data1.toString(), data1);
 //
 //var data2 = iconv.encode(str, "gbk");   console.log("data = ", data2);
@@ -800,3 +815,7 @@ module.exports = {
 //gbk编码转utf时， 出现不可逆性
 
 //str = iconv.decode(new Buffer([0x68, 0x65, 0x6c, 0x6c, 0x6f]), 'win1251');
+
+var t = new Date(1439990673341);
+console.log(t);
+console.log(t.getTime());
