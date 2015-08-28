@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="test1000_tool.cpp" />
     <ClCompile Include="test1003_design.cpp" />
     <ClCompile Include="test1005_async.cpp" />
     <ClCompile Include="test1006_lua.cpp" />

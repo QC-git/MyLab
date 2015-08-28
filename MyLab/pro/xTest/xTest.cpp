@@ -14,9 +14,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 2;
+	int arg = 1000;
 	switch(arg)
 	{
+	case 1000:
+		{
+			test_tool();
+		}break;	
 	case 1:
 		{
 			test_util();

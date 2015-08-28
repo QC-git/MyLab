@@ -171,8 +171,5 @@ void test_util()
 	space_test_util::test2();
 	space_test_util::test3();
 
-	while(true)
-	{
-		X::Sleep_f(1);
-	}
+	getchar();
 }

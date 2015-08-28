@@ -26,6 +26,8 @@ void test_kbe();
 
 void test_db();
 
+void test_tool();
+
 void test_math();
 
 void test_design();

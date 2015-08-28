@@ -176,5 +176,8 @@
     <ClCompile Include="test1013_cv.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="test1000_tool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
