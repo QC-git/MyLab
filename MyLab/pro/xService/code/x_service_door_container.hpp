@@ -6,7 +6,9 @@
 #ifndef _SERVOCE_DOOR_CONTAINER_HEADER
 #define _SERVOCE_DOOR_CONTAINER_HEADER
 
+#include <vector>
 #include <set>
+#include <list>
 #include <map>
 #include <hash_map>
 

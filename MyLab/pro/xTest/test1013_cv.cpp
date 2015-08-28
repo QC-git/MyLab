@@ -21,11 +21,11 @@ namespace space_test_cv {
 
 		ellipse( img,
 			Point( w/2, w/2 ),
-			Size( w/4, w/16 ),
+			Size( w/2, w/8 ),
 			angle,
 			0,
 			360,
-			Scalar( 255, 0, 0 ),
+			Scalar( 255, 255, 0 ),
 			thickness,
 			lineType );
 	}
@@ -475,8 +475,8 @@ namespace space_test_cv {
 
 void test_cv()
 {
-	//space_test_cv::test1();
-	space_test_cv::test2();
+	space_test_cv::test1();
+	//space_test_cv::test2();
 
 	getchar();
 }
