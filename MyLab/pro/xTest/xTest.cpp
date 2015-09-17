@@ -14,7 +14,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 5;
+	int arg = 1016;
 	switch(arg)
 	{
 	case 1000:
@@ -85,6 +85,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	case 1013:
 		{
 			test_cv();
+		}break;
+	case 1015:
+		{
+			test_battle();
+		}break;
+	case 1016:
+		{
+			test_hook();
 		}break;
 		
 	}

@@ -46,3 +46,7 @@ void test_graph_d3d();
 
 void test_cv();
 
+void test_battle();
+
+void test_hook();
+

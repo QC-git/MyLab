@@ -36,6 +36,12 @@
     <ClInclude Include="code\include\x_Interface.h">
       <Filter>code\include</Filter>
     </ClInclude>
+    <ClInclude Include="code\include\x_InterfaceEx.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="code\x_Tool.h">
+      <Filter>code</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -48,6 +54,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="code\x_MainServre.cpp">
+      <Filter>code</Filter>
+    </ClCompile>
+    <ClCompile Include="code\x_Tool.cpp">
       <Filter>code</Filter>
     </ClCompile>
   </ItemGroup>

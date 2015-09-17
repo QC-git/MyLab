@@ -1,5 +1,6 @@
 
 #include "x_all.h"
+#include<stdio.h>
 
 #include "xTest.h"
 
@@ -113,4 +114,10 @@ namespace space_test_battle {
 // 
 // 	}
 
+}
+
+
+void test_battle()
+{
+	getchar();
 }

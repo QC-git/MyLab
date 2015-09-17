@@ -188,5 +188,8 @@
     <ClCompile Include="test_boost\st_asio\test_src\asio_server.cpp">
       <Filter>test_boost\st_asio</Filter>
     </ClCompile>
+    <ClCompile Include="test1016_hook.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

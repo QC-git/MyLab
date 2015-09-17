@@ -80,12 +80,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\include\x_Interface.h" />
+    <ClInclude Include="code\include\x_InterfaceEx.h" />
     <ClInclude Include="code\x_MainServre.h" />
+    <ClInclude Include="code\x_Tool.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\x_MainServre.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="code\x_Tool.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
