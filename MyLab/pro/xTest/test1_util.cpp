@@ -151,6 +151,40 @@ namespace space_test_util {
 	// };
 
 
+	//class A;
+	//class B: public A {};
+
+	
+	class C4
+	{
+	public:
+		C4() {}
+		~C4() {}
+	};
+
+	void test4()
+	{
+		C4* p = new C4;
+
+		LOG_F("%d", p);
+		LOG_F("%x", p);
+		LOG_F("%08x", p);
+
+		delete p;
+
+		U64_T u1 = 101;
+		U64_T u2 = 101;
+		CHAR_T* s3 = "102 ";
+		U64_T u4 = 10001;
+		
+		//LOG_F("%d 对%d目标(%s)触发伤害%d", u1, u2, s3, u4);
+		//LOG_F("%d %d %s %d", u1, u2, s3, u4);
+		//LOG_F("%d %d %s", u1, u2, s3);
+		LOG_F("\n %lld %lld %s ", u1, u2, s3);
+
+		LOG_F("");
+	}
+
 }
 
 
@@ -167,9 +201,10 @@ void test_util()
 	}
 
 
-	space_test_util::test1();
-	space_test_util::test2();
-	space_test_util::test3();
+// 	space_test_util::test1();
+// 	space_test_util::test2();
+// 	space_test_util::test3();
+	space_test_util::test4();
 
 	getchar();
 }

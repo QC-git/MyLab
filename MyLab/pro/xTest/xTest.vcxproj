@@ -87,23 +87,23 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_base.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_client.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_connector.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_object_pool.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_packer.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_server.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_server_socket.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_service_pump.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_socket.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_ssl.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_tcp_client.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_tcp_socket.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_timer.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_udp_client.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_udp_socket.h" />
-    <ClInclude Include="test_boost\include\st_asio_wrapper_unpacker.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_base.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_client.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_connector.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_object_pool.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_packer.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_server.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_server_socket.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_service_pump.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_socket.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_ssl.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_tcp_client.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_tcp_socket.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_timer.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_udp_client.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_udp_socket.h" />
+    <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_unpacker.h" />
     <ClInclude Include="test_proto\test_person.pb.h" />
     <ClInclude Include="xTest.h" />
   </ItemGroup>
@@ -118,6 +118,7 @@
     <ClCompile Include="test1010_graph_gl.cpp" />
     <ClCompile Include="test1011_graph_d3d.cpp" />
     <ClCompile Include="test1013_cv.cpp" />
+    <ClCompile Include="test1015_battle.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
     <ClCompile Include="test3_thread.cpp" />
@@ -126,7 +127,7 @@
     <ClCompile Include="test6_kbe.cpp" />
     <ClCompile Include="test1001_db.cpp" />
     <ClCompile Include="test1002_math.cpp" />
-    <ClCompile Include="test_boost\test_src\asio_server.cpp" />
+    <ClCompile Include="test_boost\st_asio\test_src\asio_server.cpp" />
     <ClCompile Include="test_lua\lua_test_main.c" />
     <ClCompile Include="test_lua\lua_test_mainc.c" />
     <ClCompile Include="test_proto\test_person.pb.cc" />
