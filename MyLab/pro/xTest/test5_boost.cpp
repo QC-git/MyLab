@@ -10,6 +10,9 @@
 #include "boost/test/unit_test.hpp"
 //#include "boost/test/minimal.hpp"
 
+#include "test_boost/sl_asio/sl_Interface.h"
+#include "test_boost/sl_asio/sl_Message.h"
+
 extern int test_boost_asio_server_main(int argc, const char* argv[]);
 
 namespace space_test_boost {
@@ -73,9 +76,64 @@ namespace space_test_boost {
 		test_boost_asio_server_main(0, NULL);
 	}
 
+	class TcpHost : public sl_asio::IMessagePipe
+	{
+	public:
+		TcpHost() {}
+		~TcpHost() {}
+
+// 	public:
+// 		static TcpHost& GetInstance();
+
+	public:
+		bool InIt()
+		{
+			printf("\n TcpHost::InIt()");
+
+			m_pTcpHost = sl_asio::NetCreator::CreateTcpHost(*this, "127.0.0.1", 1234);
+			m_pTcpHost->AsyncConnect("127.0.0.1", 1234);
+
+			return true;
+		}
+
+		void Run()
+		{
+			printf("\n TcpHost::Run()");
+
+			while(true)
+			{
+				Sleep(1);
+			}
+		}
+
+	public:
+		virtual void OnConnected(int error_code, unsigned int uSckId)
+		{
+			printf("\n OnConnected: error_code = %d, uSckId = %d", error_code, uSckId);
+		}
+
+		virtual void OnLostConnection(unsigned int uSckId)
+		{
+			printf("\n OnLostConnection: uSckId = %d", uSckId);
+		}
+
+		virtual void OnNewConnection(int error_code, unsigned int sckId)  {}
+
+		virtual void OnProcessMsg(const char* msg, unsigned int sckId) {}
+
+		virtual void OnTick()  {}
+
+	private:
+		sl_asio::TcpHostPtr m_pTcpHost;
+		std::string m_token;
+	};
+
 	void test3()
 	{
-		;
+		TcpHost* p = new TcpHost;
+		p->InIt();
+		p->Run();
+		delete p;
 	}
 
 }

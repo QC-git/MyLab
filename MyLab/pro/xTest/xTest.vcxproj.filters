@@ -114,6 +114,18 @@
     <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_unpacker.h">
       <Filter>test_boost\st_asio\include</Filter>
     </ClInclude>
+    <ClInclude Include="test_boost\sl_asio\sl_Session.h">
+      <Filter>test_boost\sl_asio</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\sl_asio\sl_Interface.h">
+      <Filter>test_boost\sl_asio</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\sl_asio\sl_Message.h">
+      <Filter>test_boost\sl_asio</Filter>
+    </ClInclude>
+    <ClInclude Include="test_boost\sl_asio\sl_TcpNet.h">
+      <Filter>test_boost\sl_asio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -190,6 +202,15 @@
     </ClCompile>
     <ClCompile Include="test1016_hook.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_boost\sl_asio\sl_Session.cpp">
+      <Filter>test_boost\sl_asio</Filter>
+    </ClCompile>
+    <ClCompile Include="test_boost\sl_asio\sl_Interface.cpp">
+      <Filter>test_boost\sl_asio</Filter>
+    </ClCompile>
+    <ClCompile Include="test_boost\sl_asio\sl_TcpNet.cpp">
+      <Filter>test_boost\sl_asio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

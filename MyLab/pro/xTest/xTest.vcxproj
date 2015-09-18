@@ -87,6 +87,10 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="test_boost\sl_asio\sl_Message.h" />
+    <ClInclude Include="test_boost\sl_asio\sl_TcpNet.h" />
+    <ClInclude Include="test_boost\sl_asio\sl_Session.h" />
+    <ClInclude Include="test_boost\sl_asio\sl_Interface.h" />
     <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper.h" />
     <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_base.h" />
     <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_client.h" />
@@ -128,6 +132,9 @@
     <ClCompile Include="test6_kbe.cpp" />
     <ClCompile Include="test1001_db.cpp" />
     <ClCompile Include="test1002_math.cpp" />
+    <ClCompile Include="test_boost\sl_asio\sl_TcpNet.cpp" />
+    <ClCompile Include="test_boost\sl_asio\sl_Session.cpp" />
+    <ClCompile Include="test_boost\sl_asio\sl_Interface.cpp" />
     <ClCompile Include="test_boost\st_asio\test_src\asio_server.cpp" />
     <ClCompile Include="test_lua\lua_test_main.c" />
     <ClCompile Include="test_lua\lua_test_mainc.c" />
