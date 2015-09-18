@@ -59,37 +59,40 @@ namespace space_test_hook {
 
 
 	int KeyboardRecord(long code,long scancode,long flags)
-
 	{
-
-		FILE* fp=NULL;
-		if((fp=fopen("c:\\1.txt","a"))==NULL)
-		{
-			exit(1);
-		}
-		static int i = 0;
-		if(i%2==0)
-		{
-			fprintf(fp,"%c",(char)code);
-		}
-		i++;
-		fclose(fp);
+		printf("%c", (char)code);
+// 		FILE* fp=NULL;
+// 		if((fp=fopen("c:\\1.txt","a"))==NULL)
+// 		{
+// 			exit(1);
+// 		}
+// 		static int i = 0;
+// 		if(i%2==0)
+// 		{
+// 			fprintf(fp,"%c",(char)code);
+// 		}
+// 		i++;
+// 		fclose(fp);
 		return 0;
 
 	}
 
 	void test2()
 	{
-		MSG msg;
-		HACCEL hAccelTable;
-		BOOL bKeyboard;
-
-		if((bKeyboard=setKeyBoardHook())==TRUE)
-			setHookFuncKeyBoard(KeyboardRecord);
-
-		while (GetMessage(&msg, NULL, 0, 0))
+		if( FALSE == setKeyBoardHook())
 		{
-			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+			printf("\n set hook fail");
+			return;
+		}
+
+		setHookFuncKeyBoard(KeyboardRecord);
+		
+		printf("\n");
+		
+		MSG msg;
+		while ( GetMessage(&msg, NULL, 0, 0) )
+		{
+			if ( !TranslateAccelerator(msg.hwnd, NULL, &msg) )
 			{
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
