@@ -50,6 +50,8 @@
       <Filter>test_proto</Filter>
     </None>
     <None Include="test_res\hello.txt" />
+    <None Include="test_res\res.txt" />
+    <None Include="test_res\res.exe" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

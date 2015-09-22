@@ -1,6 +1,14 @@
 
+#if 1
+#define _AFXDLL
+#include "afx.h"
+#include "afxwin.h"
+#else
 #include<stdio.h>
 #include <windows.h>
+#endif
+
+#include "resource.h"
 
 #include "xTest.h"
 #include "x_InterfaceEx.h"
@@ -115,13 +123,119 @@ namespace space_test_hook {
 		printf("\n");
 	}
 
+	class CHandleRes
+	{
+	public:
+		CHandleRes() {}
+		~CHandleRes() {}
+
+		DWORD	GetResourceData(HINSTANCE hInstance, PTCHAR pszResID, PTCHAR pszResType, PBYTE& pResData)
+		{
+			DWORD dwResSize;
+			DWORD dwErr = 0;
+// 			if(!hInstance)
+// 			{
+// 				return -1;
+// 			}
+
+			HRSRC	hRsrc	= FindResource(hInstance, pszResID, pszResType);
+			if(!hRsrc)
+			{
+				dwErr = GetLastError();
+				return -2;
+			}
+
+			dwResSize	= SizeofResource(hInstance, hRsrc);
+			pResData	= PBYTE(LoadResource(hInstance, hRsrc));
+			if(!pResData)
+			{
+				return -3;
+			}
+
+			FreeResource(hRsrc);
+
+			return dwResSize;
+		}
+
+		DWORD	GetResourceData(HINSTANCE hInstance, UINT uResID, PTCHAR pszResType, PBYTE& pResData)
+		{
+			return	GetResourceData(hInstance, MAKEINTRESOURCE(uResID), pszResType, pResData);
+		}
+
+		BOOL	ReleaseToFile(HINSTANCE hInstance, PTCHAR pszResID, PTCHAR pszResType, PTCHAR pszFileName)
+		{
+			PBYTE	pData	= NULL;
+			DWORD	dwSize	= GetResourceData(hInstance, pszResID, pszResType, pData);
+			if( dwSize < 0 )
+				return	FALSE;
+
+			CFile	fileRes;
+
+			if(!fileRes.Open(pszFileName, CFile::modeCreate|CFile::modeWrite))
+			{
+				return	FALSE;
+			}
+			fileRes.Write(pData, dwSize);
+			fileRes.Close();
+
+			return	TRUE;
+		}
+
+		BOOL	ReleaseToFile(HINSTANCE hInstance, UINT uResID, PTCHAR pszResType, PTCHAR pszFileName)
+		{
+			return	ReleaseToFile(hInstance, MAKEINTRESOURCE(uResID), pszResType, pszFileName);
+		}
+
+	};
+
+	void test4()
+	{
+		
+// 		if( !AfxWinInit(::GetModuleHandle(NULL), NULL, ::GetCommandLine(),0) )
+// 		{
+// 			return ;
+// 		}
+
+		CHandleRes*	pResProcesser = new CHandleRes;
+
+		//AFX_MANAGE_STATE(AfxGetStaticModuleState());
+		//HINSTANCE hInst = GetModuleHandle(NULL);
+		//HINSTANCE hInst = AfxGetResourceHandle();
+		pResProcesser->ReleaseToFile(NULL, IDR_TXT1, _T("txt"), _T("test_res.txt"));
+
+		delete pResProcesser;
+
+		printf("");
+	}
+
+	void test5()
+	{
+		CHandleRes*	pResProcesser = new CHandleRes;
+		pResProcesser->ReleaseToFile(NULL, IDR_EXE1, _T("exe"), _T("test_res.exe"));
+		delete pResProcesser;
+
+		//LPTSTR lpCommandLine="E:\\QC-nd\\svn\\MyLab\\trunk\\MyLab\\pro\\xTest\\test_res.exe";
+		LPTSTR lpCommandLine="test_res.exe";
+
+		STARTUPINFO si;
+		memset(&si,0,sizeof(si));
+		si.cb=sizeof(si);
+		PROCESS_INFORMATION pi;
+
+		int nRet =CreateProcess(NULL, lpCommandLine,   NULL,   NULL,  FALSE, NORMAL_PRIORITY_CLASS,   NULL,   NULL,   &si,   &pi);
+
+		printf("");
+	}
+
 }
 
 void test_hacker()
 {
 	//space_test_hook::test1();
 	//space_test_hook::test2();
-	space_test_hook::test3();
+	//space_test_hook::test3();
+	//space_test_hook::test4();
+	space_test_hook::test5();
 
 	getchar();
 }

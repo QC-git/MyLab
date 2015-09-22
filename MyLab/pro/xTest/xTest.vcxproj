@@ -84,6 +84,8 @@
     <None Include="test_proto\test_generate.bat" />
     <None Include="test_proto\test_person.proto" />
     <None Include="test_res\hello.txt" />
+    <None Include="test_res\res.exe" />
+    <None Include="test_res\res.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
