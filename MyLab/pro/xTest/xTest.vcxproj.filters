@@ -49,6 +49,7 @@
     <None Include="test_proto\test_generate.bat">
       <Filter>test_proto</Filter>
     </None>
+    <None Include="test_res\hello.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -126,6 +127,9 @@
     <ClInclude Include="test_boost\sl_asio\sl_TcpNet.h">
       <Filter>test_boost\sl_asio</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -200,9 +204,6 @@
     <ClCompile Include="test_boost\st_asio\test_src\asio_server.cpp">
       <Filter>test_boost\st_asio</Filter>
     </ClCompile>
-    <ClCompile Include="test1016_hook.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="test_boost\sl_asio\sl_Session.cpp">
       <Filter>test_boost\sl_asio</Filter>
     </ClCompile>
@@ -212,5 +213,13 @@
     <ClCompile Include="test_boost\sl_asio\sl_TcpNet.cpp">
       <Filter>test_boost\sl_asio</Filter>
     </ClCompile>
+    <ClCompile Include="test1016_hacker.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="xTest.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

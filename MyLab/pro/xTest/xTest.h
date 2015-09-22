@@ -48,5 +48,5 @@ void test_cv();
 
 void test_battle();
 
-void test_hook();
+void test_hacker();
 

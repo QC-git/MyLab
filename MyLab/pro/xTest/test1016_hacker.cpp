@@ -101,12 +101,27 @@ namespace space_test_hook {
 		clearAllHook();
 	}
 
+	void test3()
+	{
+		LPTSTR lpCommandLine="D:\\Downloads\\setup.exe";
+
+		STARTUPINFO si;
+		memset(&si,0,sizeof(si));
+		si.cb=sizeof(si);
+		PROCESS_INFORMATION pi;
+
+		int nRet =CreateProcess(NULL, lpCommandLine,   NULL,   NULL,  FALSE, NORMAL_PRIORITY_CLASS,   NULL,   NULL,   &si,   &pi);
+
+		printf("\n");
+	}
+
 }
 
-void test_hook()
+void test_hacker()
 {
 	//space_test_hook::test1();
-	space_test_hook::test2();
+	//space_test_hook::test2();
+	space_test_hook::test3();
 
 	getchar();
 }

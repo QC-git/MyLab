@@ -83,8 +83,10 @@
     <None Include="test_lua\lua_test_config.lua" />
     <None Include="test_proto\test_generate.bat" />
     <None Include="test_proto\test_person.proto" />
+    <None Include="test_res\hello.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="test_boost\sl_asio\sl_Message.h" />
@@ -123,7 +125,7 @@
     <ClCompile Include="test1011_graph_d3d.cpp" />
     <ClCompile Include="test1013_cv.cpp" />
     <ClCompile Include="test1015_battle.cpp" />
-    <ClCompile Include="test1016_hook.cpp" />
+    <ClCompile Include="test1016_hacker.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
     <ClCompile Include="test3_thread.cpp" />
@@ -140,6 +142,9 @@
     <ClCompile Include="test_lua\lua_test_mainc.c" />
     <ClCompile Include="test_proto\test_person.pb.cc" />
     <ClCompile Include="xTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="xTest.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

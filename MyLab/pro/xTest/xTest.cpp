@@ -92,7 +92,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		}break;
 	case 1016:
 		{
-			test_hook();
+			test_hacker();
 		}break;
 		
 	}
