@@ -1,6 +1,7 @@
 
-#if 1
-#define _AFXDLL
+//#define _AFXDLL
+
+#ifdef _AFXDLL
 #include "afx.h"
 #include "afxwin.h"
 #else
@@ -123,6 +124,8 @@ namespace space_test_hook {
 		printf("\n");
 	}
 
+#ifdef _AFXDLL
+
 	class CHandleRes
 	{
 	public:
@@ -227,6 +230,92 @@ namespace space_test_hook {
 		printf("");
 	}
 
+#endif
+
+	void test6()
+	{
+		HKEY hKey = NULL;
+		DWORD dwType;
+		DWORD dwSize;
+
+		LSTATUS lRet = RegOpenKeyEx(HKEY_LOCAL_MACHINE, ("HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0"), 0, KEY_READ, &hKey);
+		
+
+		DWORD dwCpuSpeed = 0;
+		dwType = REG_DWORD;
+		dwSize = sizeof(dwType);
+		lRet = RegQueryValueEx(hKey, ("~MHz"), NULL, &dwType, (BYTE*)&dwCpuSpeed, &dwSize);
+
+		BYTE sProcessorName[128];
+		dwType = REG_SZ;
+		dwSize = sizeof(sProcessorName);
+		lRet = RegQueryValueEx(hKey, ("ProcessorNameString"), NULL, &dwType, sProcessorName, &dwSize);
+
+		RegCloseKey(hKey);
+
+		printf("");
+	}
+
+	void test7()
+	{
+		HKEY hKey = NULL;
+		
+		LSTATUS lRet = RegOpenKeyEx(HKEY_LOCAL_MACHINE, ("HARDWARE\\DESCRIPTION\\System\\CentralProcessor"), 0, KEY_READ, &hKey);
+
+		CHAR sKeyName[128];
+		DWORD dwNameSize;
+		DWORD dwIndex = 0;
+
+		do 
+		{
+			sKeyName[0] = '\0';
+			dwNameSize = 128;
+			lRet = RegEnumKeyEx(hKey, dwIndex, sKeyName, &dwNameSize, 0, NULL, NULL, NULL);
+			if ( 0 != lRet )
+			{
+				break;
+			}
+
+			printf("\n dwIndex = %d, sKeyName = %s", dwIndex, sKeyName);
+			dwIndex++;
+
+		} while (true);
+
+		RegCloseKey(hKey);
+
+		printf("\n total = %d", dwIndex);
+	}
+
+	void test8()
+	{
+		HKEY hKey = NULL;
+		HKEY hSubKey1 = NULL;
+		HKEY hSubKey2 = NULL;
+
+		LSTATUS lRet = RegOpenKeyEx(HKEY_LOCAL_MACHINE, ("HARDWARE"), 0, KEY_READ, &hKey);
+		lRet = RegOpenKeyEx(hKey, ("DESCRIPTION\\System\\CentralProcessor"), 0, KEY_WRITE, &hSubKey1);
+		lRet = RegOpenKeyEx(hSubKey1, ("0"), 0, KEY_READ, &hSubKey2);
+
+		DWORD dwType;
+		DWORD dwSize;
+
+		DWORD dwCpuSpeed = 0;
+		dwType = REG_DWORD;
+		dwSize = sizeof(dwType);
+		lRet = RegQueryValueEx(hSubKey2, ("~MHz"), NULL, &dwType, (BYTE*)&dwCpuSpeed, &dwSize);
+		
+		BYTE sProcessorName[128];
+		dwType = REG_SZ;
+		dwSize = sizeof(sProcessorName);
+		lRet = RegQueryValueEx(hSubKey2, ("ProcessorNameString"), NULL, &dwType, sProcessorName, &dwSize);
+
+		RegCloseKey(hSubKey2);
+		RegCloseKey(hSubKey1);
+		RegCloseKey(hKey);
+
+		printf("");
+	}
+
 }
 
 void test_hacker()
@@ -235,7 +324,10 @@ void test_hacker()
 	//space_test_hook::test2();
 	//space_test_hook::test3();
 	//space_test_hook::test4();
-	space_test_hook::test5();
+	//space_test_hook::test5();
+	//space_test_hook::test6();
+	//space_test_hook::test7();
+	space_test_hook::test8();
 
 	getchar();
 }
