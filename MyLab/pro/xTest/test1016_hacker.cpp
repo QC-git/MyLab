@@ -16,6 +16,8 @@
 
 namespace space_test_hook {
 
+	//键盘钩子测试
+
 // 	int s_nDown = 0;
 // 	HHOOK s_hHook = NULL;           //定义钩子句柄
 // 	HINSTANCE s_hInstance = NULL;     //程序实例
@@ -110,6 +112,8 @@ namespace space_test_hook {
 		clearAllHook();
 	}
 
+	//进程启动测试
+
 	void test3()
 	{
 		LPTSTR lpCommandLine="D:\\Downloads\\setup.exe";
@@ -125,6 +129,8 @@ namespace space_test_hook {
 	}
 
 #ifdef _AFXDLL
+
+	// 资源中包含exe测试
 
 	class CHandleRes
 	{
@@ -232,6 +238,8 @@ namespace space_test_hook {
 
 #endif
 
+	// 注册表测试
+
 	void test6()
 	{
 		HKEY hKey = NULL;
@@ -316,6 +324,8 @@ namespace space_test_hook {
 		printf("");
 	}
 
+	// exe自复制，自启动测试
+
 	void test9()
 	{
 		char system[MAX_PATH];
@@ -367,7 +377,7 @@ namespace space_test_hook {
 				lSta = RegCloseKey(hKey);
 				printf("");
 
-				//QA: 写入注册表成功， 也能开机启动，但是注册表上找不到对应值
+				//QA: 写入注册表成功， 也能开机启动，但是注册表上找不到对应值 ? 6位系统路径变为 "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run"
 			}
 
 			
@@ -379,6 +389,13 @@ namespace space_test_hook {
 
 
 		printf("");
+	}
+
+	// 文件捆绑测试
+
+	void test10()
+	{
+
 	}
 
 }
@@ -393,7 +410,8 @@ void test_hacker()
 	//space_test_hook::test6();
 	//space_test_hook::test7();
 	//space_test_hook::test8();
-	space_test_hook::test9();
+	//space_test_hook::test9();
+	space_test_hook::test10();
 
 	getchar();
 }
