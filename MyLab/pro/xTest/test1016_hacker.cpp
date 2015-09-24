@@ -1186,6 +1186,31 @@ namespace space_test_hook {
 
 	// DLL注入
 
+	DWORD getProcessHandle(LPCTSTR lpProcessName)//根据进程名查找进程PID 
+	{ 
+		DWORD dwRet = 0; 
+		HANDLE hSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS,0); 
+		if(hSnapShot == INVALID_HANDLE_VALUE) 
+		{ 
+			printf("\n获得进程快照失败%d",GetLastError()); 
+			return dwRet; 
+		} 
+
+		PROCESSENTRY32 pe32;//声明进程入口对象 
+		pe32.dwSize = sizeof(PROCESSENTRY32);//填充进程入口对象大小 
+		Process32First(hSnapShot,&pe32);//遍历进程列表 
+		do  
+		{ 
+			if(!lstrcmp(pe32.szExeFile,lpProcessName))//查找指定进程名的PID 
+			{ 
+				dwRet = pe32.th32ProcessID; 
+				break; 
+			} 
+		} while (Process32Next(hSnapShot,&pe32)); 
+		CloseHandle(hSnapShot); 
+		return dwRet;//返回 
+	} 
+
 	void Inject(HANDLE hProcess, const char* dllname, const char* funcname)
 	{
 	//------------------------------------------//
@@ -1669,27 +1694,39 @@ namespace space_test_hook {
 		// Need to set this for the structure
 		si.cb = sizeof(STARTUPINFO);
 
-		//char* exeString = "E:\\QC-nd\\svn\\MyLab\\trunk\\MyLab\\pro\\xTest\\test_res\\A1.exe";
-		char* exeString = "svchost.exe";
+		char* exeString = "E:\\QC-nd\\svn\\MyLab\\trunk\\MyLab\\pro\\xTest\\test_res\\A1.exe";
+		//char* exeString = "svchost.exe";
 		_snprintf(dllPath, MAX_PATH, "E:\\QC-nd\\svn\\MyLab\\trunk\\MyLab\\pro\\xTest\\test_res\\B1.dll");
 
-		// Try to load our process
-		//result = CreateProcess(NULL, exeString, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, workingDir, &si, &pi);
-		result = CreateProcess(NULL, exeString, NULL, NULL, FALSE, CREATE_SUSPENDED|CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi);
-		if(!result)
+		if(true)
 		{
-			MessageBox(0, "Process could not be loaded!", "Error", MB_ICONERROR);
-			return -1;
+			// Try to load our process
+			//result = CreateProcess(NULL, exeString, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, workingDir, &si, &pi);
+			result = CreateProcess(NULL, exeString, NULL, NULL, FALSE, CREATE_SUSPENDED|CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi);
+			if(!result)
+			{
+				MessageBox(0, "Process could not be loaded!", "Error", MB_ICONERROR);
+				return -1;
+			}
+
+			// Inject the DLL, the export function is named 'Initialize'
+			Inject(pi.hProcess, dllPath, "Initialize");
+
+			// Resume process execution
+			ResumeThread(pi.hThread);
+		}
+		else
+		{
+// 			DWORD dwPid = getProcessHandle("A1.exe"); 
+// 			HANDLE hProcess = OpenProcess(PROCESS_VM_OPERATION|PROCESS_VM_WRITE,FALSE, dwPid); 
+// 
+// 			Inject(hProcess, dllPath, "Initialize");
+
+			//QA: 无法注入已经运行的exe
+
 		}
 
-		// Inject the DLL, the export function is named 'Initialize'
-		Inject(pi.hProcess, dllPath, "Initialize");
-
-		// Resume process execution
-		ResumeThread(pi.hThread);
-
 		// Standard return
-
 		return 0; 
 	}
 
@@ -1722,6 +1759,14 @@ namespace space_test_hook {
 		test12_proc();
 	}
 
+	// PE解析
+
+	void test000()
+	{
+		// 利用shr文件下的loadPE
+		// 建议在密闭环境下使用，避免风险
+	}
+
 }
 
 void test_hacker()
@@ -1737,7 +1782,8 @@ void test_hacker()
 	//space_test_hook::test9();
 	//space_test_hook::test10();
 	//space_test_hook::test11();
-	space_test_hook::test12();
+	//space_test_hook::test12();
+	space_test_hook::test000();
 
 	getchar();
 }
