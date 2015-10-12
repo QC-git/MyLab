@@ -180,7 +180,8 @@ var logicMap = {
     "6001" : {  //读条施法
         "1": {
             "addStatus": 5001,
-            "addEvent": 7001
+            "addEvent": 7001,
+            "delay": 1000
         },
         "2": {
             "waitLogic": 1,
@@ -217,7 +218,8 @@ var logicMap = {
         "1": {
             "addStatus": 5005,
             "control": 1, //todo 控制对方
-            "addItEvent": 7003
+            "addItEvent": 7003,
+            "delay": 5000
         },
         "2": {
             "waitLogic": 1,

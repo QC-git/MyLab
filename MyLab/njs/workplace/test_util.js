@@ -448,6 +448,65 @@ var log = function() {
     console.log.apply(null, vec);
 };
 
+function MapVec() {
+    this.map = {};
+    this.vec = [];
+}
+
+MapVec.prototype.add = function(key, value) {
+
+};
+
+MapVec.prototype.dec = function(key) {
+
+};
+
+MapVec.prototype.get = function(key) {
+
+};
+
+MapVec.prototype.getList = function(page, pageNum) {
+
+};
+
+MapVec.prototype.getNum = function() {
+
+};
+
+MapVec.prototype.debug = function() {
+
+};
+
+//var createMethodProxy = function () {
+//
+//    function Proxy(Func) {
+//        init();
+//    }
+//
+//    Proxy.prototype.init = function (Func, beforeMethod) {
+//        for (var methodName in this.Methods) {
+//            var method = this.Methods[methodName];
+//            if ( "function" === method ) {
+//                this.genMethod(methodName, method);
+//            }
+//        }
+//    };
+//
+//    Proxy.prototype.genMethod = function (methodName, method) {
+//        this.Func.prototype[methodName] = function() {
+//            var vec = Array.prototype.slice.call(arguments, 0);
+//            vec.push(method);
+//            beforeMethod.apply(this, vec);
+//
+//            beforeMethod.
+//        }
+//    };
+//
+//    var ;
+//
+//    return Proxy;
+//};
+
 module.exports = {
     getTime: getTime,
     getNumber: getNumber,

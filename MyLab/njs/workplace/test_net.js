@@ -8,7 +8,7 @@ var iconv = require("../modules/iconv-lite/lib");
 //var sockIo = require("../modules/socket.io");
 
 var HOST = '127.0.0.1';
-var PORT = 1234;
+var PORT = 9527;
 var gSn = 0;
 
 
@@ -41,7 +41,7 @@ function NetClient(ip, port, cb) {
     });
 
     sock.on('error', function(err) {
-        //console.log('sock error', ip, port, err);
+        console.log('sock error', ip, port, err);
     });
 
     self.sock = sock;
