@@ -119,7 +119,10 @@ namespace space_test_boost {
 
 		virtual void OnNewConnection(int error_code, unsigned int sckId)  {}
 
-		virtual void OnProcessMsg(const char* msg, unsigned int sckId) {}
+		virtual void OnProcessMsg(const char* msg, unsigned int sckId) 
+		{
+			printf("");
+		}
 
 		virtual void OnTick()  {}
 
