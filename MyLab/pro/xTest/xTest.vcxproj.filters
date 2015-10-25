@@ -197,9 +197,6 @@
     <ClCompile Include="test1013_cv.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="test1000_tool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="test1015_battle.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -216,6 +213,12 @@
       <Filter>test_boost\sl_asio</Filter>
     </ClCompile>
     <ClCompile Include="test1016_hacker.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1000_util.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test1900_tool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

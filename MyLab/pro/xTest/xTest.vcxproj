@@ -117,7 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="test1000_tool.cpp" />
+    <ClCompile Include="test1000_util.cpp" />
     <ClCompile Include="test1003_design.cpp" />
     <ClCompile Include="test1005_async.cpp" />
     <ClCompile Include="test1006_lua.cpp" />
@@ -128,6 +128,7 @@
     <ClCompile Include="test1013_cv.cpp" />
     <ClCompile Include="test1015_battle.cpp" />
     <ClCompile Include="test1016_hacker.cpp" />
+    <ClCompile Include="test1900_tool.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
     <ClCompile Include="test3_thread.cpp" />

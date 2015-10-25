@@ -32,7 +32,7 @@ _SERVICE_EXPORT ERR_T Init(VOID_T* pOpt)
 #ifdef _WIN32
 
 #define MAX_BUF_LEN 4096
-#define LOG_OUT_DEFAULT_FILEPATH _T(".\\default")  // 使用.\ 文件前面会多一个小点
+#define LOG_OUT_DEFAULT_FILEPATH _T(".\\log\\default")  // 使用.\ 文件前面会多一个小点
 
 _SERVICE_IMPLEMENT VOID_T Print_f()
 {

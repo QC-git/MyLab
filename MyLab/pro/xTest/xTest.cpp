@@ -9,17 +9,66 @@
 
 #include "xTest.h"
 
+//////////////////////////////////////////////////////////////////////////
+
+extern void test_util();
+
+extern void test_container();
+
+extern void test_thread();
+
+extern void test_net(int nFlag);
+
+extern void test_boost();
+
+extern void test_kbe();
+
+//////////////////////////////////////////////////////////////////////////
+
+extern void test_db();
+
+extern void test_util_ex();
+
+extern void test_math();
+
+extern void test_design();
+
+extern void test_async(int nFlag);
+
+extern void test_lua();
+
+extern void test_js();
+
+extern void test_proto();
+
+extern void test_graph();
+
+extern void test_graph_d3d();
+
+extern void test_cv();
+
+extern void test_battle();
+
+extern void test_hacker();
+
+//////////////////////////////////////////////////////////////////////////
+
+extern void test_tool();
+
+
+//////////////////////////////////////////////////////////////////////////
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 5;
+	int arg = 1900;
 	switch(arg)
 	{
 	case 1000:
 		{
-			test_tool();
+			test_util_ex();
 		}break;	
 	case 1:
 		{
@@ -94,6 +143,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			test_hacker();
 		}break;
+	case 1900:
+		{
+			test_tool();
+		}
 		
 	}
 
