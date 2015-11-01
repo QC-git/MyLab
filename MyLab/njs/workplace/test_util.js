@@ -208,6 +208,35 @@ function doEachEx2(obj, fn, cb) {
     cb();
 }
 
+function doParallel(vec, fn, cb) {
+    var tol = vec.length;
+    var cnt = 0;
+    var suc = 0;
+    for (var i= 0; i<vec.length; i++) {
+        fn(vec[i], function(err) {
+            cnt++;
+            if (!err) {
+                suc++;
+            }
+            if ( cnt === tol ) {
+                if ( suc === tol ) {
+                    cb(null);
+                }else {
+                    cb(new Error("doParallel, no all suc"));
+                }
+            }
+        });
+    }
+}
+
+function doParallelEx(obj, fn, cb) {
+    var vec = [];
+    for (var key in obj) {
+        vec.push(obj[key]);
+    }
+    doParallel(vec, fn, cb);
+}
+
 function cloneAll(obj) {
     var sink = {};
     if (obj instanceof Array) {
@@ -302,76 +331,383 @@ ListKeyHelper.prototype.getAllData = function(obj) {
     return sink;
 };
 
-function ListHelper(list, keyName) {
-    this.list = list;
-    this.keyName = keyName;
-    this.map = {};
-    this.updateMap();
+function ListMap(attr) {  // 让list同时具有map的特性
+    this.list = [];
+    this.map = {};     // 保存list的下标
+    this.attr = attr; // 当表示属性不存在时，可以认为list下直接存的是key
 }
 
-ListHelper.prototype.updateMap = function() {
-    var self = this;
-    var keyName = self.keyName;
-    self.map = {};
-    doEach(self.list, function(i, item) {
-        var _key = item[keyName];
-        self.map[_key] = item;
-    })
+ListMap.prototype.key = function(item) {
+    var key;
+    if ( "undefined" === typeof this.attr ) {  // 当表示属性不存在时，可以认为list下直接存的是key
+        key = item;
+    } else {
+        key = item[this.attr];
+    }
+    return key;
 };
 
-ListHelper.prototype.updateMapByKey = function(key) {
+ListMap.prototype.get = function(key) {
+    var mark = this.map[key];
+    if ( isNaN(mark) ) {
+        return;
+    }
+    return this.list[mark];
+};
+
+ListMap.prototype.insert = function(key, item, isHead) {
+    var mark = this.map[key];
+    if ( isNaN(mark) ) {  // 内存中不存在
+        if (isHead) {
+            this.list.unshift(item);
+        }else {
+            this.list.push(item);
+        }
+        this.map[key] = this.list.length - 1;
+    } else {
+        this.list[mark] = item;
+    }
+    return true;
+};
+
+ListMap.prototype.remove = function(item) {
+    var key = this.key(item);
+    if ( "undefined" === typeof key ) {
+        return false;
+    }
+    return this.removeByKey(key);
+};
+
+ListMap.prototype.removeByKey = function(key) {
+    var mark = this.map[key];
+    if ( isNaN(mark) ) {
+        return false;
+    }
+    delete this.map[key];
+    this.list.splice(mark, 1);
+    return true;
+};
+
+ListMap.prototype.at = function(mark) {
+    return this.list[mark];
+};
+
+ListMap.prototype.push = function(item) {
+    var key = this.key(item);
+    if ( "undefined" === typeof key ) {
+        return false;
+    }
+    return this.insert(key, item);
+};
+
+ListMap.prototype.pop = function() {
+    var item = this.at(0);
+    if ( !item ) {
+        return null;
+    }
+    if ( !this.remove(item) ) {
+        return null;
+    }
+    return item;
+};
+
+ListMap.prototype.unshift = function(item) { // 向头部插入
+    var key = this.key(item);
+    if ( "undefined" === typeof key ) {
+        return false;
+    }
+    return this.insert(key, item, true);
+};
+
+ListMap.prototype.shift = function() { // 从头部取出
+    var size = this.size();
+    var item = this.at(size-1);
+    if ( !item ) {
+        return null;
+    }
+    if ( !this.remove(item) ) {
+        return null;
+    }
+    return item;
+};
+
+ListMap.prototype.shiftList = function(num) {
     var self = this;
-    var keyName = self.keyName;
-    var sink = null;
-    doEach(self.list, function(i, item) {
-        var _key = item[keyName];
-        if ( key == _key ) {
-            sink = self.map[_key] = item;
+    var sink = [];
+    doRepeat(num, function(i) {
+        var item = self.shift();
+        if ( !item ) {
             return true;
+        }
+        sink.push(item);
+    });
+    return sink;
+};
+
+ListMap.prototype.size = function() {
+    return this.list.length;
+};
+
+ListMap.test = function() {
+
+};
+
+function MapQueue(mark) {
+    this.map = {};
+    this.sn = 0;
+    this.mark = mark;
+    this.length = 0;
+}
+
+MapQueue.prototype.check = function(print) {
+    var num = 0;
+    var map = this.map;
+    var limit = 0;
+    var fail = false;
+    for ( var key in map ) {
+        var keyNum = parseInt(key);
+        if ( isNaN(keyNum) && keyNum < limit ) {
+            fail = true;
+            break;
+        }
+        limit = keyNum;
+        num++;
+    }
+    if ( print ) {
+        console.log(map, !fail, num, this.length);
+    }
+    return !fail && num === this.length;
+};
+
+MapQueue.prototype.size = function() {
+    return this.length;
+};
+
+MapQueue.prototype.push = function(value) {
+    var _id = ++this.sn;
+    var map = this.map;
+    if ( map[_id] ) {
+        return 0;
+    }
+    map[_id] = value;
+    this.length++;
+    if ( this.mark && typeof value === "object" ) {
+        value._id = _id;
+    }
+    return _id;
+};
+
+MapQueue.prototype.insert = function(id, value) {
+    if ( this.get(id) ) {
+        return false;
+    }
+    this.map[id] = id;
+    this.length++;
+    if ( this.mark && typeof value === "object" ) {
+        value._id = id;
+    }
+    return true;
+};
+
+MapQueue.prototype.pop = function() {
+    var map = this.map;
+    for ( var key in map ) {
+        var item = map[key];
+        delete map[key];
+        this.length--;
+        return item;
+    }
+};
+
+MapQueue.prototype.popList = function(num) {
+    var sink = [];
+    var self = this;
+    doRepeat(num, function(i) {
+        var item = self.pop();
+        if ( undefined !== item) {
+            sink.push(item);
+        }else {
+            //console.log("@@@@@@@@@@@@@@@", item);
         }
     });
     return sink;
 };
 
-ListHelper.prototype.get = function(key) {
-    return this.map[key];
+MapQueue.prototype.get = function(id) {
+    return this.map[id];
 };
 
-ListHelper.prototype.getList = function() {
-    return this.list;
-};
-
-ListHelper.prototype.getListEx = function(attrList) {
-    var list = [];
-    var self = this;
-    doEach(self.list, function(i, item) {
-        var sink = cloneByAttr(item, attrList);
-        list.push(sink);
-    });
-    return list;
-};
-
-ListHelper.prototype.push = function(obj) {
-    var key = obj[this.keyName];
-    if (!key) {
+MapQueue.prototype.remove = function(id) {
+    if ( !this.get(id) ) {
         return false;
     }
-    this.list.push(obj);
-    this.map[key] = obj;
+    delete this.map[id];
+    this.length--;
     return true;
 };
 
-ListHelper.prototype.pushKey = function(key, isReload) {
-    var obj = {};
-    obj[this.keyName] = key;
-    this.list.push(obj);
-    if (!isReload) {
-        this.map[key] = obj;
-    } else {
-        obj = this.updateMapByKey(key);
+MapQueue.test = function() {
+
+    var self =  new MapQueue(true);
+    var ret;
+
+    ret = self.pop();  console.log(ret);
+    ret = self.popList(3);  console.log(ret);
+
+    doRepeat(100, function(i) {
+        self.push(i+1);
+    });
+
+    ret = self.pop();  console.log(ret);
+    ret = self.pop();  console.log(ret);
+    ret = self.pop();  console.log(ret);
+    ret = self.popList(3);  console.log(ret);
+
+    ret = self.remove(7);  console.log(ret);
+    ret = self.remove(9);  console.log(ret);
+    ret = self.remove(11);  console.log(ret);
+    ret = self.remove(33);  console.log(ret);
+    ret = self.remove(55);  console.log(ret);
+    ret = self.remove(77);  console.log(ret);
+    ret = self.remove(99);  console.log(ret);
+
+    ret = self.insert(1, 1);  console.log(ret);
+    ret = self.insert(5, 5);  console.log(ret);
+    ret = self.insert(9, 9);  console.log(ret);
+    ret = self.insert(33, 33);  console.log(ret);
+    ret = self.insert(77, 77);  console.log(ret);
+
+    ret = self.check(true); console.log(ret);
+};
+
+function MultiList(multi, depth) {
+    this.multi = multi || 1;
+    this.data = {};
+
+    var self = this;
+    doRepeat(multi, function(i) {
+        var obj = self.data[i] = {};
+        obj.depth = depth || 1;
+        obj.list = [];
+    })
+}
+
+MultiList.prototype.count = function(index){
+    var obj = this.data[index];
+    if (!obj) {
+        return 0;
+    }
+    var cnt = 0;
+    doEach(obj.list, function(i, item) {
+        if ( !item ) {
+            cnt++;
+        }
+    });
+    return cnt;
+};
+
+MultiList.prototype.capacity = function(index) {
+    var obj = this.data[index];
+    if (!obj) {
+        return 0;
+    }
+    return obj.depth;
+};
+
+MultiList.prototype.setCapacity = function(index, capacity) {
+    var obj = this.data[index];
+    if (!obj) {
+        return false;
     }
 
-    return obj;
+    if ( obj.depth > capacity ) {
+        for (var i = capacity; i<obj.depth; i++) {
+            var item = obj.list[i];
+            if (item) {
+                return false;
+            }
+        }
+    }
+
+    obj.depth = capacity;
+    return true;
+};
+
+MultiList.prototype.isFull = function(index) {
+    return this.count(index) > this.capacity(index);
+};
+
+MultiList.prototype.isAllFull = function() {
+    var self = this;
+    var full = true;
+    doEachEx(this.data, function(index, obj) {
+        if ( !self.isFull(index) ) {
+            full = false;
+            return true;
+        }
+    });
+    return full;
+};
+
+MultiList.prototype.get = function(index, pos) {
+    var obj = this.data[index];
+    if (!obj) {
+        return false;
+    }
+    return obj.list[pos];
+};
+
+MultiList.prototype.getRandPos = function(index) {
+    var obj = this.data[index];
+    if (!obj) {
+        return;
+    }
+    var pos;
+    doRepeat(obj.depth, function(i) {
+        if ( !obj.list[i] ) {
+            pos = i;
+            return true;
+        }
+    });
+    return pos;
+};
+
+MultiList.prototype.push = function(item) {
+    var _index;
+    var find;
+    var self = this;
+    doEachEx(this.data, function(index, obj) {
+        if ( !self.isFull(index) ) {
+            _index = index;
+            find = true;
+            return true;
+        }
+    });
+    if (!find) {
+        return false;
+    }
+
+    return this.pushByIndex(item, _index);
+};
+
+MultiList.prototype.pushByIndex = function(item, index) {
+    var pos = this.getRandPos(index);
+    if ( isNaN(pos) ) {
+        return false;
+    }
+    return this.pushByPos(item, index, pos);
+};
+
+MultiList.prototype.pushByPos = function(item, index, pos) {
+    var obj = this.data[index];
+    if ( !obj || !item ) {
+        return false;
+    }
+    if ( pos >= obj.depth ||  obj.list[pos] ) {
+        return false;
+    }
+    obj.list[pos] = item;
+    return true;
 };
 
 function getListItem(list, attrName, attrValue) {
@@ -448,64 +784,6 @@ var log = function() {
     console.log.apply(null, vec);
 };
 
-function MapVec() {
-    this.map = {};
-    this.vec = [];
-}
-
-MapVec.prototype.add = function(key, value) {
-
-};
-
-MapVec.prototype.dec = function(key) {
-
-};
-
-MapVec.prototype.get = function(key) {
-
-};
-
-MapVec.prototype.getList = function(page, pageNum) {
-
-};
-
-MapVec.prototype.getNum = function() {
-
-};
-
-MapVec.prototype.debug = function() {
-
-};
-
-//var createMethodProxy = function () {
-//
-//    function Proxy(Func) {
-//        init();
-//    }
-//
-//    Proxy.prototype.init = function (Func, beforeMethod) {
-//        for (var methodName in this.Methods) {
-//            var method = this.Methods[methodName];
-//            if ( "function" === method ) {
-//                this.genMethod(methodName, method);
-//            }
-//        }
-//    };
-//
-//    Proxy.prototype.genMethod = function (methodName, method) {
-//        this.Func.prototype[methodName] = function() {
-//            var vec = Array.prototype.slice.call(arguments, 0);
-//            vec.push(method);
-//            beforeMethod.apply(this, vec);
-//
-//            beforeMethod.
-//        }
-//    };
-//
-//    var ;
-//
-//    return Proxy;
-//};
 
 module.exports = {
     getTime: getTime,
@@ -523,13 +801,14 @@ module.exports = {
     doEach: doEach,
     doEachEx: doEachEx,
     doEachEx2: doEachEx2,
+    doParallel: doParallel,
+    doParallelEx: doParallelEx,
 
     cloneAll: cloneAll,
     cloneByAttr: cloneByAttr,
     cloneForResetKey: cloneForResetKey,
 
     ListKeyHelper: ListKeyHelper,
-    ListHelper: ListHelper,
     getListItem: getListItem,
 
     tag: tag,
@@ -875,6 +1154,14 @@ console.log(iconv.encode(str, "gbk"));
 
 //str = iconv.decode(new Buffer([0x68, 0x65, 0x6c, 0x6c, 0x6f]), 'win1251');
 
-var t = new Date(1439990673341);
-console.log(t);
-console.log(t.getTime());
+//var t = new Date(1439990673341);
+//console.log(t);
+//console.log(t.getTime());
+
+//console.log("===========ListMap==============");
+//
+//ListMap.test();
+
+console.log("===========MapQueue==============");
+
+MapQueue.test();

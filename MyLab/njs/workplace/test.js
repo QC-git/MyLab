@@ -299,11 +299,11 @@ console.log(o332);  // { v1: 2, set_v1: [Function], get_v1: [Function] }
 console.log(o333);  // [Function: CC]
 console.log(o334);  // undefined
 
-var o441 = require('./other4')(1);
-var o442 = o44(2);
+//var o441 = require('./other4')(1);
+//var o442 = o44(2);
 
-console.log(o441);  // 2
-console.log(o442);  // 3
+//console.log(o441);  // 2
+//console.log(o442);  // 3
 
 console.log(global.varA); // undefined
 console.log(global.varB); // g 在 other4中 定义
@@ -941,3 +941,143 @@ console.log(result);
 //        modules: '14',
 //        openssl: '1.0.1m' },
 //    memoryUsage: { rss: 16199680, heapTotal: 9555584, heapUsed: 3662836 } }
+
+
+console.log("------------------26-----------------");
+
+var vec26 = [];
+
+vec26.push(1);
+vec26.push(2);
+vec26.push(3);
+vec26.shift();
+vec26.unshift(100);
+console.log(vec26);
+vec26.splice(1, 1);
+
+console.log(vec26);
+
+console.log("------------------27-----------------");
+
+var map27 = {};
+
+var randNum = function(range) {
+    return Math.floor(Math.random()*range);
+};
+
+for (var i=0; i<100; i++) {
+    var num = randNum(1000);
+    //console.log(num);
+    map27[num] = num;
+}
+
+//console.log(map27);
+
+for (var i=0; i<100; i++) {
+    var num = randNum(1000);
+    //console.log(num);
+    map27[num] = num;
+}
+
+var limit27 = 0;
+
+for( var key in map27 ) {
+    if ( map27[key] < limit27 ) {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ", map27[key], limit27);
+    }else {
+        console.log(map27[key], limit27);
+        limit27 = map27[key];
+    }
+}
+
+console.log(typeof {});
+console.log(typeof []);
+console.log(typeof 1231);
+console.log(typeof "12323");
+console.log(new Object);
+
+console.log("------------------28-----------------"); // 字典测试
+
+var map28 = {1: 1, 3: 3};
+var vec28 = [1, 3];
+//var array28 = new Array();
+//array28[dadas] = "dasdasd";
+
+delete  map28[0];
+delete  vec28[0];
+
+console.log(map28, vec28);
+
+
+console.log("------------------29-----------------");
+
+console.log(Number.MAX_VALUE);
+console.log(Number.MIN_VALUE);
+var num29 = 0;
+//while(true) {
+//    if ( 0 === ++num29 % 100000000 ) {
+//        console.log(num29);
+//    }
+//
+//}
+
+console.log("------------------30-----------------");  // 测试相互引用内存泄露
+
+var buf30 = {};
+
+//var a = require('a');
+
+var func30 = function() {
+    var buf = buf30[1] = {};
+    var A = buf.A = {};
+    var B = buf.B = {};
+    //var A = buf;
+    //var B = {};
+
+    A.vec = [];
+    A.include = B;
+
+    B.vec = [];
+    B.include = A;
+
+    var vec, limit, tmp;
+
+    vec = A.vec;
+    limit = 500;
+    while(limit--) {
+        tmp = new Buffer(1024*1024);
+        vec.push(tmp);
+    }
+
+    vec = B.vec;
+    limit = 500;
+    while(limit--) {
+        tmp = new Buffer(1024*1024);
+        vec.push(tmp);
+    }
+
+};
+
+var func30_1 = function() {
+    var vec = [];
+    var limit = 1000, tmp;
+    while(limit--) {
+        tmp = new Buffer(1024*1024);
+        vec.push(tmp);
+    }
+};
+
+//func30();
+////delete buf30[1];
+//func30_1();
+//
+//setInterval(function(){
+//    console.log(1111);
+//    func30_1();
+//}, 1000);
+
+console.log("------------------31-----------------");
+
+assert = require("assert");
+//assert(0);
+
