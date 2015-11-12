@@ -55,6 +55,9 @@ extern void test_hacker();
 
 extern void test_tool();
 
+//////////////////////////////////////////////////////////////////////////
+
+extern void MainEx(int argc, char* argv[]);
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -63,7 +66,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 1900;
+	int arg = -1000;
 	switch(arg)
 	{
 	case 1000:
@@ -146,8 +149,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	case 1900:
 		{
 			test_tool();
-		}
-		
+		}break;
+	default:
+		{
+			MainEx(argc, argv);
+		}break;
 	}
 
 

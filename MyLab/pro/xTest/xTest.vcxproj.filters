@@ -34,6 +34,33 @@
     <Filter Include="test_boost\sl_asio">
       <UniqueIdentifier>{67539604-91ba-435c-a953-55ffc3fc546c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="xTestEx">
+      <UniqueIdentifier>{243f6223-e8a6-4137-b877-a622c7534788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xTestEx\precompile">
+      <UniqueIdentifier>{325a972a-c04a-48c1-8faf-3ed0cba06e25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xTestEx\modules">
+      <UniqueIdentifier>{6c4cda69-17af-4991-9735-09d60b79fb63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xTestEx\modules\mod_001_lib">
+      <UniqueIdentifier>{fb9aa554-29d4-4a92-b87d-5e85128acd98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xTestEx\modules\mod_002_dll">
+      <UniqueIdentifier>{4c8d668e-b179-48de-9875-e132e00747c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xTestEx\cmake">
+      <UniqueIdentifier>{eadd64c7-ceec-442f-a6ee-bc4210d3b69c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xTestEx\modules\include">
+      <UniqueIdentifier>{e9115c98-c302-4c36-8ddc-a22d3dfb4279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xTestEx\modules\mod_001_lib\code">
+      <UniqueIdentifier>{d59db34f-8883-427e-8ff8-23703676327a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xTestEx\modules\mod_002_dll\code">
+      <UniqueIdentifier>{f4cae849-2116-47f0-a6a4-7b64342c40b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -52,6 +79,24 @@
     <None Include="test_res\hello.txt" />
     <None Include="test_res\res.txt" />
     <None Include="test_res\res.exe" />
+    <None Include="..\xTestEx\CMakeLists.txt">
+      <Filter>xTestEx</Filter>
+    </None>
+    <None Include="..\xTestEx\modules\CMakeLists.txt">
+      <Filter>xTestEx\modules</Filter>
+    </None>
+    <None Include="..\xTestEx\cmake\common.cmake">
+      <Filter>xTestEx\cmake</Filter>
+    </None>
+    <None Include="..\xTestEx\cmake\cotire.cmake">
+      <Filter>xTestEx\cmake</Filter>
+    </None>
+    <None Include="..\xTestEx\modules\mod_001\CMakeLists.txt">
+      <Filter>xTestEx\modules\mod_001_lib</Filter>
+    </None>
+    <None Include="..\xTestEx\modules\mod_002\CMakeLists.txt">
+      <Filter>xTestEx\modules\mod_002_dll</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -131,6 +176,18 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xTestEx\precompile\xPrecompile.h">
+      <Filter>xTestEx\precompile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xTestEx\modules\include\test_define.h">
+      <Filter>xTestEx\modules\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xTestEx\modules\mod_002\code\test_mod.h">
+      <Filter>xTestEx\modules\mod_002_dll\code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xTestEx\modules\mod_001\code\test_mod.h">
+      <Filter>xTestEx\modules\mod_001_lib\code</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +277,18 @@
     </ClCompile>
     <ClCompile Include="test1900_tool.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xTestEx\xTestEx.cpp">
+      <Filter>xTestEx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xTestEx\precompile\xPrecompile.cpp">
+      <Filter>xTestEx\precompile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xTestEx\modules\mod_002\code\test_mod.cpp">
+      <Filter>xTestEx\modules\mod_002_dll\code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xTestEx\modules\mod_001\code\test_mod.cpp">
+      <Filter>xTestEx\modules\mod_001_lib\code</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
