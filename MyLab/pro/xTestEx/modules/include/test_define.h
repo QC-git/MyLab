@@ -1,0 +1,2 @@
+
+#define TEST_VERSION 0.01
