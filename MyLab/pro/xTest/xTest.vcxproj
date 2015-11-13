@@ -95,8 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\xTestEx\modules\include\test_define.h" />
-    <ClInclude Include="..\xTestEx\modules\mod_001\code\test_mod.h" />
-    <ClInclude Include="..\xTestEx\modules\mod_002\code\test_mod.h" />
+    <ClInclude Include="..\xTestEx\modules\mod_001\code\test_mod.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\xTestEx\modules\mod_002\code\test_mod.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\xTestEx\precompile\xPrecompile.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -126,8 +130,12 @@
     <ClInclude Include="xTest.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\xTestEx\modules\mod_001\code\test_mod.cpp" />
-    <ClCompile Include="..\xTestEx\modules\mod_002\code\test_mod.cpp" />
+    <ClCompile Include="..\xTestEx\modules\mod_001\code\test_mod.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\xTestEx\modules\mod_002\code\test_mod.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\xTestEx\precompile\xPrecompile.cpp" />
     <ClCompile Include="..\xTestEx\xTestEx.cpp" />
     <ClCompile Include="stdafx.cpp" />
