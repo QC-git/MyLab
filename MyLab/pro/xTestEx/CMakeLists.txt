@@ -11,5 +11,6 @@ PROJECT(MyLabEx)
 ADD_EXECUTABLE(xTestEx xTestEx.cpp precompile/xPrecompile.cpp)
 INCLUDE_DIRECTORIES("precompile")
 INCLUDE_DIRECTORIES("modules/include")
+ADD_DEFINITIONS(-D__CXX11_STANDARD)
 
 ADD_SUBDIRECTORY(modules)
