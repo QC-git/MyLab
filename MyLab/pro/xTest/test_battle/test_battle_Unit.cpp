@@ -1,6 +1,7 @@
 
 #include "x_all.h"
 #include "test_battle_Unit.h"
+#include "test_battle_Manager.h"
 
 namespace space_test_battle 
 {
@@ -16,64 +17,75 @@ namespace space_test_battle
 
 	VOID_T CUint::OnTick()
 	{
-		;
+		TaskList_T::iterator iter;
+		FOR_EACH(m_cTaskList, iter)
+		{
+			U32_T uId = *iter;
+			FUNC_T* pFunc = CManager::GetStautsFunc(uId);
+			if (pFunc)
+			{
+				pFunc(this);
+			}
+		}
 	}
 
 	BOOL_T CUint::AddRole(EUnitRole e, VOID_T* pData)
 	{
-		VOID_T* p = m_cRolesMap[e];
-		if (p)
+		if ( this->HasRole(e) )
 		{
-			return FALSE;
+			return NULL;
 		}
-		m_cRolesMap[e] = pData;
+		m_cDataMap[e] = pData;
 		return TRUE;
 	}
 
 	VOID_T* CUint::GetRoleData(EUnitRole e)
 	{
-		return m_cRolesMap[e];
+		if ( !this->HasRole(e) )
+		{
+			return NULL;
+		}
+		return m_cDataMap[e];
 	}
 
 	BOOL_T CUint::HasRole(EUnitRole e)
 	{
-		return NULL != m_cRolesMap[e];
+		DataMap_T::iterator iter = m_cDataMap.find(e);
+		return iter != m_cDataMap.end();
 	}
 
-	BOOL_T CUint::AddStatus(U32_T u)
+	BOOL_T CUint::AddTask(U32_T u)
 	{
-		StatusList_T::iterator iter = m_cStatusList.find(u);
-		if ( iter == m_cStatusList.end() ) 
-		{
-			Status_T sp;
-			sp->uId = u;
-			sp->uLevel = 1;
-			sp->uTickCnt = 0;
-			m_cStatusList.insert(std::pair<U32_T, Status_T>(u, sp));
-		}
-		else
-		{
-			Status_T& sp = iter->second;
-			sp->uLevel += 1;
-		}
-		return TRUE;
-	}
-
-	BOOL_T CUint::RemoveStatus(U32_T u)
-	{
-		StatusList_T::iterator iter = m_cStatusList.find(u);
-		if ( iter == m_cStatusList.end() )
+		TaskList_T::iterator iter = m_cTaskList.find(u);
+		if ( iter != m_cTaskList.end() ) 
 		{
 			return FALSE;
 		}
-		m_cStatusList.erase(iter);
+		m_cTaskList.insert(u);
 		return TRUE;
+	}
+
+	BOOL_T CUint::RemoveTask(U32_T u)
+	{
+		TaskList_T::iterator iter = m_cTaskList.find(u);
+		if ( iter == m_cTaskList.end() )
+		{
+			return FALSE;
+		}
+		m_cTaskList.erase(iter);
+		return TRUE;
+	}
+
+	BOOL_T CUint::HasTask(U32_T u)
+	{
+		TaskList_T::iterator iter = m_cTaskList.find(u);
+		return iter != m_cTaskList.end();
 	}
 
 	VOID_T CUint::ReleaseData() 
 	{
-		m_cRolesMap.clear();
-		m_cStatusList.clear();
+		m_cDataMap.clear();
+		m_cTaskList.clear();
 		m_cEventList.clear();
 	}
 

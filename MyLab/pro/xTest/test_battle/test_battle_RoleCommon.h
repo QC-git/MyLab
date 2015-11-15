@@ -5,13 +5,13 @@
 
 namespace space_test_battle 
 {
-	class CRoleCreature
+	class CRoleCommon
 	{
 	public:
-		CRoleCreature(CUint* p);
-		~CRoleCreature();
+		CRoleCommon(CUint* p);
+		~CRoleCommon();
 
-		MARK_UNIT_ROLE(EUnitRole_CREATURE)
+		MARK_UNIT_ROLE(EUnitRole_COMMON)
 
 		struct Data
 		{
@@ -38,6 +38,7 @@ namespace space_test_battle
 
 	private:
 		Data* m_pData;
+		CUint* m_pUnit;
 
 	};
 }

@@ -105,10 +105,11 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="test_battle\script\test_battle_Script_Status.h" />
+    <ClInclude Include="test_battle\script\test_battle_Script_task.h" />
     <ClInclude Include="test_battle\test_battle_.h" />
-    <ClInclude Include="test_battle\test_battle_RoleCreature.h" />
+    <ClInclude Include="test_battle\test_battle_RoleCommon.h" />
     <ClInclude Include="test_battle\test_battle_Manager.h" />
+    <ClInclude Include="test_battle\test_battle_RoleStatus.h" />
     <ClInclude Include="test_battle\test_battle_Tool.h" />
     <ClInclude Include="test_battle\test_battle_Unit.h" />
     <ClInclude Include="test_boost\sl_asio\sl_Message.h" />
@@ -165,10 +166,11 @@
     <ClCompile Include="test6_kbe.cpp" />
     <ClCompile Include="test1001_db.cpp" />
     <ClCompile Include="test1002_math.cpp" />
-    <ClCompile Include="test_battle\script\test_battle_script_Status.cpp" />
+    <ClCompile Include="test_battle\script\test_battle_script_task.cpp" />
     <ClCompile Include="test_battle\test_battle_.cpp" />
-    <ClCompile Include="test_battle\test_battle_RoleCreature.cpp" />
+    <ClCompile Include="test_battle\test_battle_RoleCommon.cpp" />
     <ClCompile Include="test_battle\test_battle_Manager.cpp" />
+    <ClCompile Include="test_battle\test_battle_RoleStatus.cpp" />
     <ClCompile Include="test_battle\test_battle_Tool.cpp" />
     <ClCompile Include="test_battle\test_battle_Unit.cpp" />
     <ClCompile Include="test_boost\sl_asio\sl_TcpNet.cpp" />

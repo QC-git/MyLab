@@ -25,4 +25,14 @@ namespace space_test_battle
 		return TRUE;
 	}
 
+	FUNC_T* CManager::GetStautsFunc(U32_T uId)
+	{
+		StatusFuncMap_T::iterator iter = m_cStatusFuncMap.find(uId);
+		if ( iter == m_cStatusFuncMap.end() )
+		{
+			return NULL;
+		}
+		return m_cStatusFuncMap[uId];
+	}
+
 }

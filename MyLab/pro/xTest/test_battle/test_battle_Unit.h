@@ -5,23 +5,17 @@ namespace space_test_battle
 	enum EUnitRole
 	{
 		EUnitRole_NONE,
-		EUnitRole_CREATURE,
+		EUnitRole_COMMON,
+		EUnitRole_STATUS,
 		EUnitRole_OTHER
 	};
 
 #define MARK_UNIT_ROLE(_role)        \
-	static EUnitRole GetRoleEnum()   \
+	static EUnitRole GetRoleType()   \
 	{                                \
-		return EUnitRole_CREATURE;   \
+		return EUnitRole_COMMON;   \
 	}
-
-	struct Status
-	{
-		U32_T uId;
-		U32_T uLevel;
-		U32_T uTickCnt;
-	};
-	typedef std::shared_ptr<Status> Status_T;
+	
 	class CUint
 	{
 	public:
@@ -32,25 +26,33 @@ namespace space_test_battle
 		VOID_T OnTick();
 
 	public:
-		BOOL_T AddRole(EUnitRole e, VOID_T* pData);
+		BOOL_T  AddRole(EUnitRole e, VOID_T* pData);
+
+		BOOL_T  HasRole(EUnitRole e);
 
 		VOID_T* GetRoleData(EUnitRole e);
 
-		BOOL_T HasRole(EUnitRole e);
+		BOOL_T  AddTask(U32_T u);
 
-		BOOL_T AddStatus(U32_T u);
+		BOOL_T  RemoveTask(U32_T u);
 
-		BOOL_T RemoveStatus(U32_T u);
+		BOOL_T HasTask(U32_T u);
 
 	private:
 		VOID_T ReleaseData();
 
 	public:
-		typedef std::map<U32_T, VOID_T*> RoleMap_T;
-		typedef std::map<U32_T, Status_T> StatusList_T;
+		typedef MAP_D(EUnitRole, VOID_T*)	DataMap_T;
 
-		RoleMap_T m_cRolesMap;
-		StatusList_T m_cStatusList;
-		SET_D(U32_T) m_cEventList;
+		typedef SET_D(U32_T)				TaskList_T;
+
+		typedef SET_D(U32_T)				EventList_T;
+
+		DataMap_T   m_cDataMap;
+
+		TaskList_T  m_cTaskList;
+
+		EventList_T m_cEventList;
 	};
+
 }

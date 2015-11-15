@@ -67,6 +67,15 @@
     <Filter Include="test_battle\script">
       <UniqueIdentifier>{05bdb44a-5daa-4922-898f-0912bc8686db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test_battle\tmp">
+      <UniqueIdentifier>{c8ec83fc-b686-4ede-8c31-230e34170bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test_battle\tool">
+      <UniqueIdentifier>{553804ae-3888-4648-81d4-1871b4cf26f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test_battle\role">
+      <UniqueIdentifier>{ee6801b9-2977-4ef4-90d9-c84d8f36f490}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -201,17 +210,20 @@
     <ClInclude Include="test_battle\test_battle_Manager.h">
       <Filter>test_battle</Filter>
     </ClInclude>
-    <ClInclude Include="test_battle\test_battle_RoleCreature.h">
-      <Filter>test_battle</Filter>
+    <ClInclude Include="test_battle\test_battle_.h">
+      <Filter>test_battle\tmp</Filter>
+    </ClInclude>
+    <ClInclude Include="test_battle\script\test_battle_Script_task.h">
+      <Filter>test_battle\script</Filter>
     </ClInclude>
     <ClInclude Include="test_battle\test_battle_Tool.h">
-      <Filter>test_battle</Filter>
+      <Filter>test_battle\tool</Filter>
     </ClInclude>
-    <ClInclude Include="test_battle\test_battle_.h">
-      <Filter>test_battle</Filter>
+    <ClInclude Include="test_battle\test_battle_RoleCommon.h">
+      <Filter>test_battle\role</Filter>
     </ClInclude>
-    <ClInclude Include="test_battle\script\test_battle_Script_Status.h">
-      <Filter>test_battle\script</Filter>
+    <ClInclude Include="test_battle\test_battle_RoleStatus.h">
+      <Filter>test_battle\role</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -320,17 +332,20 @@
     <ClCompile Include="test_battle\test_battle_Manager.cpp">
       <Filter>test_battle</Filter>
     </ClCompile>
-    <ClCompile Include="test_battle\test_battle_RoleCreature.cpp">
-      <Filter>test_battle</Filter>
+    <ClCompile Include="test_battle\test_battle_.cpp">
+      <Filter>test_battle\tmp</Filter>
+    </ClCompile>
+    <ClCompile Include="test_battle\script\test_battle_script_task.cpp">
+      <Filter>test_battle\script</Filter>
     </ClCompile>
     <ClCompile Include="test_battle\test_battle_Tool.cpp">
-      <Filter>test_battle</Filter>
+      <Filter>test_battle\tool</Filter>
     </ClCompile>
-    <ClCompile Include="test_battle\test_battle_.cpp">
-      <Filter>test_battle</Filter>
+    <ClCompile Include="test_battle\test_battle_RoleCommon.cpp">
+      <Filter>test_battle\role</Filter>
     </ClCompile>
-    <ClCompile Include="test_battle\script\test_battle_script_Status.cpp">
-      <Filter>test_battle\script</Filter>
+    <ClCompile Include="test_battle\test_battle_RoleStatus.cpp">
+      <Filter>test_battle\role</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
