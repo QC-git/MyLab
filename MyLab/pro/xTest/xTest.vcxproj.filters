@@ -61,6 +61,12 @@
     <Filter Include="xTestEx\modules\mod_002_dll\code">
       <UniqueIdentifier>{f4cae849-2116-47f0-a6a4-7b64342c40b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test_battle">
+      <UniqueIdentifier>{80eca2c1-99bb-41c9-b182-11ad9e3a7c7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test_battle\script">
+      <UniqueIdentifier>{05bdb44a-5daa-4922-898f-0912bc8686db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -189,6 +195,24 @@
     <ClInclude Include="..\xTestEx\modules\mod_001\code\test_mod.h">
       <Filter>xTestEx\modules\mod_001_lib\code</Filter>
     </ClInclude>
+    <ClInclude Include="test_battle\test_battle_Unit.h">
+      <Filter>test_battle</Filter>
+    </ClInclude>
+    <ClInclude Include="test_battle\test_battle_Manager.h">
+      <Filter>test_battle</Filter>
+    </ClInclude>
+    <ClInclude Include="test_battle\test_battle_RoleCreature.h">
+      <Filter>test_battle</Filter>
+    </ClInclude>
+    <ClInclude Include="test_battle\test_battle_Tool.h">
+      <Filter>test_battle</Filter>
+    </ClInclude>
+    <ClInclude Include="test_battle\test_battle_.h">
+      <Filter>test_battle</Filter>
+    </ClInclude>
+    <ClInclude Include="test_battle\script\test_battle_Script_Status.h">
+      <Filter>test_battle\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -289,6 +313,24 @@
     </ClCompile>
     <ClCompile Include="..\xTestEx\modules\mod_001\code\test_mod.cpp">
       <Filter>xTestEx\modules\mod_001_lib\code</Filter>
+    </ClCompile>
+    <ClCompile Include="test_battle\test_battle_Unit.cpp">
+      <Filter>test_battle</Filter>
+    </ClCompile>
+    <ClCompile Include="test_battle\test_battle_Manager.cpp">
+      <Filter>test_battle</Filter>
+    </ClCompile>
+    <ClCompile Include="test_battle\test_battle_RoleCreature.cpp">
+      <Filter>test_battle</Filter>
+    </ClCompile>
+    <ClCompile Include="test_battle\test_battle_Tool.cpp">
+      <Filter>test_battle</Filter>
+    </ClCompile>
+    <ClCompile Include="test_battle\test_battle_.cpp">
+      <Filter>test_battle</Filter>
+    </ClCompile>
+    <ClCompile Include="test_battle\script\test_battle_script_Status.cpp">
+      <Filter>test_battle\script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
