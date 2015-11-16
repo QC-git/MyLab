@@ -4,7 +4,30 @@
 
 namespace space_test_battle
 {
-	VOID_T task_1001(CUint* p, U32_T uFlag)
+	// ¼¼ÄÜ
+	VOID_T script_101(CUint* p, U32_T uFlag)
+	{
+		CRoleSkill* pRole = CManager::GetRole(p, (CRoleSkill*)NULL);
+
+		// 		switch(sTaskInfo.uTickCnt)
+		// 		{
+		// 		case 1:
+		// 			{
+		// 				U32_T uVal = 100;
+		// 				pRole->AddHealth(uVal);
+		// 			}break;
+		// 		case 10:
+		// 			{
+		// 				U32_T uVal = 100;
+		// 				pRole->DecHealth(uVal);
+		// 			}break;
+		// 		}
+	}
+
+
+
+	// ×´Ì¬
+	VOID_T script_1001(CUint* p, U32_T uFlag)
 	{
 		CRoleCommon* pRole = CManager::GetRole(p, (CRoleCommon*)NULL);
 
@@ -23,7 +46,7 @@ namespace space_test_battle
 // 		}
 	}
 
-	VOID_T task_1002(CUint* p, U32_T uFlag)
+	VOID_T script_1002(CUint* p, U32_T uFlag)
 	{
 		CRoleCommon* pRole = CManager::GetRole(p, (CRoleCommon*)NULL);
 
@@ -45,8 +68,10 @@ namespace space_test_battle
 
 	VOID_T LoadStatusFunc()
 	{
-		REGISTER_TASK_F(1001);
-		REGISTER_TASK_F(1002);
+		REGISTER_SCRIPT_F(101);
+
+		REGISTER_SCRIPT_F(1001);
+		REGISTER_SCRIPT_F(1002);
 	}
 
 }

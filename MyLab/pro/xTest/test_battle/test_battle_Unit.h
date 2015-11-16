@@ -8,13 +8,14 @@ namespace space_test_battle
 		EUnitRole_COMMON,
 		EUnitRole_STATUS,
 		EUnitRole_AI,
+		EUnitRole_SKILL,
 		EUnitRole_OTHER
 	};
 
 #define MARK_UNIT_ROLE(_role)        \
 	static EUnitRole GetRoleType()   \
 	{                                \
-		return EUnitRole_COMMON;   \
+		return _role;				 \
 	}
 	
 	class CUint

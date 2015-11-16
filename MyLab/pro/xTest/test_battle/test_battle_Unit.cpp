@@ -23,7 +23,7 @@ namespace space_test_battle
 		FOR_EACH(m_cTaskList, iter)
 		{
 			U32_T uId = *iter;
-			FUNC_T* pFunc = CManager::GetStautsFunc(uId);
+			Script_T* pFunc = CManager::GetTaskScript(uId);
 			if (pFunc)
 			{
 				pFunc(this, 0);
@@ -41,7 +41,7 @@ namespace space_test_battle
 
 			m_cTaskList.erase(iterEx);
 
-			FUNC_T* pFunc = CManager::GetStautsFunc(uId);
+			Script_T* pFunc = CManager::GetTaskScript(uId);
 			if (pFunc)
 			{
 				pFunc(this, 10);
@@ -59,7 +59,7 @@ namespace space_test_battle
 
 			m_cTaskList.insert(uId);
 
-			FUNC_T* pFunc = CManager::GetStautsFunc(uId);
+			Script_T* pFunc = CManager::GetTaskScript(uId);
 			if (pFunc)
 			{
 				pFunc(this, 1);
