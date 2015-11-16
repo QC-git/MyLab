@@ -110,6 +110,7 @@
     <ClInclude Include="test_battle\test_battle_RoleAi.h" />
     <ClInclude Include="test_battle\test_battle_RoleCommon.h" />
     <ClInclude Include="test_battle\test_battle_Manager.h" />
+    <ClInclude Include="test_battle\test_battle_RoleSkill.h" />
     <ClInclude Include="test_battle\test_battle_RoleStatus.h" />
     <ClInclude Include="test_battle\test_battle_Tool.h" />
     <ClInclude Include="test_battle\test_battle_Unit.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="test_battle\test_battle_RoleAi.cpp" />
     <ClCompile Include="test_battle\test_battle_RoleCommon.cpp" />
     <ClCompile Include="test_battle\test_battle_Manager.cpp" />
+    <ClCompile Include="test_battle\test_battle_RoleSkill.cpp" />
     <ClCompile Include="test_battle\test_battle_RoleStatus.cpp" />
     <ClCompile Include="test_battle\test_battle_Tool.cpp" />
     <ClCompile Include="test_battle\test_battle_Unit.cpp" />
