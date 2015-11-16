@@ -11,6 +11,8 @@ namespace space_test_battle
 
 	U32_T CManager::s_nTickCnt = 0;
 
+	extern VOID_T LoadAllScript();
+
 	CManager::CManager()
 	{
 		;
@@ -43,6 +45,8 @@ namespace space_test_battle
 	{
 		LOG_F("CManager::Create()");
 
+		LoadAllScript();
+
 		CUint* p1 = new CUint;
 		CUint* p2 = new CUint;
 		BOOL_T bRet;
@@ -55,6 +59,25 @@ namespace space_test_battle
 
 		s_cUnitList.insert(p1);
 		s_cUnitList.insert(p2);
+
+		CRoleCommon* pRole1 = CManager::GetRole(p1, (CRoleCommon*)NULL);
+		CRoleCommon* pRole2 = CManager::GetRole(p2, (CRoleCommon*)NULL);
+
+		U32_T uValue = 10000;
+		pRole1->AddMaxHealth(uValue);
+
+		uValue = 10000;
+		pRole1->AddHealth(uValue);
+
+		uValue = 30000;
+		pRole2->AddMaxHealth(uValue);
+
+		uValue = 30000;
+		pRole2->AddHealth(uValue);
+
+		CRoleSkill* pRole11 = CManager::GetRole(p1, (CRoleSkill*)NULL);
+		pRole11->CastSkill(101, p2);
+		
 
 		return TRUE;
 	}

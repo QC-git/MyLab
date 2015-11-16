@@ -23,8 +23,8 @@ namespace space_test_battle
 		VOID_T AddMaxHealth(U32_T& uValue) { m_pData->sHealth.AddMax(uValue);		}
 		VOID_T DecMaxHealth(U32_T& uValue) { m_pData->sHealth.DecMax(uValue);		}
 		U32_T  GetMaxHealth()              { m_pData->sHealth.uMaxValue;			}
-		VOID_T AddHealth(U32_T& uValue)    { m_pData->sHealth.Add(uValue);			}
-		VOID_T DecHealth(U32_T& uValue)    { m_pData->sHealth.Dec(uValue);			}
+		VOID_T AddHealth(U32_T& uValue)    { LOG_F("增加血量 %d", uValue); m_pData->sHealth.Add(uValue);	LOG_F("剩余血量 %d", uValue);		}
+		VOID_T DecHealth(U32_T& uValue)    { LOG_F("受到伤害 %d", uValue); m_pData->sHealth.Dec(uValue);	LOG_F("剩余血量 %d", uValue);		}
 		U32_T  GetHealth()                 { m_pData->sHealth.uValue;				} 
 		BOOL_T IsAlive()                   { return 0 != m_pData->sHealth.uValue;   }
 

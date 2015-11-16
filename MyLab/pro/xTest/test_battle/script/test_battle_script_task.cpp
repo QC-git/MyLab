@@ -9,19 +9,16 @@ namespace space_test_battle
 	{
 		CRoleSkill* pRole = CManager::GetRole(p, (CRoleSkill*)NULL);
 
-		// 		switch(sTaskInfo.uTickCnt)
-		// 		{
-		// 		case 1:
-		// 			{
-		// 				U32_T uVal = 100;
-		// 				pRole->AddHealth(uVal);
-		// 			}break;
-		// 		case 10:
-		// 			{
-		// 				U32_T uVal = 100;
-		// 				pRole->DecHealth(uVal);
-		// 			}break;
-		// 		}
+		U32_T nTick = CManager::GetTickCount();
+
+		if ( 0 == nTick%5 )
+		{
+			CUint* pTarget = pRole->GetTarget();
+			CRoleCommon* pTagretCommon = CManager::GetRole(pTarget, (CRoleCommon*)NULL);
+			U32_T uValue = 100;
+			pTagretCommon->DecHealth(uValue);
+		}
+
 	}
 
 
@@ -66,7 +63,7 @@ namespace space_test_battle
 	}
 
 
-	VOID_T LoadStatusFunc()
+	VOID_T LoadAllScript()
 	{
 		REGISTER_SCRIPT_F(101);
 

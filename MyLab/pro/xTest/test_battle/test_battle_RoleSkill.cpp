@@ -24,6 +24,8 @@ namespace space_test_battle
 			return FALSE;
 		}
 
+		LOG_F("ÊÍ·Å¼¼ÄÜ %d", uId);
+
 		m_pData->uSkillId = uId;
 		m_pData->pTarget = pTarget;
 
