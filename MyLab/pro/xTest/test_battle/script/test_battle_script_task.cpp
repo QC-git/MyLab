@@ -4,7 +4,7 @@
 
 namespace space_test_battle
 {
-	VOID_T task_1001(CUint* p)
+	VOID_T task_1001(CUint* p, U32_T uFlag)
 	{
 		CRoleCommon* pRole = CManager::GetRole(p, (CRoleCommon*)NULL);
 
@@ -23,7 +23,7 @@ namespace space_test_battle
 // 		}
 	}
 
-	VOID_T task_1002(CUint* p)
+	VOID_T task_1002(CUint* p, U32_T uFlag)
 	{
 		CRoleCommon* pRole = CManager::GetRole(p, (CRoleCommon*)NULL);
 

@@ -7,7 +7,9 @@ namespace space_test_battle
 	CRoleStatus::CRoleStatus(CUint* p)
 	{
 		m_pUnit = p;
-		m_pData = (Data*)p->GetRoleData(EUnitRole_STATUS);
+
+		EUnitRole e = CRoleStatus::GetRoleType();
+		m_pData = (Data*)p->GetRoleData(e);
 	}
 
 	CRoleStatus::~CRoleStatus()

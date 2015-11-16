@@ -12,6 +12,18 @@
 #include <map>
 #include <hash_map>
 
+#define VEC_D(_type)		std::vector<_type>
+#define SET_D(_type)		std::set<_type>
+#define LIST_D(_type)		std::list<_type>
+#define MAP_D(_key, _type)	std::map<_key, _type>
+#define HASH_D(_key, _type)	std::hash_map<_key, _type>
+
+#define PAR_D(_type1, _type2) srd::pair<_type1, _type2>
+#define PTR_D(_type) std::shared_ptr<_type>
+
+#define FOR_EACH(_container, _iter) for (_iter=_container.begin(); _iter!=_container.end(); _iter++)
+#define FOR_LOOP(_loop) for(int _n=0; _n<_loop; _n++)
+
 //////////////////////////////////////////////////////////////////////////
 _SERVOCE_DOOR_BEGIN
 

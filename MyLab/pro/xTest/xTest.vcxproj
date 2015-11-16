@@ -107,6 +107,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="test_battle\script\test_battle_Script_task.h" />
     <ClInclude Include="test_battle\test_battle_.h" />
+    <ClInclude Include="test_battle\test_battle_RoleAi.h" />
     <ClInclude Include="test_battle\test_battle_RoleCommon.h" />
     <ClInclude Include="test_battle\test_battle_Manager.h" />
     <ClInclude Include="test_battle\test_battle_RoleStatus.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="test1002_math.cpp" />
     <ClCompile Include="test_battle\script\test_battle_script_task.cpp" />
     <ClCompile Include="test_battle\test_battle_.cpp" />
+    <ClCompile Include="test_battle\test_battle_RoleAi.cpp" />
     <ClCompile Include="test_battle\test_battle_RoleCommon.cpp" />
     <ClCompile Include="test_battle\test_battle_Manager.cpp" />
     <ClCompile Include="test_battle\test_battle_RoleStatus.cpp" />

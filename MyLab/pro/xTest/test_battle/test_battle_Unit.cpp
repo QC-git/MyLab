@@ -18,15 +18,55 @@ namespace space_test_battle
 	VOID_T CUint::OnTick()
 	{
 		TaskList_T::iterator iter;
+		TaskList_T::iterator iterEx;
+		
 		FOR_EACH(m_cTaskList, iter)
 		{
 			U32_T uId = *iter;
 			FUNC_T* pFunc = CManager::GetStautsFunc(uId);
 			if (pFunc)
 			{
-				pFunc(this);
+				pFunc(this, 0);
 			}
 		}
+
+		FOR_EACH(m_cDelTaskList, iter)
+		{
+			U32_T uId = *iter;
+			iterEx = m_cTaskList.find(uId);
+			if ( iterEx == m_cTaskList.end() )
+			{
+				continue;
+			}
+
+			m_cTaskList.erase(iterEx);
+
+			FUNC_T* pFunc = CManager::GetStautsFunc(uId);
+			if (pFunc)
+			{
+				pFunc(this, 10);
+			}
+		}
+
+		FOR_EACH(m_cAddTaskList, iter)
+		{
+			U32_T uId = *iter;
+			iterEx = m_cTaskList.find(uId);
+			if ( iterEx != m_cTaskList.end() )
+			{
+				continue;
+			}
+
+			m_cTaskList.insert(uId);
+
+			FUNC_T* pFunc = CManager::GetStautsFunc(uId);
+			if (pFunc)
+			{
+				pFunc(this, 1);
+			}
+		}
+
+
 	}
 
 	BOOL_T CUint::AddRole(EUnitRole e, VOID_T* pData)
@@ -56,23 +96,25 @@ namespace space_test_battle
 
 	BOOL_T CUint::AddTask(U32_T u)
 	{
-		TaskList_T::iterator iter = m_cTaskList.find(u);
-		if ( iter != m_cTaskList.end() ) 
+		TaskList_T& cList = m_cAddTaskList;
+		TaskList_T::iterator iter = cList.find(u);
+		if ( iter != cList.end() ) 
 		{
-			return FALSE;
+			return TRUE;
 		}
-		m_cTaskList.insert(u);
+		cList.insert(u);
 		return TRUE;
 	}
 
 	BOOL_T CUint::RemoveTask(U32_T u)
 	{
-		TaskList_T::iterator iter = m_cTaskList.find(u);
-		if ( iter == m_cTaskList.end() )
+		TaskList_T& cList = m_cDelTaskList;
+		TaskList_T::iterator iter = cList.find(u);
+		if ( iter == cList.end() )
 		{
-			return FALSE;
+			return TRUE;
 		}
-		m_cTaskList.erase(iter);
+		cList.erase(iter);
 		return TRUE;
 	}
 

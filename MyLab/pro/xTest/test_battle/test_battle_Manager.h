@@ -4,7 +4,7 @@
 
 namespace space_test_battle 
 {
-	typedef VOID_T FUNC_T (CUint*);
+	typedef VOID_T FUNC_T (CUint*, U32_T);
 	typedef std::map<U32_T, FUNC_T*> StatusFuncMap_T; 
 
 	#define REGISTER_TASK_F(_id) CManager::RegisterStatusFunc(_id, task_##_id)

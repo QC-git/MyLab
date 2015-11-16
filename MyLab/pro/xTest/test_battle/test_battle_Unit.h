@@ -7,6 +7,7 @@ namespace space_test_battle
 		EUnitRole_NONE,
 		EUnitRole_COMMON,
 		EUnitRole_STATUS,
+		EUnitRole_AI,
 		EUnitRole_OTHER
 	};
 
@@ -51,6 +52,8 @@ namespace space_test_battle
 		DataMap_T   m_cDataMap;
 
 		TaskList_T  m_cTaskList;
+		TaskList_T  m_cAddTaskList;
+		TaskList_T  m_cDelTaskList;
 
 		EventList_T m_cEventList;
 	};
