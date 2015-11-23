@@ -11,7 +11,7 @@ namespace space_test_battle
 
 		U32_T nTick = CManager::GetTickCount();
 
-		if ( 0 == nTick%5 )
+		if ( 0 == nTick%30 )
 		{
 			CUint* pTarget = pRole->GetTarget();
 			CRoleCommon* pTagretCommon = CManager::GetRole(pTarget, (CRoleCommon*)NULL);

@@ -59,6 +59,9 @@ namespace space_test_battle
 		static U32_T GetTickCount() { return s_nTickCnt; }
 
 	protected:
+		static VOID_T Syn();
+
+	protected:
 		static ScriptMap_T s_cScriptMap;
 
 		static UnitList_T s_cUnitList;

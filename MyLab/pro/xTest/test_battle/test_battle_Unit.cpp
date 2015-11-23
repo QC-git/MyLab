@@ -18,7 +18,6 @@ namespace space_test_battle
 	VOID_T CUint::OnTick()
 	{
 		TaskList_T::iterator iter;
-		TaskList_T::iterator iterEx;
 		
 		FOR_EACH(m_cTaskList, iter)
 		{
@@ -29,45 +28,83 @@ namespace space_test_battle
 				pFunc(this, 0);
 			}
 		}
-
-		FOR_EACH(m_cDelTaskList, iter)
-		{
-			U32_T uId = *iter;
-			iterEx = m_cTaskList.find(uId);
-			if ( iterEx == m_cTaskList.end() )
-			{
-				continue;
-			}
-
-			m_cTaskList.erase(iterEx);
-
-			Script_T* pFunc = CManager::GetTaskScript(uId);
-			if (pFunc)
-			{
-				pFunc(this, 10);
-			}
-		}
-
-		FOR_EACH(m_cAddTaskList, iter)
-		{
-			U32_T uId = *iter;
-			iterEx = m_cTaskList.find(uId);
-			if ( iterEx != m_cTaskList.end() )
-			{
-				continue;
-			}
-
-			m_cTaskList.insert(uId);
-
-			Script_T* pFunc = CManager::GetTaskScript(uId);
-			if (pFunc)
-			{
-				pFunc(this, 1);
-			}
-		}
-
-
 	}
+
+	VOID_T CUint::Syn(U32_T uFlag)
+	{
+		TaskList_T::iterator iter;
+		TaskList_T::iterator iterEx;
+
+		switch(uFlag)
+		{
+		case 11:
+			{
+				FOR_EACH(m_cAddTaskList, iter)
+				{
+					U32_T uId = *iter;
+					iterEx = m_cTaskList.find(uId);
+					if ( iterEx != m_cTaskList.end() ) // 有重复
+					{
+						m_cAddTaskList.erase(iter);
+						continue;
+					}
+					m_cTaskList.insert(uId);  // 主列表增加
+				}
+				m_cSynAddTaskList = m_cAddTaskList;
+				m_cAddTaskList.clear();
+			}break;
+		case 12:
+			{
+				FOR_EACH(m_cDelTaskList, iter)
+				{
+					U32_T uId = *iter;
+					iterEx = m_cTaskList.find(uId);
+					if ( iterEx == m_cTaskList.end() )  //没找到
+					{
+						m_cDelTaskList.erase(iter);
+						continue;
+					}
+					m_cTaskList.erase(iterEx);   // 主列表删除
+				}
+				m_cSynDelTaskList = m_cDelTaskList;
+				m_cDelTaskList.clear();
+			}break;
+		case 21:
+			{
+				TaskList_T& cList = m_cSynAddTaskList;
+				FOR_EACH(cList, iter)
+				{
+					U32_T uId = *iter;
+					Script_T* pScript = CManager::GetTaskScript(uId);
+					if (pScript)
+					{
+						pScript(this, uFlag);
+					}
+				}
+				cList.clear();
+			}break;
+		case 22:
+			{
+				TaskList_T& cList = m_cSynDelTaskList;
+				FOR_EACH(cList, iter)
+				{
+					U32_T uId = *iter;
+					Script_T* pScript = CManager::GetTaskScript(uId);
+					if (pScript)
+					{
+						pScript(this, uFlag);
+					}
+				}
+				cList.clear();
+			}break;
+		case 100:
+			{
+				//todo 同步事件
+			}break;
+		}
+		
+	}
+
 
 	BOOL_T CUint::AddRole(EUnitRole e, VOID_T* pData)
 	{

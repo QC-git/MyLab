@@ -27,6 +27,8 @@ namespace space_test_battle
 	public:
 		VOID_T OnTick();
 
+		VOID_T Syn(U32_T uFlag);
+
 	public:
 		BOOL_T  AddRole(EUnitRole e, VOID_T* pData);
 
@@ -55,6 +57,8 @@ namespace space_test_battle
 		TaskList_T  m_cTaskList;
 		TaskList_T  m_cAddTaskList;
 		TaskList_T  m_cDelTaskList;
+		TaskList_T  m_cSynAddTaskList;
+		TaskList_T  m_cSynDelTaskList;
 
 		EventList_T m_cEventList;
 	};

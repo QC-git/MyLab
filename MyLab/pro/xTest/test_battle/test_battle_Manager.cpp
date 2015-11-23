@@ -85,7 +85,7 @@ namespace space_test_battle
 	VOID_T CManager::Tick()
 	{
 		s_nTickCnt++;
-		if ( 0 == s_nTickCnt%10 )
+		if ( 0 == s_nTickCnt%100 )
 		{
 			LOG_F("CManager::Tick(), %d", s_nTickCnt);
 		}
@@ -96,6 +96,34 @@ namespace space_test_battle
 		{
 			CUint* p = *iter;
 			p->OnTick();
+		}
+
+		CManager::Syn();
+		
+	}
+
+	VOID_T CManager::Syn()
+	{
+		UnitList_T::iterator iter;
+
+		FOR_EACH(s_cUnitList, iter)  // 同步任务表
+		{
+			CUint* p = *iter;
+			p->Syn(12);
+			p->Syn(11);
+		}
+
+		FOR_EACH(s_cUnitList, iter)  // 同步添加删除通知
+		{
+			CUint* p = *iter;
+			p->Syn(22);
+			p->Syn(21);
+		}
+
+		FOR_EACH(s_cUnitList, iter)  // 同步事件
+		{
+			CUint* p = *iter;
+			p->Syn(100);
 		}
 	}
 
