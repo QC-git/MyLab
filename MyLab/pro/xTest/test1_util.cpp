@@ -7,6 +7,11 @@
 #include "xTest.h"
 
 namespace space_test_util {
+	//==============================其它==============================
+	
+    //#pragma todo("VS2013")
+
+
 
 	//==============================函数区==============================
 
@@ -184,6 +189,54 @@ namespace space_test_util {
 
 		LOG_F("");
 	}
+
+	template<typename T>
+	class C5
+	{
+	public:
+		C5(T& data)
+			: m_data(data)
+		{
+
+		}
+
+		template<typename T1>
+		void GetData11(T1 data)
+		{
+		}
+
+		template<typename T1>
+		void GetData12()
+		{
+		}
+
+		template<typename T1, typename T2>
+		void GetData13(T1 data)
+		{
+		}
+
+		template<typename T1>
+		static void GetData21(T1 data)
+		{
+		}
+
+
+	private:
+		T m_data;
+	};
+
+	void test5()
+	{
+		int a = 1;
+		C5<int> c(a);
+		c.GetData11(a);
+		c.GetData12<int>();
+		c.GetData13<int, int>(a);
+		c.GetData21(a);
+		C5<int>::GetData21(a);
+
+	}
+
 
 }
 
