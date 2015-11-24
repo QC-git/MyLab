@@ -710,6 +710,93 @@ MultiList.prototype.pushByPos = function(item, index, pos) {
     return true;
 };
 
+function PosManager(limit) {
+    this.limit = limit;
+    this.posList = [];
+    this.lockList = [];
+    this.lastFreePos = 0;
+}
+
+PosManager.prototype.getLockList = function() {
+    return this.lockList;
+};
+
+PosManager.prototype.lock = function(pos, flag) {
+    if ( !this._safePos(pos) ) {
+        return false;
+    }
+    if (flag) {
+        if ( this.posList[pos] ) {
+            return false; // 这个位置已经有人， 不能再锁住
+        }
+    }
+    this.lockList[pos] = flag ? true : false;
+    return true;
+};
+
+PosManager.prototype.push = function(obj) {
+    var pos = this._getFreePos();
+    if ( pos < 0 ) {
+        return false;
+    }
+    this.posList[pos] = obj;
+    obj[pos] = pos;
+    return true;
+};
+
+PosManager.prototype.set = function(obj, pos) {
+    if ( !this._safePos(pos) ) {
+        return false;
+    }
+    this.posList[pos] = obj;
+    obj[pos] = pos;
+    return true;
+};
+
+PosManager.prototype.clear = function(obj, pos) {
+    if ( !this._safePos(pos) ) {
+        return false;
+    }
+    this.posList[pos] = null;
+    obj[pos] = -1;
+    return true;
+};
+
+PosManager.prototype._safePos = function(pos) {
+    if ( isNaN(pos) || pos < 0 || pos >= this.limit ) {
+        return false;
+    }
+    return true;
+};
+
+PosManager.prototype._isLock = function(pos) {
+    return this.lockList[pos];
+};
+
+PosManager.prototype._haveData = function(pos) {
+    return !!this.posList[pos];
+};
+
+PosManager.prototype._getFreePos = function() {
+    pos = this.lastFreePos;
+    pos++;
+    if ( this._safePos(pos) && !this._isLock(pos) && !this._haveData(pos) ) {
+        return pos;
+    }
+    pos = -1;
+    var self = this;
+    doRepeat(this.limit, function(i) {
+        var obj = self.posList[i];
+        var lock = self.lockList[i];
+        if ( !obj && !lock ) {
+            self.lastFreePos = pos;
+            pos = i;
+            return true;
+        }
+    });
+    return pos;
+};
+
 function getListItem(list, attrName, attrValue) {
     var data = null;
     doEach(list, function(i, item) {

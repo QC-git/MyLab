@@ -1081,3 +1081,8 @@ console.log("------------------31-----------------");
 assert = require("assert");
 //assert(0);
 
+console.log("------------------32-----------------");
+
+console.log(isNaN(undefined));
+console.log(![] instanceof Array);
+
