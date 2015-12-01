@@ -112,6 +112,7 @@
     <ClInclude Include="test_battle\test_battle_Manager.h" />
     <ClInclude Include="test_battle\test_battle_RoleSkill.h" />
     <ClInclude Include="test_battle\test_battle_RoleStatus.h" />
+    <ClInclude Include="test_battle\test_battle_RoleVoid.h" />
     <ClInclude Include="test_battle\test_battle_Tool.h" />
     <ClInclude Include="test_battle\test_battle_Unit.h" />
     <ClInclude Include="test_boost\sl_asio\sl_Message.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="test_battle\test_battle_Manager.cpp" />
     <ClCompile Include="test_battle\test_battle_RoleSkill.cpp" />
     <ClCompile Include="test_battle\test_battle_RoleStatus.cpp" />
+    <ClCompile Include="test_battle\test_battle_RoleVoid.cpp" />
     <ClCompile Include="test_battle\test_battle_Tool.cpp" />
     <ClCompile Include="test_battle\test_battle_Unit.cpp" />
     <ClCompile Include="test_boost\sl_asio\sl_TcpNet.cpp" />

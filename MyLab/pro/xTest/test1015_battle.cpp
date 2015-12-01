@@ -17,7 +17,8 @@ void test_battle()
 	space_test_battle::CManager::Create();
 	while(true)
 	{
-		space_test_battle::CManager::Tick();
+		space_test_battle::CManager::OnMessage(NULL);
+		space_test_battle::CManager::OnTick();
 		X::Sleep_f(100);
 	}
 

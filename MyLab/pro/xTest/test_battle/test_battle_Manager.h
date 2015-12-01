@@ -4,6 +4,7 @@
 #include "test_battle_RoleStatus.h"
 #include "test_battle_RoleAi.h"
 #include "test_battle_RoleSkill.h"
+#include "test_battle_RoleVoid.h"
 
 namespace space_test_battle 
 {
@@ -11,7 +12,7 @@ namespace space_test_battle
 
 	typedef std::map<U32_T, Script_T*> ScriptMap_T; 
 
-	typedef std::set<CUint*> UnitList_T;
+	typedef std::map<U32_T, CUint*> UnitList_T;
 
 	#define REGISTER_SCRIPT_F(_id) CManager::RegisterTaskScript(_id, script_##_id)
 
@@ -54,7 +55,9 @@ namespace space_test_battle
 	public:
 		static BOOL_T Create();
 
-		static VOID_T Tick();
+		static VOID_T OnMessage(VOID_T* pMsgList);
+
+		static VOID_T OnTick();
 
 		static U32_T GetTickCount() { return s_nTickCnt; }
 

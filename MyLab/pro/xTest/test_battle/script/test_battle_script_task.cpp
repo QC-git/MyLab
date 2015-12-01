@@ -21,7 +21,7 @@ namespace space_test_battle
 
 	}
 
-
+	//////////////////////////////////////////////////////////////////////////
 
 	// ×´Ì¬
 	VOID_T script_1001(CUint* p, U32_T uFlag)
@@ -62,6 +62,30 @@ namespace space_test_battle
 // 		}
 	}
 
+	//////////////////////////////////////////////////////////////////////////
+
+	//2000+ AI
+
+	//////////////////////////////////////////////////////////////////////////
+
+	//yh¼¼ÄÜ
+	VOID_T script_3331(CUint* p, U32_T uFlag)
+	{
+		CRoleVoid* pRole = CManager::GetRole(p, (CRoleVoid*)NULL);
+
+
+	}
+
+	//yh×´Ì¬
+	VOID_T script_3332(CUint* p, U32_T uFlag)
+	{
+		CRoleVoid* pRole = CManager::GetRole(p, (CRoleVoid*)NULL);
+
+
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////
 
 	VOID_T LoadAllScript()
 	{
