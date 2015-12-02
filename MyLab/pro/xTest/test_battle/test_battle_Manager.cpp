@@ -51,17 +51,17 @@ namespace space_test_battle
 		CUint* p2 = new CUint;
 		BOOL_T bRet;
 
-		bRet = MakeRole(p1, (CRoleCommon*)NULL);	LOG_F("%d", bRet);
-		bRet = MakeRole(p1, (CRoleSkill*)NULL);		LOG_F("%d", bRet);
+		bRet = MakeRole<CRoleBase>(p1);			LOG_F("%d", bRet);
+		bRet = MakeRole<CRoleAdvance>(p1);		LOG_F("%d", bRet);
 
-		bRet = MakeRole(p2, (CRoleCommon*)NULL);	LOG_F("%d", bRet);
-		bRet = MakeRole(p2, (CRoleSkill*)NULL);		LOG_F("%d", bRet);
+		bRet = MakeRole<CRoleBase>(p2);			LOG_F("%d", bRet);
+		bRet = MakeRole<CRoleAdvance>(p2);		LOG_F("%d", bRet);
 
 		s_cUnitList[123001] = p1;
 		s_cUnitList[123002] = p2;
 
-		CRoleCommon* pRole1 = CManager::GetRole(p1, (CRoleCommon*)NULL);
-		CRoleCommon* pRole2 = CManager::GetRole(p2, (CRoleCommon*)NULL);
+		CRoleBase* pRole1 = CManager::GetRole<CRoleBase>(p1);
+		CRoleBase* pRole2 = CManager::GetRole<CRoleBase>(p2);
 
 		U32_T uValue = 10000;
 		pRole1->AddMaxHealth(uValue);
@@ -88,8 +88,11 @@ namespace space_test_battle
 			CUint* p1 = s_cUnitList[123001];
 			CUint* p2 = s_cUnitList[123002];
 
-			CRoleSkill* pRole11 = CManager::GetRole(p1, (CRoleSkill*)NULL);
-			pRole11->CastSkill(101, p2);
+			//CRoleSkill* pRole11 = CManager::GetRole(p1, (CRoleSkill*)NULL);
+			//pRole11->CastSkill(101, p2);
+
+			CRoleAdvance* pRole11 = CManager::GetRole<CRoleAdvance>(p1);
+			pRole11->AddStatus(1001);
 		}
 
 	}
@@ -118,24 +121,17 @@ namespace space_test_battle
 	{
 		UnitList_T::iterator iter;
 
-		FOR_EACH(s_cUnitList, iter)  // 同步任务表
-		{
-			CUint* p = iter->second;
-			p->Syn(12);
-			p->Syn(11);
-		}
-
 		FOR_EACH(s_cUnitList, iter)  // 同步添加删除通知
 		{
 			CUint* p = iter->second;
-			p->Syn(22);
-			p->Syn(21);
+			p->Syn(ETaskFlag_DEC);
+			p->Syn(ETaskFlag_ADD);
 		}
 
 		FOR_EACH(s_cUnitList, iter)  // 同步事件
 		{
 			CUint* p = iter->second;
-			p->Syn(100);
+			p->Syn(ETaskFlag_SYN_EVENT);
 		}
 	}
 

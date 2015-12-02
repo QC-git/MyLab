@@ -219,19 +219,19 @@
     <ClInclude Include="test_battle\test_battle_Tool.h">
       <Filter>test_battle\tool</Filter>
     </ClInclude>
-    <ClInclude Include="test_battle\test_battle_RoleCommon.h">
-      <Filter>test_battle\role</Filter>
-    </ClInclude>
-    <ClInclude Include="test_battle\test_battle_RoleStatus.h">
-      <Filter>test_battle\role</Filter>
-    </ClInclude>
     <ClInclude Include="test_battle\test_battle_RoleAi.h">
       <Filter>test_battle\role</Filter>
     </ClInclude>
-    <ClInclude Include="test_battle\test_battle_RoleSkill.h">
+    <ClInclude Include="test_battle\test_battle_RoleVoid.h">
       <Filter>test_battle\role</Filter>
     </ClInclude>
-    <ClInclude Include="test_battle\test_battle_RoleVoid.h">
+    <ClInclude Include="test_battle\script\test_battle_script_tool.h">
+      <Filter>test_battle\script</Filter>
+    </ClInclude>
+    <ClInclude Include="test_battle\test_battle_RoleBase.h">
+      <Filter>test_battle\role</Filter>
+    </ClInclude>
+    <ClInclude Include="test_battle\test_battle_RoleAdvance.h">
       <Filter>test_battle\role</Filter>
     </ClInclude>
   </ItemGroup>
@@ -350,19 +350,19 @@
     <ClCompile Include="test_battle\test_battle_Tool.cpp">
       <Filter>test_battle\tool</Filter>
     </ClCompile>
-    <ClCompile Include="test_battle\test_battle_RoleCommon.cpp">
-      <Filter>test_battle\role</Filter>
-    </ClCompile>
-    <ClCompile Include="test_battle\test_battle_RoleStatus.cpp">
-      <Filter>test_battle\role</Filter>
-    </ClCompile>
     <ClCompile Include="test_battle\test_battle_RoleAi.cpp">
       <Filter>test_battle\role</Filter>
     </ClCompile>
-    <ClCompile Include="test_battle\test_battle_RoleSkill.cpp">
+    <ClCompile Include="test_battle\test_battle_RoleVoid.cpp">
       <Filter>test_battle\role</Filter>
     </ClCompile>
-    <ClCompile Include="test_battle\test_battle_RoleVoid.cpp">
+    <ClCompile Include="test_battle\script\test_battle_script_tool.cpp">
+      <Filter>test_battle\script</Filter>
+    </ClCompile>
+    <ClCompile Include="test_battle\test_battle_RoleBase.cpp">
+      <Filter>test_battle\role</Filter>
+    </ClCompile>
+    <ClCompile Include="test_battle\test_battle_RoleAdvance.cpp">
       <Filter>test_battle\role</Filter>
     </ClCompile>
   </ItemGroup>

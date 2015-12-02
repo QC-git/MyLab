@@ -6,13 +6,13 @@
 namespace space_test_battle 
 {
 
-	class CRoleSkill
+	class CRoleAdvance
 	{
 	public:
-		CRoleSkill(CUint* p);
-		~CRoleSkill();
+		CRoleAdvance(CUint* p);
+		~CRoleAdvance();
 
-		MARK_UNIT_ROLE(EUnitRole_SKILL)
+		MARK_UNIT_ROLE(EUnitRole_ADVANCE)
 
 		struct Data
 		{
@@ -28,9 +28,14 @@ namespace space_test_battle
 		};
 
 	public:
-		BOOL_T CastSkill(U32_T uId, CUint* pTarget);
+		BOOL_T CastSkill(U32_T uSkillId, CUint* pTarget);
 		BOOL_T IsCooling();
 		CUint* GetTarget();
+
+	public:
+		BOOL_T AddStatus(U32_T uId);
+		BOOL_T RemoveStatus(U32_T uId);
+		BOOL_T HasStatus(U32_T uId);
 
 	private:
 		Data* m_pData;

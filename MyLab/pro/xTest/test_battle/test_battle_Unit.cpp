@@ -21,83 +21,85 @@ namespace space_test_battle
 		
 		FOR_EACH(m_cTaskList, iter)
 		{
-			U32_T uId = *iter;
+			U32_T uId = iter->first;
+			STaskInfo* pInfo = iter->second;
+			pInfo->uCount++;
+
 			Script_T* pFunc = CManager::GetTaskScript(uId);
 			if (pFunc)
 			{
-				pFunc(this, 0);
+				pFunc(this, pInfo, ETaskFlag_Normal);
 			}
 		}
 	}
 
 	VOID_T CUint::Syn(U32_T uFlag)
 	{
-		TaskList_T::iterator iter;
-		TaskList_T::iterator iterEx;
+		PreTaskList_T::iterator cPreIter;
+		TaskList_T::iterator cIter;
 
 		switch(uFlag)
 		{
-		case 11:
+		case ETaskFlag_ADD:
 			{
-				FOR_EACH(m_cAddTaskList, iter)
+				PreTaskList_T cTaskList;
+				FOR_EACH(m_cPreAddTasks, cPreIter)
 				{
-					U32_T uId = *iter;
-					iterEx = m_cTaskList.find(uId);
-					if ( iterEx != m_cTaskList.end() ) // 有重复
+					U32_T uTaskId = *cPreIter;
+					cIter = m_cTaskList.find(uTaskId);
+					if ( cIter == m_cTaskList.end() ) 
 					{
-						m_cAddTaskList.erase(iter);
-						continue;
-					}
-					m_cTaskList.insert(uId);  // 主列表增加
+						cTaskList.insert(uTaskId);
+					} 
 				}
-				m_cSynAddTaskList = m_cAddTaskList;
-				m_cAddTaskList.clear();
-			}break;
-		case 12:
-			{
-				FOR_EACH(m_cDelTaskList, iter)
+				m_cPreAddTasks.clear();
+
+				FOR_EACH(cTaskList, cPreIter)
 				{
-					U32_T uId = *iter;
-					iterEx = m_cTaskList.find(uId);
-					if ( iterEx == m_cTaskList.end() )  //没找到
+					U32_T uTaskId = *cPreIter;
+					STaskInfo* pInfo = new STaskInfo;
+					pInfo->uId = uTaskId;
+
+					Script_T* pFunc = CManager::GetTaskScript(uTaskId);					
+					m_cTaskList[uTaskId] = pInfo;
+
+					if (pFunc)
 					{
-						m_cDelTaskList.erase(iter);
-						continue;
-					}
-					m_cTaskList.erase(iterEx);   // 主列表删除
-				}
-				m_cSynDelTaskList = m_cDelTaskList;
-				m_cDelTaskList.clear();
-			}break;
-		case 21:
-			{
-				TaskList_T& cList = m_cSynAddTaskList;
-				FOR_EACH(cList, iter)
-				{
-					U32_T uId = *iter;
-					Script_T* pScript = CManager::GetTaskScript(uId);
-					if (pScript)
-					{
-						pScript(this, uFlag);
+						pFunc(this, pInfo, uFlag);
 					}
 				}
-				cList.clear();
+
 			}break;
-		case 22:
+		case ETaskFlag_DEC:
 			{
-				TaskList_T& cList = m_cSynDelTaskList;
-				FOR_EACH(cList, iter)
+				PreTaskList_T cTaskList;
+				FOR_EACH(m_cPreDelTasks, cPreIter)
 				{
-					U32_T uId = *iter;
-					Script_T* pScript = CManager::GetTaskScript(uId);
-					if (pScript)
+					U32_T uTaskId = *cPreIter;
+					cIter = m_cTaskList.find(uTaskId);
+					if ( cIter != m_cTaskList.end() ) 
 					{
-						pScript(this, uFlag);
-					}
+						cTaskList.insert(uTaskId);					
+					} 
 				}
-				cList.clear();
+
+				m_cPreDelTasks.clear();
+
+				FOR_EACH(cTaskList, cPreIter)
+				{
+					U32_T uTaskId = *cPreIter;
+					STaskInfo* pInfo = m_cTaskList[uTaskId];
+
+					Script_T* pFunc = CManager::GetTaskScript(uTaskId);
+					if (pFunc)
+					{
+						pFunc(this, pInfo, uFlag);
+					}
+					delete pInfo;
+					m_cTaskList.erase(uTaskId);
+				}
 			}break;
-		case 100:
+		case ETaskFlag_SYN_EVENT:
 			{
 				//todo 同步事件
 			}break;
@@ -133,8 +135,8 @@ namespace space_test_battle
 
 	BOOL_T CUint::AddTask(U32_T u)
 	{
-		TaskList_T& cList = m_cAddTaskList;
-		TaskList_T::iterator iter = cList.find(u);
+		PreTaskList_T& cList = m_cPreAddTasks;
+		PreTaskList_T::iterator iter = cList.find(u);
 		if ( iter != cList.end() ) 
 		{
 			return TRUE;
@@ -145,13 +147,13 @@ namespace space_test_battle
 
 	BOOL_T CUint::RemoveTask(U32_T u)
 	{
-		TaskList_T& cList = m_cDelTaskList;
-		TaskList_T::iterator iter = cList.find(u);
-		if ( iter == cList.end() )
+		PreTaskList_T& cList = m_cPreDelTasks;
+		PreTaskList_T::iterator iter = cList.find(u);
+		if ( iter != cList.end() )
 		{
 			return TRUE;
 		}
-		cList.erase(iter);
+		cList.insert(u);
 		return TRUE;
 	}
 
@@ -159,6 +161,15 @@ namespace space_test_battle
 	{
 		TaskList_T::iterator iter = m_cTaskList.find(u);
 		return iter != m_cTaskList.end();
+	}
+
+	VOID_T* CUint::GetTaskInfo(U32_T u)
+	{
+		TaskList_T::iterator iter = m_cTaskList.find(u);
+		if ( iter == m_cTaskList.end() ) {
+			return NULL;
+		}
+		return iter->second;
 	}
 
 	VOID_T CUint::ReleaseData() 

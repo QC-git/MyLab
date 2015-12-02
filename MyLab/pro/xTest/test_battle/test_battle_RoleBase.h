@@ -5,11 +5,11 @@
 
 namespace space_test_battle 
 {
-	class CRoleCommon
+	class CRoleBase
 	{
 	public:
-		CRoleCommon(CUint* p);
-		~CRoleCommon();
+		CRoleBase(CUint* p);
+		~CRoleBase();
 
 		MARK_UNIT_ROLE(EUnitRole_COMMON)
 

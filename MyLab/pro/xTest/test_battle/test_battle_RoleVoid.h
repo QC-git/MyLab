@@ -16,6 +16,10 @@ namespace space_test_battle
 		struct Data
 		{
 			VOID_T* p;
+			Data()
+			{
+				p = NULL;
+			}
 		};
 
 	public:

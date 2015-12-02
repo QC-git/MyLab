@@ -1,25 +1,25 @@
 
 #include "x_all.h"
-#include "test_battle_RoleCommon.h"
+#include "test_battle_RoleBase.h"
 
 namespace space_test_battle 
 {
 
-	CRoleCommon::CRoleCommon(CUint* p)
+	CRoleBase::CRoleBase(CUint* p)
 	{
 		m_pUnit = p;
 
-		EUnitRole e = CRoleCommon::GetRoleType();
+		EUnitRole e = CRoleBase::GetRoleType();
 		m_pData = (Data*)p->GetRoleData(e);
 	}
 
-	CRoleCommon::~CRoleCommon()
+	CRoleBase::~CRoleBase()
 	{
 		;
 	}
 
 
-	BOOL_T CRoleCommon::AddMark(U32_T uMark)
+	BOOL_T CRoleBase::AddMark(U32_T uMark)
 	{
 		MarkList_T& cList = m_pData->cMarkList;
 		MarkList_T::iterator cIter;
@@ -39,7 +39,7 @@ namespace space_test_battle
 		return true;
 	}
 
-	BOOL_T CRoleCommon::RemoveMark(U32_T uMark)
+	BOOL_T CRoleBase::RemoveMark(U32_T uMark)
 	{
 		MarkList_T& cList = m_pData->cMarkList;
 		MarkList_T::iterator cIter;
@@ -54,12 +54,12 @@ namespace space_test_battle
 		return true;
 	}
 
-	VOID_T CRoleCommon::RemoveAllMark()
+	VOID_T CRoleBase::RemoveAllMark()
 	{
 		m_pData->cMarkList.clear();
 	}
 
-	BOOL_T CRoleCommon::HaveMark(U32_T uMark)
+	BOOL_T CRoleBase::HaveMark(U32_T uMark)
 	{
 		MarkList_T::iterator cIter = m_pData->cMarkList.find(uMark);
 		return cIter != m_pData->cMarkList.end();

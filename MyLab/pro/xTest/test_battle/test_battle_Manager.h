@@ -1,14 +1,14 @@
 #pragma once
 
-#include "test_battle_RoleCommon.h"
-#include "test_battle_RoleStatus.h"
+#include "test_battle_RoleBase.h"
+#include "test_battle_RoleAdvance.h"
 #include "test_battle_RoleAi.h"
-#include "test_battle_RoleSkill.h"
 #include "test_battle_RoleVoid.h"
 
 namespace space_test_battle 
 {
-	typedef VOID_T Script_T (CUint*, U32_T);
+
+	typedef VOID_T Script_T (CUint*, STaskInfo* pInfo, U32_T);
 
 	typedef std::map<U32_T, Script_T*> ScriptMap_T; 
 
@@ -22,7 +22,7 @@ namespace space_test_battle
 		CManager();
 		~CManager();
 
-		template<class T> static BOOL_T MakeRole(CUint* p, T* pDummy)
+		template<class T> static BOOL_T MakeRole(CUint* p)
 		{
 			EUnitRole eRole = T::GetRoleType();
 			if ( p->HasRole(eRole) ) 
@@ -34,11 +34,11 @@ namespace space_test_battle
 			{
 				return FALSE;
 			}
-			memset(pData, 0, sizeof(T::Data));
+			//memset(pData, 0, sizeof(T::Data));
 			return p->AddRole(eRole, pData);
 		}
 
-		template<class T> static T* GetRole(CUint* p, T* pDummy)
+		template<class T> static T* GetRole(CUint* p)
 		{
 			EUnitRole eRole = T::GetRoleType();
 			if ( !p->HasRole(eRole) ) 
