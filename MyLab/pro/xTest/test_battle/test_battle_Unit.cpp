@@ -3,6 +3,8 @@
 #include "test_battle_Unit.h"
 #include "test_battle_Manager.h"
 
+#include "log4cxx/logger.h"
+
 namespace space_test_battle 
 {
 	CUint::CUint(U32_T uId)

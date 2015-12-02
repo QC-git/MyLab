@@ -6,6 +6,9 @@
 
 #include "xTest.h"
 
+#include "log4cxx/logger.h"
+#include "log4cxx/propertyconfigurator.h"
+
 namespace space_test_util {
 	//==============================ÆäËü==============================
 	
@@ -187,6 +190,33 @@ namespace space_test_util {
 
 	}
 
+	void test6()
+	{
+		log4cxx::PropertyConfigurator::configure("log4cxx.properties");
+		log4cxx::LoggerPtr loggerA(log4cxx::Logger::getLogger("aaa"));  
+		log4cxx::LoggerPtr loggerB(log4cxx::Logger::getLogger("bbb")); 
+		LOG_F("\n");
+		LOG4CXX_INFO(loggerA, "this is log4cxx test"); 
+		LOG4CXX_INFO(loggerB, "this is log4cxx test"); 
+
+
+		log4cxx::LoggerPtr logger0(log4cxx::Logger::getLogger("logger0")); 
+		LOG4CXX_DEBUG(logger0, "hello");
+		LOG4CXX_TRACE(logger0, "hello");
+		LOG4CXX_INFO(logger0, "hello");
+		LOG4CXX_WARN(logger0, "hello");
+		LOG4CXX_ERROR(logger0, "hello");
+		LOG4CXX_FATAL(logger0, "hello");
+
+		//log4j.logger.logger0 = INFO, ap0  
+
+// 		INFO 23:02:03 -- hello
+// 		WARN 23:02:04 -- hello
+// 		ERROR 23:02:04 -- hello
+// 		FATAL 23:02:04 -- hello
+
+		LOG_F("\n");
+	}
 
 }
 
@@ -208,6 +238,7 @@ void test_util()
 // 	space_test_util::test2();
 // 	space_test_util::test3();
 	space_test_util::test4();
+	space_test_util::test6();
 
 	getchar();
 }

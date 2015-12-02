@@ -19,7 +19,7 @@
 #define HASH_D(_key, _type)	std::hash_map<_key, _type>
 
 #define PAR_D(_type1, _type2) srd::pair<_type1, _type2>
-#define PTR_D(_type) std::shared_ptr<_type>
+#define SP_D(_type) std::shared_ptr<_type>
 
 #define FOR_EACH(_container, _iter) for (_iter=_container.begin(); _iter!=_container.end(); _iter++)
 #define FOR_LOOP(_loop) for(int _n=0; _n<_loop; _n++)

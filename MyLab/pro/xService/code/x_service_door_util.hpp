@@ -52,6 +52,18 @@ _SERVICE_EXPORT VOID_T Log_f(ELogLevel emLevel, const CHAR_T* sFmt, ...);
 #	endif
 #endif
 
+#define ASSERT_F(expr)							 \
+	do {                                         \
+	if (!(expr)) {                               \
+	fprintf(stderr,                              \
+	"\n\n[DB-ASSERT] failed in %s on line %d: %s\n",   \
+	__FILE__,                                    \
+	__LINE__,                                    \
+#expr);											 \
+	abort();									 \
+	}                                            \
+	} while (0)
+
 /*
 ************************************************************************************************************************
 *                                                    CPrint
