@@ -22,7 +22,10 @@ namespace space_test_battle
 		CManager();
 		~CManager();
 
-		template<class T> static BOOL_T MakeRole(CUint* p)
+		static CUint* CreateUnit();
+
+		template<class T> 
+		static BOOL_T MakeRole(CUint* p)
 		{
 			EUnitRole eRole = T::GetRoleType();
 			if ( p->HasRole(eRole) ) 
@@ -38,7 +41,8 @@ namespace space_test_battle
 			return p->AddRole(eRole, pData);
 		}
 
-		template<class T> static SP_D(T) GetRole(CUint* p)
+		template<class T> 
+		static SP_D(T) GetRole(CUint* p)
 		{
 			EUnitRole eRole = T::GetRoleType();
 			if ( !p->HasRole(eRole) ) 
@@ -51,6 +55,20 @@ namespace space_test_battle
 		static BOOL_T RegisterTaskScript(U32_T uId, Script_T* pScript);
 
 		static Script_T* GetTaskScript(U32_T uId);
+
+	public:
+		static CUint* GetUnit(U32_T uGuid);
+
+		template<class T> 
+		static SP_D(T) GetRole(U32_T uGuid)
+		{
+			CUint* p = GetUnit(uGuid);
+			if ( NULL == p )
+			{
+				return SP_D(T)(NULL);
+			}
+			return GetRole<T>(p);
+		}
 
 	public:
 		static BOOL_T Create();

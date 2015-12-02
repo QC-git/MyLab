@@ -5,14 +5,22 @@
 
 namespace space_test_battle 
 {
-	CUint::CUint()
+	CUint::CUint(U32_T uId)
+		: m_uId(uId)
 	{
 		this->ReleaseData();
+		ASSERT_F(m_uId);
+
 	}
 
 	CUint::~CUint()
 	{
 		;
+	}
+
+	U32_T CUint::GetId()
+	{
+		return m_uId;
 	}
 
 	VOID_T CUint::OnTick()

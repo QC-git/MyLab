@@ -42,8 +42,11 @@ namespace space_test_battle
 	class CUint
 	{
 	public:
-		CUint();
+		CUint(U32_T uId);
 		~CUint();
+
+	public:
+		U32_T GetId();
 
 	public:
 		VOID_T OnTick();
@@ -83,6 +86,10 @@ namespace space_test_battle
 		PreTaskList_T  m_cPreDelTasks;
 
 		EventList_T m_cEventList;
+
+	private:
+		U32_T m_uId;
+
 	};
 
 }

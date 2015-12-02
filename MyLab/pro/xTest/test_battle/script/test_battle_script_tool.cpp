@@ -13,6 +13,7 @@ namespace space_test_battle
 		if ( ETaskFlag_ADD == uFlag ) 
 		{
 			LOG_F("add dot %d", pInfo->uId);
+			//SP_D(CRoleBase) spRole = CManager::GetRole<CRoleBase>(1111);
 		}
 
 		if ( ETaskFlag_DEC == uFlag )
@@ -59,7 +60,7 @@ namespace space_test_battle
 		if ( ETaskFlag_Normal == uFlag )
 		{
 
-
+			
 		}
 	}
 

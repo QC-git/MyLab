@@ -41,14 +41,42 @@ namespace space_test_battle
 		return s_cScriptMap[uId];
 	}
 
+	CUint* CManager::CreateUnit()
+	{
+		static U32_T s_uSn = 0;
+		
+		U32_T uId = ++s_uSn;
+		ASSERT_F(uId);
+
+		CUint* p = new CUint(uId);
+		ASSERT_F(p);
+
+		if ( p && !GetUnit(uId) )
+		{
+			s_cUnitList[uId] = p;
+		}
+
+		return p;
+	}
+
+	CUint* CManager::GetUnit(U32_T uGuid)
+	{
+		UnitList_T::iterator cIter = s_cUnitList.find(uGuid);
+		if ( cIter == s_cUnitList.end() ) 
+		{
+			return NULL;
+		}
+		return cIter->second;
+	}
+
 	BOOL_T CManager::Create()
 	{
 		LOG_F("CManager::Create()");
 
 		LoadAllScript();
 
-		CUint* p1 = new CUint;
-		CUint* p2 = new CUint;
+		CUint* p1 = CManager::CreateUnit();
+		CUint* p2 = CManager::CreateUnit();
 		BOOL_T bRet;
 
 		bRet = MakeRole<CRoleBase>(p1);			LOG_F("%d", bRet);
@@ -56,9 +84,6 @@ namespace space_test_battle
 
 		bRet = MakeRole<CRoleBase>(p2);			LOG_F("%d", bRet);
 		bRet = MakeRole<CRoleAdvance>(p2);		LOG_F("%d", bRet);
-
-		s_cUnitList[123001] = p1;
-		s_cUnitList[123002] = p2;
 
 		SP_D(CRoleBase) spRole1 = CManager::GetRole<CRoleBase>(p1);
 		SP_D(CRoleBase) spRole2 = CManager::GetRole<CRoleBase>(p2);
@@ -85,13 +110,10 @@ namespace space_test_battle
 		if (bFirst) {
 			bFirst = false;
 
-			CUint* p1 = s_cUnitList[123001];
-			CUint* p2 = s_cUnitList[123002];
-
 			//CRoleSkill* pRole11 = CManager::GetRole(p1, (CRoleSkill*)NULL);
 			//pRole11->CastSkill(101, p2);
 
-			SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(p1);
+			SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(1);
 			//CRoleAdvance* pRole11 = 
 			spRole->AddStatus(1001);
 		}
