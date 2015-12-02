@@ -14,6 +14,8 @@ namespace space_test_battle
 
 	typedef std::map<U32_T, CUint*> UnitList_T;
 
+	typedef std::set<CUint*>		UnitSet_T;
+
 	#define REGISTER_SCRIPT_F(_id) CManager::RegisterTaskScript(_id, script_##_id)
 
 	class CManager
@@ -69,6 +71,9 @@ namespace space_test_battle
 			}
 			return GetRole<T>(p);
 		}
+
+		static UnitSet_T getAllUnit(U32_T uIgnoreGuid);
+
 
 	public:
 		static BOOL_T Create();

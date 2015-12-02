@@ -17,7 +17,8 @@ namespace space_test_battle
 
 	struct state_param_area_s
 	{
-
+		U32_T uExpireCount;
+		U32_T uMark;
 	};
 
 	VOID_T task_state_aura(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_area_s& params);

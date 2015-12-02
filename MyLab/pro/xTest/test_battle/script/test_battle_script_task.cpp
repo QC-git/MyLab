@@ -39,20 +39,11 @@ namespace space_test_battle
 
 	VOID_T script_1002(CUint* p, STaskInfo* pInfo, U32_T uFlag)
 	{
+		state_param_area_s param;
+		param.uExpireCount = 100;
+		param.uMark = 1002;
 
-// 		switch(sTaskInfo.uTickCnt)
-// 		{
-// 		case 1:
-// 			{
-// 				U32_T uVal = 100;
-// 				pRole->AddMagic(uVal);
-// 			}break;
-// 		case 10:
-// 			{
-// 				U32_T uVal = 100;
-// 				pRole->DecMagic(uVal);
-// 			}break;
-// 		}
+		task_state_aura(p, pInfo, uFlag, param);
 	}
 
 	//////////////////////////////////////////////////////////////////////////

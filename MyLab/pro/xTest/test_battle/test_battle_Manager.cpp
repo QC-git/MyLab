@@ -69,6 +69,24 @@ namespace space_test_battle
 		return cIter->second;
 	}
 
+	UnitSet_T CManager::getAllUnit(U32_T uIgnoreGuid)
+	{
+		UnitSet_T cList;
+
+		UnitList_T::iterator cIter;
+		FOR_EACH(s_cUnitList, cIter)
+		{
+			CUint* p = cIter->second;
+			if ( p->GetId() == uIgnoreGuid )
+			{
+				continue;;
+			}
+			cList.insert(p);
+		}
+
+		return cList;
+	}
+
 	BOOL_T CManager::Create()
 	{
 		LOG_F("CManager::Create()");
@@ -77,6 +95,7 @@ namespace space_test_battle
 
 		CUint* p1 = CManager::CreateUnit();
 		CUint* p2 = CManager::CreateUnit();
+		CUint* p3 = CManager::CreateUnit();
 		BOOL_T bRet;
 
 		bRet = MakeRole<CRoleBase>(p1);			LOG_F("%d", bRet);
@@ -85,20 +104,23 @@ namespace space_test_battle
 		bRet = MakeRole<CRoleBase>(p2);			LOG_F("%d", bRet);
 		bRet = MakeRole<CRoleAdvance>(p2);		LOG_F("%d", bRet);
 
+		bRet = MakeRole<CRoleBase>(p3);			LOG_F("%d", bRet);
+		bRet = MakeRole<CRoleAdvance>(p3);		LOG_F("%d", bRet);
+
 		SP_D(CRoleBase) spRole1 = CManager::GetRole<CRoleBase>(p1);
 		SP_D(CRoleBase) spRole2 = CManager::GetRole<CRoleBase>(p2);
+		SP_D(CRoleBase) spRole3 = CManager::GetRole<CRoleBase>(p3);
 
 		U32_T uValue = 10000;
 		spRole1->AddMaxHealth(uValue);
-
-		uValue = 10000;
 		spRole1->AddHealth(uValue);
 
-		uValue = 30000;
-		spRole2->AddMaxHealth(uValue);
 
-		uValue = 30000;
+		spRole2->AddMaxHealth(uValue);
 		spRole2->AddHealth(uValue);
+
+		spRole3->AddMaxHealth(uValue);
+		spRole3->AddHealth(uValue);
 
 		return TRUE;
 	}
@@ -115,7 +137,8 @@ namespace space_test_battle
 
 			SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(1);
 			//CRoleAdvance* pRole11 = 
-			spRole->AddStatus(1001);
+			//spRole->AddStatus(1001);
+			spRole->AddStatus(1002);
 		}
 
 	}
