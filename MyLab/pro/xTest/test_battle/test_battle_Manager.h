@@ -38,14 +38,14 @@ namespace space_test_battle
 			return p->AddRole(eRole, pData);
 		}
 
-		template<class T> static T* GetRole(CUint* p)
+		template<class T> static SP_D(T) GetRole(CUint* p)
 		{
 			EUnitRole eRole = T::GetRoleType();
 			if ( !p->HasRole(eRole) ) 
 			{
-				return (T*)NULL;
+				return SP_D(T)(NULL);
 			}
-			return new T(p);
+			return SP_D(T)(new T(p));
 		}
 
 		static BOOL_T RegisterTaskScript(U32_T uId, Script_T* pScript);

@@ -14,7 +14,13 @@ namespace space_test_battle
 
 	VOID_T task_state_dot(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_dot_s& params);
 
-	VOID_T task_state_aura(CUint* p, U32_T uFlag);
+
+	struct state_param_area_s
+	{
+
+	};
+
+	VOID_T task_state_aura(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_area_s& params);
 
 
 }

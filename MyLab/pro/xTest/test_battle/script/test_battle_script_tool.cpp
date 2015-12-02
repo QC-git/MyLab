@@ -7,8 +7,8 @@ namespace space_test_battle
 
 	VOID_T task_state_dot(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_dot_s& params)
 	{
-		CRoleBase* pRole1 = CManager::GetRole(p, (CRoleBase*)NULL);
-		CRoleAdvance* pRole = CManager::GetRole(p, (CRoleAdvance*)NULL);
+		SP_D(CRoleBase) spRole = CManager::GetRole<CRoleBase>(p);
+		SP_D(CRoleAdvance) spRoleEx = CManager::GetRole<CRoleAdvance>(p);
 		
 		if ( ETaskFlag_ADD == uFlag ) 
 		{
@@ -26,27 +26,41 @@ namespace space_test_battle
 
 			if ( uTickCnt > params.uExpireCount ) 
 			{
-				pRole->RemoveStatus(pInfo->uId);
+				spRoleEx->RemoveStatus(pInfo->uId);
 				return;
 			}
 
 			if ( 0 == uTickCnt%params.uInterval )
 			{
-				pRole1->DecHealth(params.uDamage);
+				spRole->DecHealth(params.uDamage);
 			}
 
 		}
 
 	}
 
-	struct state_area_s
-	{
 
-	};
 
-	VOID_T task_state_aura(CUint* p, U32_T uFlag)
+	VOID_T task_state_aura(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_area_s& params)
 	{
-		;
+		SP_D(CRoleBase) spRole = CManager::GetRole<CRoleBase>(p);
+		SP_D(CRoleAdvance) spRoleEx = CManager::GetRole<CRoleAdvance>(p);
+
+		if ( ETaskFlag_ADD == uFlag ) 
+		{
+			LOG_F("add aura %d", pInfo->uId);
+		}
+
+		if ( ETaskFlag_DEC == uFlag )
+		{
+			LOG_F("del aura %d", pInfo->uId);
+		}
+
+		if ( ETaskFlag_Normal == uFlag )
+		{
+
+
+		}
 	}
 
 }

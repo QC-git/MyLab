@@ -8,16 +8,16 @@ namespace space_test_battle
 	// 技能
 	VOID_T script_101(CUint* p, STaskInfo* pInfo, U32_T uFlag)
 	{
-		CRoleAdvance* pRole = CManager::GetRole(p, (CRoleAdvance*)NULL);
+		SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(p);
 
 		U32_T nTick = CManager::GetTickCount();
 
 		if ( 0 == nTick%30 )
 		{
-			CUint* pTarget = pRole->GetTarget();
-			CRoleBase* pTagretCommon = CManager::GetRole(pTarget, (CRoleBase*)NULL);
+			CUint* pTarget = spRole->GetTarget();
+			SP_D(CRoleBase) spTagretCommon = CManager::GetRole<CRoleBase>(pTarget);
 			U32_T uValue = 100;
-			pTagretCommon->DecHealth(uValue);
+			spTagretCommon->DecHealth(uValue);
 		}
 
 	}
@@ -27,7 +27,6 @@ namespace space_test_battle
 	// 状态
 	VOID_T script_1001(CUint* p, STaskInfo* pInfo, U32_T uFlag)
 	{
-		CRoleBase* pRole = CManager::GetRole(p, (CRoleBase*)NULL);
 
 		state_param_dot_s params;
 		params.uDamage = 500;
@@ -40,7 +39,6 @@ namespace space_test_battle
 
 	VOID_T script_1002(CUint* p, STaskInfo* pInfo, U32_T uFlag)
 	{
-		CRoleBase* pRole = CManager::GetRole(p, (CRoleBase*)NULL);
 
 // 		switch(sTaskInfo.uTickCnt)
 // 		{
@@ -66,7 +64,6 @@ namespace space_test_battle
 	//yh技能
 	VOID_T script_3331(CUint* p, STaskInfo* pInfo, U32_T uFlag)
 	{
-		CRoleVoid* pRole = CManager::GetRole(p, (CRoleVoid*)NULL);
 
 
 	}
@@ -74,7 +71,6 @@ namespace space_test_battle
 	//yh状态
 	VOID_T script_3332(CUint* p, STaskInfo* pInfo, U32_T uFlag)
 	{
-		CRoleVoid* pRole = CManager::GetRole(p, (CRoleVoid*)NULL);
 
 
 	}

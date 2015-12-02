@@ -60,20 +60,20 @@ namespace space_test_battle
 		s_cUnitList[123001] = p1;
 		s_cUnitList[123002] = p2;
 
-		CRoleBase* pRole1 = CManager::GetRole<CRoleBase>(p1);
-		CRoleBase* pRole2 = CManager::GetRole<CRoleBase>(p2);
+		SP_D(CRoleBase) spRole1 = CManager::GetRole<CRoleBase>(p1);
+		SP_D(CRoleBase) spRole2 = CManager::GetRole<CRoleBase>(p2);
 
 		U32_T uValue = 10000;
-		pRole1->AddMaxHealth(uValue);
+		spRole1->AddMaxHealth(uValue);
 
 		uValue = 10000;
-		pRole1->AddHealth(uValue);
+		spRole1->AddHealth(uValue);
 
 		uValue = 30000;
-		pRole2->AddMaxHealth(uValue);
+		spRole2->AddMaxHealth(uValue);
 
 		uValue = 30000;
-		pRole2->AddHealth(uValue);
+		spRole2->AddHealth(uValue);
 
 		return TRUE;
 	}
@@ -91,8 +91,9 @@ namespace space_test_battle
 			//CRoleSkill* pRole11 = CManager::GetRole(p1, (CRoleSkill*)NULL);
 			//pRole11->CastSkill(101, p2);
 
-			CRoleAdvance* pRole11 = CManager::GetRole<CRoleAdvance>(p1);
-			pRole11->AddStatus(1001);
+			SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(p1);
+			//CRoleAdvance* pRole11 = 
+			spRole->AddStatus(1001);
 		}
 
 	}
