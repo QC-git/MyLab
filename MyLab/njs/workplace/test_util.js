@@ -797,6 +797,101 @@ PosManager.prototype._getFreePos = function() {
     return pos;
 };
 
+function Box(createFn) {
+    this._sands = {};
+    this._createFn = createFn;
+}
+
+Box.eAction = {
+    Enter: 0,
+    Leave: 1
+};
+
+Box.eErrCode = {
+    UnKnown: 0,
+    HasInBox: 1,
+    NoInBox: 2,
+    ParamsError: 3
+};
+
+Box.prototype.enter = function(key, info) {
+    if (!key) {
+        return errorFn(Box.eErrCode.ParamsError, false);
+    }
+
+    if ( this._sands[key] ) {
+        return errorFn(Box.eErrCode.HasInBox, false);
+        //return false;
+    }
+
+    var action = Box.eAction.Enter;
+    if ( !this.check(action, key, info) ) {
+        return errorFn(Box.eErrCode.UnKnown, false);
+        //return false;
+    }
+
+    var sand = this._createFn(key, info);
+    this._sands[key] = sand;
+    if ( sand.onEnter ) {
+        sand.onEnter(info);
+    }
+
+    this.notify(action);
+    return true;
+};
+
+Box.prototype.leave = function(key, info) {
+    if (!key) {
+        return errorFn(Box.eErrCode.ParamsError, false);
+    }
+
+    var sand = this._sands[key];
+    if (!sand) {
+        return errorFn(Box.eErrCode.NoInBox, false);
+        //return false;
+    }
+
+    var action = Box.eAction.Leave;
+    if ( !this.check(action, key, info) ) {
+        return errorFn(Box.eErrCode.UnKnown, false);
+        //return false;
+    }
+
+    if ( sand.onLeave ) {
+        sand.onLeave(info);
+    }
+    delete this._sands[key];
+
+    this.notify(action);
+    return true;
+};
+
+Box.prototype.get = function(key) {
+    return this._sands[key];
+};
+
+Box.prototype.each = function(fn) {
+    doEachEx(this._sands, function(key, sand) {
+        fn(sand);
+    })
+};
+
+Box.prototype.sandNum = function() {
+    var num = 0;
+    this.each(function(sand) {
+        num++;
+    });
+    return num;
+};
+
+Box.prototype.check = function(flag, key, info) {
+    return true;
+};
+
+Box.prototype.notify = function(flag) {
+
+};
+
 function getListItem(list, attrName, attrValue) {
     var data = null;
     doEach(list, function(i, item) {
@@ -808,17 +903,25 @@ function getListItem(list, attrName, attrValue) {
     return data;
 }
 
-function checkNumber(data) {
-    return "number" == typeof data;
-}
+var gThrowEnable = true;
 
-function checkString(data) {
-    return "string" == typeof data;
-}
+//var errorFn = function(code, fn)
+var errorFn = function(code, ret, fn) {
+    if ( "function" === ret ) {
+        fn = ret;
+        ret = undefined;
+    }
 
-function checkObject(data) {
-    return "object" == typeof data;
-}
+    if (fn) {
+        fn(code);
+    }
+
+    if (!gThrowEnable) {
+        return ret;
+    }
+    //throw new Error(code);
+    throw {isErrorEx: true, code: code};
+};
 
 var gDebugEnable = true;
 var gDebugList = [
@@ -872,6 +975,7 @@ var log = function() {
 };
 
 
+
 module.exports = {
     getTime: getTime,
     getNumber: getNumber,
@@ -880,6 +984,8 @@ module.exports = {
     DelayTime: DelayTime,
     UpdateTime: UpdateTime,
     UpdateWeek: UpdateWeek,
+
+    ListKeyHelper: ListKeyHelper,
 
     getWeek: getWeek,
     getWeekEx: getWeekEx,
@@ -895,11 +1001,12 @@ module.exports = {
     cloneByAttr: cloneByAttr,
     cloneForResetKey: cloneForResetKey,
 
-    ListKeyHelper: ListKeyHelper,
     getListItem: getListItem,
+    errorFn: errorFn,
 
     tag: tag,
     log: log
+
 };
 
 ///////////////////////////////////������///////////////////////////////////////
@@ -1206,9 +1313,9 @@ module.exports = {
 //2 11 c
 //end
 
-var iconv = require("../modules/iconv-lite/lib");
-
-var str = "帅";
+//var iconv = require("../modules/iconv-lite/lib");
+//
+//var str = "帅";
 //console.log(str);
 //console.log(new Buffer(str));
 //console.log(str.charCodeAt(0));
@@ -1216,8 +1323,8 @@ var str = "帅";
 //console.log(new Buffer(String.fromCharCode(35831,27714)));
 //console.log(String.fromCharCode(232, 175, 183, 230, 177, 130));
 
-console.log(new Buffer(str));
-console.log(iconv.encode(str, "gbk"));
+//console.log(new Buffer(str));
+//console.log(iconv.encode(str, "gbk"));
 
 //请求
 //<Buffer e8 af b7 e6 b1 82>
@@ -1249,6 +1356,122 @@ console.log(iconv.encode(str, "gbk"));
 //
 //ListMap.test();
 
-console.log("===========MapQueue==============");
+//console.log("===========MapQueue==============");
+//
+//MapQueue.test();
 
-MapQueue.test();
+
+console.log("===========Box==============");
+
+function FakeBoxService() {
+    this.boxes = {};
+    this.sn = 0;
+}
+
+FakeBoxService.prototype.create = function(boxId, uid, info) {
+    this.sn++;
+
+    if ( !boxId ) {
+        return errorFn(Box.eErrCode.ParamsError, null);
+    }
+
+    if ( this.boxes[boxId] ) {
+        return errorFn(FakeBox.eErrCode.IdDup, null);
+    }
+
+    var box = new FakeBox(this, boxId, function(key, info) {
+        return new FakeBoxUser(key, info);
+    });
+
+    if ( !box.enter(uid, info) ) {
+        return null;
+    }
+
+    this.boxes[boxId] = box;
+
+    return box;
+};
+
+FakeBoxService.prototype.handler = function(boxId) {
+    return this.boxes[boxId];
+};
+
+FakeBoxService.prototype.release = function(boxId) {
+    console.log("FakeBoxService.prototype.release, boxId = ", boxId);
+    delete this.boxes[boxId];
+};
+
+function FakeBox(mgr, id, createFn) {
+    Box.call(this, createFn);
+    this._mgr = mgr;
+    this._id = id;
+}
+
+var util = require("util");
+util.inherits(FakeBox, Box);
+
+FakeBox.eErrCode = {
+    IdDup: 10
+};
+
+FakeBox.prototype.leave = function(uid, info) {
+    if ( !Box.prototype.leave.call(this, uid, info) ) {
+        return false;
+    }
+
+    if ( 0 == this.sandNum() ) {
+        this._mgr.release(this._id);
+    }
+    return true;
+};
+
+FakeBox.prototype.notify = function(flag) {
+    var list = [];
+    this.each(function(user) {
+        list.push(user.getId());
+    });
+    console.log("FakeBox.prototype.notify, list = ", list);
+};
+
+function FakeBoxUser(uid, info) {
+    this._uid = uid;
+    this._info = info;
+}
+
+FakeBoxUser.prototype.getId = function() {
+    return this._uid;
+};
+
+FakeBoxUser.prototype.onEnter = function() {
+    console.log("FakeBoxUser.prototype.onEnter ", this.getId());
+};
+
+FakeBoxUser.prototype.onLeave = function() {
+    console.log("FakeBoxUser.prototype.onLeave ", this.getId());
+};
+
+FakeBoxService.test = function() {
+
+    console.log(Box.prototype);
+    console.log(FakeBoxService.prototype);
+
+    try {
+        var mgr = new FakeBoxService();
+
+        var box = mgr.create("box-1", "1", {});
+        console.log(box ? true: false);
+        console.log(box.enter("2"));
+        console.log(box.enter("3"));
+
+        console.log(box.leave("1"));
+        console.log(box.leave("2"));
+        console.log(box.leave("3"));
+
+        console.log(box.leave("3"));
+    } catch (e) {
+        console.log(e.code);
+    }
+
+};
+
+FakeBoxService.test();
