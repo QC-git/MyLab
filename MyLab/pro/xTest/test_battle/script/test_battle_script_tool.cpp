@@ -64,6 +64,7 @@ namespace space_test_battle
 
 				SP_D(CRoleBase) spRoleTmp = CManager::GetRole<CRoleBase>(pUnit);
 				spRoleTmp->AddMark(params.uMark);
+				spRoleTmp->AddMark(params.uMarkEx);
 
 				pAreaInfo->insert(pUnit->GetId());
 			}
@@ -86,6 +87,7 @@ namespace space_test_battle
 
 				SP_D(CRoleBase) spRoleTmp = CManager::GetRole<CRoleBase>(pUnit);
 				spRoleTmp->RemoveMark(params.uMark);
+				spRoleTmp->RemoveMark(params.uMarkEx);
 				
 			}
 

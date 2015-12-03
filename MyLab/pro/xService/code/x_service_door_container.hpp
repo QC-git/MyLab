@@ -12,6 +12,10 @@
 #include <map>
 #include <hash_map>
 
+#include <string>
+#include <iostream>  
+#include <sstream>
+
 #define VEC_D(_type)		std::vector<_type>
 #define SET_D(_type)		std::set<_type>
 #define LIST_D(_type)		std::list<_type>

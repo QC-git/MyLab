@@ -42,6 +42,7 @@ namespace space_test_battle
 		state_param_area_s param;
 		param.uExpireCount = 100;
 		param.uMark = 1002;
+		param.uMarkEx = 1012;
 
 		task_state_aura(p, pInfo, uFlag, param);
 	}

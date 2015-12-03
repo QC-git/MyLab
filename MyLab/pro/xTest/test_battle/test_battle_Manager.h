@@ -76,7 +76,7 @@ namespace space_test_battle
 
 
 	public:
-		static BOOL_T Create();
+		static BOOL_T Init();
 
 		static VOID_T OnMessage(VOID_T* pMsgList);
 

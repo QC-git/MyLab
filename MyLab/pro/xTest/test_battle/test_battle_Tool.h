@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace space_test_battle 
 {
 
@@ -24,30 +23,30 @@ namespace space_test_battle
 			uValue = 0;
 		}
 
-		VOID_T AddMax(U32_T& u)
+		U32_T AddMax(U32_T u)
 		{
 			CalcAdd(uMaxValue, u);
-			u = uMaxValue;
+			return uMaxValue;
 		}
 
-		VOID_T DecMax(U32_T& u)
+		U32_T DecMax(U32_T u)
 		{
 			CalcDec(uMaxValue, u);
 			Syn();
-			u = uMaxValue;
+			return uMaxValue;
 		}
 
-		VOID_T Add(U32_T& u)
+		U32_T Add(U32_T u)
 		{
 			CalcAdd(uValue, u);
 			Syn();
-			u = uValue;
+			return uValue;
 		}
 
-		VOID_T Dec(U32_T& u)
+		U32_T Dec(U32_T u)
 		{
 			CalcDec(uValue, u);
-			u = uValue;
+			return uValue;
 		}
 
 		VOID_T Syn()
@@ -61,6 +60,8 @@ namespace space_test_battle
 	};
 
 
+#define UNIT_LOG_F(_message) LOG4CXX_INFO(m_pUnit->GetLogger(), _message)
+#define SCRIPT_LOG_F
 
 
 }

@@ -2,6 +2,8 @@
 #include "x_all.h"
 #include "test_battle_Manager.h"
 
+#include "log4cxx/propertyconfigurator.h"
+
 namespace space_test_battle 
 {
 
@@ -53,6 +55,7 @@ namespace space_test_battle
 
 		if ( p && !GetUnit(uId) )
 		{
+			LOG_F("创建新单位 %d", uId);
 			s_cUnitList[uId] = p;
 		}
 
@@ -87,9 +90,11 @@ namespace space_test_battle
 		return cList;
 	}
 
-	BOOL_T CManager::Create()
+	BOOL_T CManager::Init()
 	{
-		LOG_F("CManager::Create()");
+		LOG_F("CManager::Init()");
+
+		log4cxx::PropertyConfigurator::configure("log4cxx.properties");
 
 		LoadAllScript();
 
@@ -98,14 +103,14 @@ namespace space_test_battle
 		CUint* p3 = CManager::CreateUnit();
 		BOOL_T bRet;
 
-		bRet = MakeRole<CRoleBase>(p1);			LOG_F("%d", bRet);
-		bRet = MakeRole<CRoleAdvance>(p1);		LOG_F("%d", bRet);
+		bRet = MakeRole<CRoleBase>(p1);			ASSERT_F(bRet);
+		bRet = MakeRole<CRoleAdvance>(p1);		ASSERT_F(bRet);
 
-		bRet = MakeRole<CRoleBase>(p2);			LOG_F("%d", bRet);
-		bRet = MakeRole<CRoleAdvance>(p2);		LOG_F("%d", bRet);
+		bRet = MakeRole<CRoleBase>(p2);			ASSERT_F(bRet);
+		bRet = MakeRole<CRoleAdvance>(p2);		ASSERT_F(bRet);
 
-		bRet = MakeRole<CRoleBase>(p3);			LOG_F("%d", bRet);
-		bRet = MakeRole<CRoleAdvance>(p3);		LOG_F("%d", bRet);
+		bRet = MakeRole<CRoleBase>(p3);			ASSERT_F(bRet);
+		bRet = MakeRole<CRoleAdvance>(p3);		ASSERT_F(bRet);
 
 		SP_D(CRoleBase) spRole1 = CManager::GetRole<CRoleBase>(p1);
 		SP_D(CRoleBase) spRole2 = CManager::GetRole<CRoleBase>(p2);

@@ -1,14 +1,15 @@
 #pragma once
 
+#include "log4cxx/logger.h"
+
 namespace space_test_battle 
 {
 	enum EUnitRole
 	{
 		EUnitRole_NONE,
-		EUnitRole_COMMON,
-		EUnitRole_STATUS,
-		EUnitRole_AI,
+		EUnitRole_BASE,
 		EUnitRole_ADVANCE,
+		EUnitRole_AI,
 		EUnitRole_OTHER
 	};
 
@@ -68,6 +69,8 @@ namespace space_test_battle
 
 		VOID_T* GetTaskInfo(U32_T u);
 
+		log4cxx::LoggerPtr GetLogger();
+
 	private:
 		VOID_T ReleaseData();
 
@@ -86,6 +89,8 @@ namespace space_test_battle
 		PreTaskList_T  m_cPreDelTasks;
 
 		EventList_T m_cEventList;
+
+		log4cxx::LoggerPtr m_spLog;
 
 	private:
 		U32_T m_uId;

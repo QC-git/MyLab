@@ -49,6 +49,12 @@ namespace space_test_battle
 			return FALSE;
 		}
 
+		{
+			char sLog[32];
+			sprintf(sLog, "Ôö¼Ó×´Ì¬ %d", uStatusId);
+			UNIT_LOG_F(sLog);
+		}
+
 		return m_pUnit->AddTask(uStatusId);
 	}
 
@@ -56,6 +62,12 @@ namespace space_test_battle
 	{
 		if ( !m_pUnit->HasTask(uStatusId) ) {
 			return FALSE;
+		}
+
+		{
+			char sLog[32];
+			sprintf(sLog, "ÒÆ³ý×´Ì¬ %d", uStatusId);
+			UNIT_LOG_F(sLog);
 		}
 
 		return m_pUnit->RemoveTask(uStatusId);

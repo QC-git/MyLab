@@ -208,6 +208,9 @@ namespace space_test_util {
 		LOG4CXX_ERROR(logger0, "hello");
 		LOG4CXX_FATAL(logger0, "hello");
 
+// 		std::set<int> cList;
+// 		LOG4CXX_INFO(logger0, cList);
+
 		//log4j.logger.logger0 = INFO, ap0  
 
 // 		INFO 23:02:03 -- hello

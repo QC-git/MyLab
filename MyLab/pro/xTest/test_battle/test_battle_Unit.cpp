@@ -1,9 +1,8 @@
 
 #include "x_all.h"
+
 #include "test_battle_Unit.h"
 #include "test_battle_Manager.h"
-
-#include "log4cxx/logger.h"
 
 namespace space_test_battle 
 {
@@ -12,7 +11,11 @@ namespace space_test_battle
 	{
 		this->ReleaseData();
 		ASSERT_F(m_uId);
-
+		
+		char sName[32];
+		sprintf(sName, "单位%d", m_uId);
+		
+		m_spLog = log4cxx::Logger::getLogger(sName);  
 	}
 
 	CUint::~CUint()
@@ -59,6 +62,7 @@ namespace space_test_battle
 					cIter = m_cTaskList.find(uTaskId);
 					if ( cIter == m_cTaskList.end() ) 
 					{
+						LOG_F("单位 %d 增加任务 %d", m_uId, uTaskId);
 						cTaskList.insert(uTaskId);
 					} 
 				}
@@ -89,6 +93,7 @@ namespace space_test_battle
 					cIter = m_cTaskList.find(uTaskId);
 					if ( cIter != m_cTaskList.end() ) 
 					{
+						LOG_F("单位 %d 删除任务 %d", m_uId, uTaskId);
 						cTaskList.insert(uTaskId);					
 					} 
 				}
@@ -124,6 +129,7 @@ namespace space_test_battle
 		{
 			return NULL;
 		}
+		LOG_F("单位 %d 获得新角色 %d", m_uId, e);
 		m_cDataMap[e] = pData;
 		return TRUE;
 	}
@@ -180,6 +186,11 @@ namespace space_test_battle
 			return NULL;
 		}
 		return iter->second;
+	}
+
+	log4cxx::LoggerPtr CUint::GetLogger()
+	{
+		return m_spLog;
 	}
 
 	VOID_T CUint::ReleaseData() 

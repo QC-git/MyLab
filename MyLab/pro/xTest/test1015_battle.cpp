@@ -14,7 +14,7 @@ namespace space_test_battle {
 
 void test_battle()
 {
-	space_test_battle::CManager::Create();
+	space_test_battle::CManager::Init();
 	while(true)
 	{
 		space_test_battle::CManager::OnMessage(NULL);
