@@ -1,5 +1,7 @@
 #pragma once
 
+#include "log4cxx/logger.h"
+
 namespace space_test_battle 
 {
 
@@ -59,9 +61,10 @@ namespace space_test_battle
 
 	};
 
+	log4cxx::LoggerPtr GetScriptLogger();
 
 #define UNIT_LOG_F(_message) LOG4CXX_INFO(m_pUnit->GetLogger(), _message)
-#define SCRIPT_LOG_F
+#define SCRIPT_LOG_F(_message) LOG4CXX_INFO(GetScriptLogger(), _message)
 
 
 }

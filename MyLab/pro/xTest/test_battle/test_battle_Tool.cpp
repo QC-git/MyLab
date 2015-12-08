@@ -33,5 +33,14 @@ namespace space_test_battle
 		uData -= uDec;
 	}
 
+	log4cxx::LoggerPtr GetScriptLogger()
+	{
+		static log4cxx::LoggerPtr s_sp;
+		if ( !s_sp )
+		{
+			s_sp = log4cxx::Logger::getLogger("½Å±¾");
+		}
+		return s_sp;
+	}
 
 }

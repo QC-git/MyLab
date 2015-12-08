@@ -137,13 +137,14 @@ namespace space_test_battle
 		if (bFirst) {
 			bFirst = false;
 
-			//CRoleSkill* pRole11 = CManager::GetRole(p1, (CRoleSkill*)NULL);
-			//pRole11->CastSkill(101, p2);
-
 			SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(1);
+			CUint* pTarget = CManager::GetUnit(2);
+			spRole->CastSkill(103, pTarget);
+
+			
 			//CRoleAdvance* pRole11 = 
 			//spRole->AddStatus(1001);
-			spRole->AddStatus(1002);
+			//spRole->AddStatus(1002);
 		}
 
 	}

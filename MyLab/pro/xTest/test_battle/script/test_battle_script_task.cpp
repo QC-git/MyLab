@@ -5,6 +5,14 @@
 
 namespace space_test_battle
 {
+
+#define ON_ADD_D	if ( ETaskFlag_ADD == uFlag )
+#define ON_DEL_D	if ( ETaskFlag_DEC == uFlag )
+#define ADD_EFFECT_D(_start, _end) if ( ETaskFlag_Normal == uFlag && pInfo->uCount >= _start && pInfo->uCount < _end  )
+#define ADD_EFFECT2_D(_time) if ( ETaskFlag_Normal == uFlag && pInfo->uCount == _time )
+#define SKILL_CD_D(_cd) if ( ETaskFlag_Normal == uFlag && pInfo->uCount >= _cd ) { SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(p); spRole->RemoveSkill(pInfo->uId); }
+
+
 	// 技能
 	VOID_T script_101(CUint* p, STaskInfo* pInfo, U32_T uFlag)
 	{
@@ -20,6 +28,34 @@ namespace space_test_battle
 			spTagretCommon->DecHealth(uValue);
 		}
 
+	}
+
+	VOID_T script_103(CUint* p, STaskInfo* pInfo, U32_T uFlag)
+	{
+		SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(p);
+
+		ADD_EFFECT_D(1, 2)
+		{
+			SCRIPT_LOG_F("效果1");
+		}
+
+		ADD_EFFECT2_D(3)
+		{
+			SCRIPT_LOG_F("效果2");
+		}
+
+		ADD_EFFECT_D(2, 5)
+		{
+			SCRIPT_LOG_F("效果3");
+		}
+
+		ADD_EFFECT_D(5, 12)
+		{
+			SCRIPT_LOG_F("效果4");
+		}
+
+
+		SKILL_CD_D(10);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -73,6 +109,7 @@ namespace space_test_battle
 	VOID_T LoadAllScript()
 	{
 		REGISTER_SCRIPT_F(101);
+		REGISTER_SCRIPT_F(103);
 		REGISTER_SCRIPT_F(1001);
 		REGISTER_SCRIPT_F(1002);
 	}

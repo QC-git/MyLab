@@ -29,7 +29,28 @@ namespace space_test_battle
 		m_pData->uSkillId = uSkillId;
 		m_pData->pTarget = pTarget;
 
+		{
+			std::ostringstream cLogStream;
+			cLogStream << "对目标 " << pTarget->GetId() << " 释放技能 " << uSkillId;
+			UNIT_LOG_F(cLogStream.str());	
+		}
+
 		return m_pUnit->AddTask(uSkillId);
+	}
+
+	BOOL_T CRoleAdvance::RemoveSkill(U32_T uSkillId)
+	{
+		if ( !m_pUnit->HasTask(uSkillId) ) {
+			return FALSE;
+		}
+
+		{
+			std::ostringstream cLogStream;
+			cLogStream << "移除技能 " << uSkillId;
+			UNIT_LOG_F(cLogStream.str());	
+		}
+
+		return m_pUnit->RemoveTask(uSkillId);
 	}
 
 	BOOL_T CRoleAdvance::IsCooling()
@@ -50,9 +71,9 @@ namespace space_test_battle
 		}
 
 		{
-			char sLog[32];
-			sprintf(sLog, "增加状态 %d", uStatusId);
-			UNIT_LOG_F(sLog);
+			std::ostringstream cLogStream;
+			cLogStream << "增加状态 " << uStatusId;
+			UNIT_LOG_F(cLogStream.str());	
 		}
 
 		return m_pUnit->AddTask(uStatusId);
@@ -65,9 +86,9 @@ namespace space_test_battle
 		}
 
 		{
-			char sLog[32];
-			sprintf(sLog, "移除状态 %d", uStatusId);
-			UNIT_LOG_F(sLog);
+			std::ostringstream cLogStream;
+			cLogStream << "移除状态 " << uStatusId;
+			UNIT_LOG_F(cLogStream.str());	
 		}
 
 		return m_pUnit->RemoveTask(uStatusId);

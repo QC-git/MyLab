@@ -25,4 +25,7 @@ namespace space_test_battle
 	VOID_T state_aura(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_area_s& params);
 
 
+
+
+
 }

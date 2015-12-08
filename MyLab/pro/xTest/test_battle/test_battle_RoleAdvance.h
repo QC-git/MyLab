@@ -29,6 +29,7 @@ namespace space_test_battle
 
 	public:
 		BOOL_T CastSkill(U32_T uSkillId, CUint* pTarget);
+		BOOL_T RemoveSkill(U32_T uSkillId);
 		BOOL_T IsCooling();
 		CUint* GetTarget();
 
