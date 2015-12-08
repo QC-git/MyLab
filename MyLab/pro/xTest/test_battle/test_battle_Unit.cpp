@@ -116,7 +116,9 @@ namespace space_test_battle
 			}break;
 		case ETaskFlag_SYN_EVENT:
 			{
-				//todo 同步事件
+				m_cEventList.clear();
+				m_cEventList = m_cPreEventList;
+				m_cPreEventList.clear();
 			}break;
 		}
 		
@@ -186,6 +188,16 @@ namespace space_test_battle
 			return NULL;
 		}
 		return iter->second;
+	}
+
+	BOOL_T CUint::PushEvent(U32_T u)
+	{	
+		return m_cPreEventList.insert(u).second;;
+	}
+
+	BOOL_T CUint::WaitEvent(U32_T u)
+	{
+		return m_cEventList.find(u) != m_cEventList.end();
 	}
 
 	log4cxx::LoggerPtr CUint::GetLogger()

@@ -10,6 +10,7 @@ namespace space_test_battle
 #define ON_DEL_D	if ( ETaskFlag_DEC == uFlag )
 #define EFFECT_D(_start, _end) if ( ETaskFlag_Normal == uFlag && pInfo->uCount >= _start && pInfo->uCount < _end  )
 #define EFFECT2_D(_time) if ( ETaskFlag_Normal == uFlag && pInfo->uCount == _time )
+#define EVENT_D(_unit, _event) if( _unit && _unit->WaitEvent(_event) )
 #define COOLDOWN_D(_cd) if ( ETaskFlag_Normal == uFlag && pInfo->uCount >= _cd ) { SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(p); spRole->RemoveSkill(pInfo->uId); }
 
 
@@ -41,6 +42,7 @@ namespace space_test_battle
 
 		EFFECT2_D(3)
 		{
+			p->PushEvent(1);
 			SCRIPT_LOG_F("效果2");
 		}
 
@@ -54,6 +56,10 @@ namespace space_test_battle
 			SCRIPT_LOG_F("效果4");
 		}
 
+		EVENT_D(p, 1)
+		{
+			SCRIPT_LOG_F("效果5");
+		}
 
 		COOLDOWN_D(10);
 	}

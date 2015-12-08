@@ -69,6 +69,10 @@ namespace space_test_battle
 
 		VOID_T* GetTaskInfo(U32_T u);
 
+		BOOL_T PushEvent(U32_T u);
+
+		BOOL_T WaitEvent(U32_T u);
+
 		log4cxx::LoggerPtr GetLogger();
 
 	private:
@@ -88,6 +92,7 @@ namespace space_test_battle
 		PreTaskList_T  m_cPreAddTasks;
 		PreTaskList_T  m_cPreDelTasks;
 
+		EventList_T m_cPreEventList;
 		EventList_T m_cEventList;
 
 		log4cxx::LoggerPtr m_spLog;
