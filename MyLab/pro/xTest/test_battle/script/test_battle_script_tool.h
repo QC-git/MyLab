@@ -12,7 +12,7 @@ namespace space_test_battle
 		U32_T uExpireCount;
 	};
 
-	VOID_T task_state_dot(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_dot_s& params);
+	VOID_T state_dot(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_dot_s& params);
 
 
 	struct state_param_area_s
@@ -22,7 +22,7 @@ namespace space_test_battle
 		U32_T uMarkEx;
 	};
 
-	VOID_T task_state_aura(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_area_s& params);
+	VOID_T state_aura(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_area_s& params);
 
 
 }

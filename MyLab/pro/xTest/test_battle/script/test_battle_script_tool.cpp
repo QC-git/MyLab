@@ -5,7 +5,7 @@
 namespace space_test_battle
 {
 
-	VOID_T task_state_dot(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_dot_s& params)
+	VOID_T state_dot(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_dot_s& params)
 	{
 		SP_D(CRoleBase) spRole = CManager::GetRole<CRoleBase>(p);
 		SP_D(CRoleAdvance) spRoleEx = CManager::GetRole<CRoleAdvance>(p);
@@ -42,7 +42,7 @@ namespace space_test_battle
 
 	typedef std::set<U32_T> state_info_area_s;
 
-	VOID_T task_state_aura(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_area_s& params)
+	VOID_T state_aura(CUint* p, STaskInfo* pInfo, U32_T uFlag, state_param_area_s& params)
 	{
 		SP_D(CRoleBase) spRole = CManager::GetRole<CRoleBase>(p);
 		SP_D(CRoleAdvance) spRoleEx = CManager::GetRole<CRoleAdvance>(p);

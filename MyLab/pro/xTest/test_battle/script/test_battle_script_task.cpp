@@ -33,7 +33,7 @@ namespace space_test_battle
 		params.uInterval = 30;
 		params.uExpireCount = 100;
 
-		task_state_dot(p, pInfo, uFlag, params);
+		state_dot(p, pInfo, uFlag, params);
 
 	}
 
@@ -44,7 +44,7 @@ namespace space_test_battle
 		param.uMark = 1002;
 		param.uMarkEx = 1012;
 
-		task_state_aura(p, pInfo, uFlag, param);
+		state_aura(p, pInfo, uFlag, param);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,6 @@ namespace space_test_battle
 	VOID_T LoadAllScript()
 	{
 		REGISTER_SCRIPT_F(101);
-
 		REGISTER_SCRIPT_F(1001);
 		REGISTER_SCRIPT_F(1002);
 	}
