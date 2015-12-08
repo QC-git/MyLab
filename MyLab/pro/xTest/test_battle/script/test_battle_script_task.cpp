@@ -8,9 +8,9 @@ namespace space_test_battle
 
 #define ON_ADD_D	if ( ETaskFlag_ADD == uFlag )
 #define ON_DEL_D	if ( ETaskFlag_DEC == uFlag )
-#define ADD_EFFECT_D(_start, _end) if ( ETaskFlag_Normal == uFlag && pInfo->uCount >= _start && pInfo->uCount < _end  )
-#define ADD_EFFECT2_D(_time) if ( ETaskFlag_Normal == uFlag && pInfo->uCount == _time )
-#define SKILL_CD_D(_cd) if ( ETaskFlag_Normal == uFlag && pInfo->uCount >= _cd ) { SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(p); spRole->RemoveSkill(pInfo->uId); }
+#define EFFECT_D(_start, _end) if ( ETaskFlag_Normal == uFlag && pInfo->uCount >= _start && pInfo->uCount < _end  )
+#define EFFECT2_D(_time) if ( ETaskFlag_Normal == uFlag && pInfo->uCount == _time )
+#define COOLDOWN_D(_cd) if ( ETaskFlag_Normal == uFlag && pInfo->uCount >= _cd ) { SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(p); spRole->RemoveSkill(pInfo->uId); }
 
 
 	// 技能
@@ -34,28 +34,28 @@ namespace space_test_battle
 	{
 		SP_D(CRoleAdvance) spRole = CManager::GetRole<CRoleAdvance>(p);
 
-		ADD_EFFECT_D(1, 2)
+		EFFECT_D(1, 2)
 		{
 			SCRIPT_LOG_F("效果1");
 		}
 
-		ADD_EFFECT2_D(3)
+		EFFECT2_D(3)
 		{
 			SCRIPT_LOG_F("效果2");
 		}
 
-		ADD_EFFECT_D(2, 5)
+		EFFECT_D(2, 5)
 		{
 			SCRIPT_LOG_F("效果3");
 		}
 
-		ADD_EFFECT_D(5, 12)
+		EFFECT_D(5, 12)
 		{
 			SCRIPT_LOG_F("效果4");
 		}
 
 
-		SKILL_CD_D(10);
+		COOLDOWN_D(10);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
