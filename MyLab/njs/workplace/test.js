@@ -257,67 +257,6 @@ o1_c3.set_v1(2);
 console.log(o1_c3.get_v1());  // 2
 console.log(o2_c3.get_v1());  // -1
 
-
-console.log("------------------5-----------------");   // 测试文件间的输出
-
-var o11 = require('./other1.js');
-var o22 = require('./other2.js');
-var o23 = require('./other2.js');
-
-console.log(o11);  // [Function: CC]
-console.log(o22);  // { v1: -1, set_v1: [Function], get_v1: [Function] }
-
-o22.set_v1(1);
-
-//console.log(o11.get_v1());  // error
-console.log(o22.get_v1()); // 1
-console.log(o23.get_v1()); // 1
-
-var o12 = new o11;
-var o13 = new o11;
-
-o12.set_v1(1);
-console.log(o12.get_v1()); // 1
-console.log(o13.get_v1()); // -1
-
-console.log("------------------5-----------------");   // 测试文件间的参数输入
-
-var o33 = require('./other3');
-var o44 = require('./other4');
-
-console.log(o33);  // [Function: CC]
-console.log(o44);  // [Function: CC]
-
-var o331 = new require('./other3')(1);
-var o332 = new o33(2);
-var o333 = new require('./other3');
-var o334 = o333(4);
-//var o335 = o332(5); // error
-
-console.log(o331);  // undefined
-console.log(o332);  // { v1: 2, set_v1: [Function], get_v1: [Function] }
-console.log(o333);  // [Function: CC]
-console.log(o334);  // undefined
-
-//var o441 = require('./other4')(1);
-//var o442 = o44(2);
-
-//console.log(o441);  // 2
-//console.log(o442);  // 3
-
-console.log(global.varA); // undefined
-console.log(global.varB); // g 在 other4中 定义
-
-var g_var3 = "g_var3";
-
-function C5() {
-    ;
-};
-
-C5.prototype.f_var4 = "g_var4";
-
-var c5 = new C5;
-
 console.log("------------------6-----------------");   // 测试文件下的文件
 
 //var o61 = require('./module1');  // error
