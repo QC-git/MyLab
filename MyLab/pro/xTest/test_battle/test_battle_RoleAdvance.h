@@ -34,7 +34,7 @@ namespace space_test_battle
 		CUint* GetTarget();
 
 	public:
-		BOOL_T AddStatus(U32_T uId);
+		BOOL_T AddStatus(U32_T uId);  //todo 增加带入参数
 		BOOL_T RemoveStatus(U32_T uId);
 		BOOL_T HasStatus(U32_T uId);
 

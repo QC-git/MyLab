@@ -61,7 +61,7 @@ namespace space_test_battle
 
 		VOID_T* GetRoleData(EUnitRole e);
 
-		BOOL_T  AddTask(U32_T u);
+		BOOL_T  AddTask(U32_T u);  //todo  增加任务输入参数
 
 		BOOL_T  RemoveTask(U32_T u);
 
