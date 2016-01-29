@@ -221,6 +221,139 @@ namespace space_test_util {
 		LOG_F("\n");
 	}
 
+
+	class C7_1;
+
+	//template<class T>
+	class CRef                                 
+	{
+		//friend class SmartPtr<T>;     
+	public:
+		CRef(C7_1 *ptr)
+			: p(ptr)
+			, count(1) 
+		{
+
+		}
+		~CRef() 
+		{ 
+			delete p; 
+		}
+
+		int count;                                                     
+		C7_1 *p;                                                      
+	};
+
+	//template<class T>
+	class CAutoPtr                                            
+	{
+	public:
+
+		CAutoPtr(C7_1 *ptr)
+			:rp(new CRef(ptr)) 
+		{
+
+		}                                
+		CAutoPtr(const CAutoPtr &sp)
+			:rp(sp.rp) 
+		{ 
+			++rp->count; 
+		}
+		
+		CAutoPtr& operator=(const CAutoPtr& rhs) 
+		{                           
+			++rhs.rp->count;                                                       
+			if(--rp->count == 0)                                              
+				delete rp;
+			rp = rhs.rp;
+			return *this;
+		}
+
+		~CAutoPtr()
+		{                                           
+			if(--rp->count == 0)                                 
+				delete rp;
+		}
+
+	private:
+		CRef *rp;                                                
+	};
+
+	class CAutoRecycle
+	{
+	public:
+		virtual ~CAutoRecycle() {};
+
+		void Auto()
+		{
+			s_cSet.insert(this);
+		}
+
+		void Recycle()
+		{
+			std::set<CAutoRecycle*>::iterator cIter;
+			FOR_EACH(s_cSet, cIter)
+			{
+				delete *cIter;
+			}
+		}
+
+	public:
+		static std::set<CAutoRecycle*> s_cSet;
+	};
+
+	std::set<CAutoRecycle*> CAutoRecycle::s_cSet;
+
+	class C7_1
+	{
+	public:
+		C7_1() 
+		{
+			printf("\n C7_1");
+		};
+
+		~C7_1() 
+		{
+			printf("\n ~C7_1");
+		};
+
+	};
+
+	class C7_2 : public CAutoRecycle
+	{
+	public:
+		C7_2() 
+		{
+			printf("\n C7_2");
+		};
+
+		~C7_2() 
+		{
+			printf("\n ~C7_2");
+		};
+
+
+
+	};
+
+	void test7()
+	{
+		C7_1* p1 = new C7_1;
+		CAutoPtr sp(p1);
+		CAutoPtr sp2 = sp;
+		CAutoPtr sp3 = sp2;
+		//int n = *(sp2.m_pCnt);
+		//sp2 = 1;
+
+		C7_2* p2 = new C7_2;
+		p2->Auto();
+
+		p2->Recycle();
+
+		printf("");
+	}
+
+
 }
 
 
@@ -240,8 +373,9 @@ void test_util()
 // 	space_test_util::test1();
 // 	space_test_util::test2();
 // 	space_test_util::test3();
-	space_test_util::test4();
-	space_test_util::test6();
+// 	space_test_util::test4();
+// 	space_test_util::test6();
+	space_test_util::test7();
 
 	getchar();
 }

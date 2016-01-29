@@ -471,12 +471,223 @@ namespace space_test_cv {
 		waitKey(0);
 	}
 
+	class CMapNode
+	{
+	public:
+		CMapNode() 
+		{
+			m_nStaticObstacle = 0;
+
+		};
+
+		~CMapNode() {};
+
+		void InitMapInfo(int i, int j, int z)
+		{
+			m_i = i;
+			m_j = j;
+			m_z = z;
+		}
+
+		void InitTilePoint(Point2f vTileMin, Point2f vTileMax)
+		{
+			m_vTileMin = vTileMin;
+			m_vTileMax = vTileMax;
+		}
+
+		void AddStaticObstacle()
+		{
+			m_nStaticObstacle++;
+		}
+
+		void SetHeight(float fHeight)
+		{
+			m_fHeight = fHeight;
+		}
+
+	public:
+		int m_i;
+		int m_j;
+		int m_z;
+		float m_fHeight;
+		Point2f m_vTileMin;
+		Point2f m_vTileMax;
+		int m_nStaticObstacle; 
+
+	};
+
+	struct SMapData
+	{
+		float m_fYTileSize, m_fXTileSize;
+		Point2f m_vMapMin, m_vMapMax;
+		int m_width, m_height, m_nAmount;
+		CMapNode* pNodes;
+	};
+
+	SMapData* ReadMapData()
+	{
+		const char* sFile = "E:\\QC-nd\\svn\\MyLab\\trunk\\MyLab\\res\\new_threeway.mask";
+		FILE* pFile = fopen(sFile, "r");
+		if (NULL == pFile)
+		{
+			return NULL;
+		}
+
+		SMapData* pData = new SMapData;
+
+		char szBuf[2048];
+		if (fgets(szBuf, 2048, pFile))
+		{
+			float fMapMinX, fMapMinY, fMapMaxX, fMapMaxY;
+			float fCellSize;
+
+			if(sscanf(szBuf, "%f %f %f %f %f", &fMapMinX, &fMapMinY, &fMapMaxX, &fMapMaxY, &fCellSize) != 5)
+			{
+				return false;
+			}
+
+			pData->m_fYTileSize = fCellSize;
+			pData->m_fXTileSize = fCellSize;
+			pData->m_vMapMin = Vec2f(fMapMinX,fMapMinY);
+			pData->m_vMapMax = Vec2f(fMapMaxX, fMapMaxY);
+
+			// 计算X Y的格子数量
+			pData->m_width = (int)ceil(fabs(pData->m_vMapMax.x - pData->m_vMapMin.x)/pData->m_fXTileSize);
+			pData->m_height = (int)ceil(fabs(pData->m_vMapMax.y - pData->m_vMapMin.y)/pData->m_fYTileSize);
+			if (pData->m_width == 0)
+			{
+				pData->m_width = 1;
+			}
+			if (pData->m_height == 0)
+			{
+				pData->m_height = 1;
+			}
+			//Create(fMapMinX, fMapMinY, fMapMaxX, fMapMaxY, (float)fCellSize);
+		}
+
+
+
+		pData->m_nAmount = pData->m_width*pData->m_height;
+		CMapNode* m_nodes = new CMapNode[pData->m_nAmount];
+
+		for (int i=0;i<pData->m_width;++i)
+		{
+			for (int j=0;j<pData->m_height;++j)
+			{
+				Point2f vTileMin, vTileMax;
+				vTileMin.x = pData->m_vMapMin.x + i*pData->m_fXTileSize;
+				vTileMin.y = pData->m_vMapMin.y + j*pData->m_fYTileSize;
+				vTileMax.x = vTileMin.x + pData->m_fXTileSize;
+				vTileMax.y = vTileMin.y + pData->m_fYTileSize;
+
+				CMapNode* node = &m_nodes[(i*pData->m_height)+j];
+				node->InitMapInfo(i,j,0);
+				node->InitTilePoint(vTileMin,vTileMax);
+			}
+		}
+
+
+		while(fgets(szBuf, 2048, pFile))
+		{
+			if (szBuf[0] == '\0')
+			{
+				continue;
+			}
+
+			int nIndex, nValid;
+			float fHeight;
+			if(sscanf(szBuf, "%d %d %f", &nIndex, &nValid, &fHeight) == 3)
+			{
+				bool bValid = (nValid == 0?false:true);
+				CMapNode* pNode = &m_nodes[nIndex];
+				if (pNode == NULL)
+				{
+					continue;
+				}
+
+				if (!bValid)
+				{
+					pNode->AddStaticObstacle();
+				}
+
+				pNode->SetHeight(fHeight);
+
+			}
+		}
+
+		fclose(pFile);
+
+
+		pData->pNodes = m_nodes;
+
+		return pData;
+	}
+
+	void test3()
+	{
+		char window_name[] = "Drawing_3 Map";
+		RNG rng( 0xFFFFFFFF );
+		Mat image = Mat::zeros(800, 800, CV_8UC3);
+		imshow( window_name, image );
+		waitKey( DELAY );
+
+		Point pt1, pt2;
+
+		SMapData* pData = ReadMapData();
+
+		Scalar color = Scalar( 0, 0, 0 ); //randomColor(rng);
+		Scalar color2 = Scalar( 0, 255, 0 ); //randomColor(rng);
+
+		auto func = [](float nNum) {
+			return ( nNum + 64 ) * 800 / 128;
+		};
+
+		for (int i=0;i<pData->m_width;++i)
+		{
+// 			if ( 0 != i%2 ) 
+// 			{
+// 				continue;
+// 			}
+
+			for (int j=0;j<pData->m_height;++j)
+			{
+// 				if ( 0 != j%2 ) 
+// 				{
+// 					continue;
+// 				}
+
+				int nIndex = i*pData->m_height+j;
+				CMapNode* pNode = &pData->pNodes[nIndex];
+
+				pt1.x = func(pNode->m_vTileMin.x); 
+				pt1.y = func(pNode->m_vTileMin.y);
+
+				if ( pNode->m_nStaticObstacle > 0 ) 
+				{
+					line( image, pt1, pt1, color, 1, 8 );
+				}else 
+				{
+					line( image, pt1, pt1, color2, 1, 8 );
+				}
+
+				
+
+			}
+		}
+
+		flip(image, image, 0); 
+		imshow( window_name, image );
+
+		waitKey(0);
+	}
+
 }
 
 void test_cv()
 {
-	space_test_cv::test1();
+	//space_test_cv::test1();
 	//space_test_cv::test2();
+	space_test_cv::test3();
 
 	getchar();
 }
