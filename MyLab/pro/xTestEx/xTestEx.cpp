@@ -39,6 +39,9 @@ void Main11()
 
 	};
 
+	int n = -842150451;
+	unsigned int u = n;
+
 
 	printf("\n __is_base_of %d ", __is_base_of(MyStruct, MyStruct2));
 
