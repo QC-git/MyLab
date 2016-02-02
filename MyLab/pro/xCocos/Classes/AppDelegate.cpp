@@ -27,7 +27,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::createWithRect("xCocos", Rect(0, 0, 960, 640));
+        glview = GLViewImpl::createWithRect("xTest-game", Rect(0, 0, 960, 640));
         director->setOpenGLView(glview);
     }
 
@@ -45,7 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto scene = HelloWorld::createScene();
 
     // run
-    director->runWithScene(scene);
+	director->runWithScene(scene);
 
     return true;
 }
