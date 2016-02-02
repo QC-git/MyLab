@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xService", "..\..\pro\xService\xService.vcxproj", "{221AA52F-A32B-4499-9705-0541ECC13C3C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xTest", "..\..\pro\xTest\xTest.vcxproj", "{418E30F8-CF94-4C30-A2C1-83C7020BED6F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xServer", "..\..\pro\xDemo\xDemo.vcxproj", "{6D5C6D52-1A53-4E84-8BC5-251E53CB202C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xDemo", "..\..\pro\xDemo\xDemo.vcxproj", "{6D5C6D52-1A53-4E84-8BC5-251E53CB202C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xCocos", "..\..\pro\xCocos\proj.win32\xCocos.vcxproj", "{76A39BB2-9B84-4C65-98A5-654D86B86F2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{6D5C6D52-1A53-4E84-8BC5-251E53CB202C}.Debug|Win32.Build.0 = Debug|Win32
 		{6D5C6D52-1A53-4E84-8BC5-251E53CB202C}.Release|Win32.ActiveCfg = Release|Win32
 		{6D5C6D52-1A53-4E84-8BC5-251E53CB202C}.Release|Win32.Build.0 = Release|Win32
+		{76A39BB2-9B84-4C65-98A5-654D86B86F2A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{76A39BB2-9B84-4C65-98A5-654D86B86F2A}.Debug|Win32.Build.0 = Debug|Win32
+		{76A39BB2-9B84-4C65-98A5-654D86B86F2A}.Release|Win32.ActiveCfg = Release|Win32
+		{76A39BB2-9B84-4C65-98A5-654D86B86F2A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
