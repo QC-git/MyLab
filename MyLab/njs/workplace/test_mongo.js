@@ -1,5 +1,5 @@
 
-var Mongoose = require("../modules/mongoose")
+var Mongoose = require("mongoose")
     , Schema = Mongoose.Schema
     , ObjectId = Mongoose.Types.ObjectId;
 
@@ -177,24 +177,31 @@ var PersonModel1 = Mongoose.model(TABLE_NAME_1, Person1);
 
 ////////////////////////////////////////////////////////
 
-var async = require("../modules/async");
+require('./util/global');
+var async = require("async");
 var util  = require("./test_util");
+var UserModel = depInj("dao", "userSchema").Model;
 
-async.waterfall([  // �ص������ĸ������������һ��Ĳ��������� �������ݹ����ǶԺ����������ݸ������Ե���cb�쳣
-    function(cb){   // ��ʼ�����ݿ�
+async.waterfall([
+    function(cb){
         var dbConfig = {
-            "host" : "127.0.0.1"
+            "host" : "192.168.243.103"
             , "port" : "27017"
-            , "database" : "test"
+            , "database" : "cosLegend"
             , "user" : "1"
             , "password" : "1"
         };
-
         initMongoose(Mongoose, dbConfig, function(err) {
-            console.log("1, initMongoose, err = ", err);
+            console.log("initMongoose, err = ", err);
             cb(err);
         });
     },
+    function(cb) {
+        loadSchemeList(UserModel, {condition: {"rankScore": {$gt: 1200}}, find:{name: 1, "matchRecord.mode": 1, "matchRecord.total": 1, "matchRecord.victory": 1, "rankScore": 1}, limit:100, sort:{"rankScore": -1}}, function(err, list) {
+            console.log("loadSchemeList cb", err, list.length, list);
+        });
+        cb(null);
+    }
     //function(cb){  // ��ʼ���������
     //    util.doRepeat(100, function(i) {
     //        var obj = new ObjectId();
@@ -315,40 +322,40 @@ async.waterfall([  // �ص������ĸ�����������
     //        });
     //    });
     //},
-    function(cb){
-        console.log("\n-----------------5");
-        loadSchemeByKey(PersonModel1, "800000008000000080000004", function(err, scheme) {
-            console.log("loadSchemeById cb", err, scheme);
-
-            var obj = new PersonModel1_1();
-            scheme.person1.push(obj);
-
-            obj.a = 999;
-
-            console.log(obj);
-            console.log(scheme.person1);
-
-            var p1 = scheme.person1[0];
-            var p2 = scheme.person1[1];
-
-            p1.a =9999999;
-            p2.a =9999999;
-
-            console.log(scheme.person1);
-            //scheme.list.push({data2: 111111});
-            //scheme.list.push({data2: 222222});
-            //var mark = 0;
-            //scheme.list[mark].data2 = mark + 1;
-            //scheme.save(function() {});
-            //util.doEach(scheme.list, function(i, item) {
-            //    var data = {};
-            //    //data = item;
-            //    console.log("");
-            //});
-            //scheme.func2();
-            cb(null);
-        });
-    }
+    //function(cb){
+    //    console.log("\n-----------------5");
+    //    loadSchemeByKey(PersonModel1, "800000008000000080000004", function(err, scheme) {
+    //        console.log("loadSchemeById cb", err, scheme);
+    //
+    //        var obj = new PersonModel1_1();
+    //        scheme.person1.push(obj);
+    //
+    //        obj.a = 999;
+    //
+    //        console.log(obj);
+    //        console.log(scheme.person1);
+    //
+    //        var p1 = scheme.person1[0];
+    //        var p2 = scheme.person1[1];
+    //
+    //        p1.a =9999999;
+    //        p2.a =9999999;
+    //
+    //        console.log(scheme.person1);
+    //        //scheme.list.push({data2: 111111});
+    //        //scheme.list.push({data2: 222222});
+    //        //var mark = 0;
+    //        //scheme.list[mark].data2 = mark + 1;
+    //        //scheme.save(function() {});
+    //        //util.doEach(scheme.list, function(i, item) {
+    //        //    var data = {};
+    //        //    //data = item;
+    //        //    console.log("");
+    //        //});
+    //        //scheme.func2();
+    //        cb(null);
+    //    });
+    //}
     //function(cb){
     //    console.log("\n-----------------5-1");
     //    loadSchemeList(PersonModel1, {condition: {"list.data2": {$gt:0}}, find:{}, limit:1000, sort:{}}, function(err, list) {
@@ -391,3 +398,6 @@ async.waterfall([  // �ص������ĸ�����������
 ], function(err){
     console.log("async.waterfall cb", err);
 });
+
+
+

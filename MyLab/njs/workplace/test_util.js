@@ -50,7 +50,7 @@ DelayTime.prototype.isExpire = function(now) {
     return false;
 };
 
-function UpdateTime(cycle, start) {
+function CycleTime(cycle, start) {
     this.cycle = getNumber(cycle);
     if ( this.cycle < 5000 ) {  //����ʱ�䣬 ��СΪ5��
         this.cycle = 5000;
@@ -65,11 +65,11 @@ function UpdateTime(cycle, start) {
     this.next = this.start;
 }
 
-UpdateTime.prototype.getNextTime = function() {
+CycleTime.prototype.getNextTime = function() {
     return this.next;
 };
 
-UpdateTime.prototype.checkUpdate = function() {
+CycleTime.prototype.checkUpdate = function() {
     var cur =  getTime();
     if ( cur > this.next  ) {
         this.last = cur;
@@ -80,7 +80,7 @@ UpdateTime.prototype.checkUpdate = function() {
     return false;
 };
 
-UpdateTime.prototype.resetNextTime = function() {
+CycleTime.prototype.resetNextTime = function() {
     var cycle = this.cycle;
     var last  = this.last;
 
@@ -92,9 +92,53 @@ UpdateTime.prototype.resetNextTime = function() {
         this.next = this.next + cycle * multi;
 
         var dif = this.next - last;
-        console.log("UpdateTime exception,  next update will no attach, so adjust the dif = " + dif);
+        console.log("CycleTime exception,  next update will no attach, so adjust the dif = " + dif);
     }
 
+};
+
+function UpdateTime(params, last) {
+    this._cycle = params.cycle || 1000;    // 禁止检测周期
+    this._weekDay = params.weekDay || -1;  // 每周周几更新， 0是周天, -1是无效
+    this._hour = params.hour || 0;         // 每天几时更新
+    last = last || 0;
+    this._align(last);
+    this._debug("UpdateTime");
+}
+
+UpdateTime.prototype._debug = function(tag) {
+    console.log("tag = " + tag + ", last date = " +  new Date(this._last) + ", next date = " + new Date(this._next) + ", data = ", this);
+};
+
+UpdateTime.prototype._align = function(curTime) {
+    this._last = curTime;
+    this._next = this._last + this._cycle;
+};
+
+UpdateTime.prototype.checkNext = function() {
+    var curDate = new Date;
+    var curTime = curDate.getTime();
+
+    if ( 0 == this._last ) {
+        this._align(curTime);
+        return true;
+    }
+
+    if ( curTime < this._next ) {
+        return false;
+    }
+
+    var curWeekDay = curDate.getDay();
+    if ( this._weekDay > 0 && curWeekDay != this._weekDay ) {
+        return false;
+    }
+    var curHour = curDate.getHours();
+    if ( curHour != this._hour ) {
+        return false;
+    }
+
+    this._align(curTime);
+    return true;
 };
 
 var CYCLE_DAY  = 86400000;  // 24 * 3600 * 1000
@@ -116,7 +160,7 @@ function UpdateWeek(updateDay) {
 
     var start = date.getTime();
     start += difDay * CYCLE_DAY;
-    this.updateTime = new UpdateTime(CYCLE_WEEK, start);
+    this.updateTime = new CycleTime(CYCLE_WEEK, start);
 }
 
 UpdateWeek.prototype.getNextTime = function() {
@@ -982,6 +1026,7 @@ module.exports = {
     getDelayTime: getDelayTime,
 
     DelayTime: DelayTime,
+    CycleTime: CycleTime,
     UpdateTime: UpdateTime,
     UpdateWeek: UpdateWeek,
 
@@ -1011,8 +1056,8 @@ module.exports = {
 
 ///////////////////////////////////������///////////////////////////////////////
 
-//var updateTimer1 = new UpdateTime(30*1000, 0);
-//var updateTimer2 = new UpdateTime(30*1000);
+//var updateTimer1 = new CycleTime(30*1000, 0);
+//var updateTimer2 = new CycleTime(30*1000);
 //var delayTimer1 = new DelayTime(30*1000);
 //var tick = 0;
 //var check1 = function() {
@@ -1360,9 +1405,6 @@ module.exports = {
 //
 //MapQueue.test();
 
-
-console.log("===========Box==============");
-
 function FakeBoxService() {
     this.boxes = {};
     this.sn = 0;
@@ -1452,6 +1494,8 @@ FakeBoxUser.prototype.onLeave = function() {
 
 FakeBoxService.test = function() {
 
+    console.log("FakeBoxService.test");
+
     console.log(Box.prototype);
     console.log(FakeBoxService.prototype);
 
@@ -1474,4 +1518,21 @@ FakeBoxService.test = function() {
 
 };
 
-FakeBoxService.test();
+//FakeBoxService.test();
+
+UpdateTime.test = function() {
+    var params = {
+        cycle: 60 * 60 * 1000,
+        hour: 2
+    };
+    var timer = new UpdateTime(params);
+    setInterval(function() {
+        console.log("cur date = ", new Date);
+        var res = timer.checkNext();
+        if (res) {
+            timer._debug("checkNext suc");
+        }
+    }, 10000);
+
+};
+UpdateTime.test();
