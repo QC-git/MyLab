@@ -623,13 +623,20 @@ namespace space_test_cv {
 		return pData;
 	}
 
+
+	void Foo(int k, void* z) 
+	{
+		int userData = *(int*)z;
+		printf("\n  k = %d, z = %d \n", k, userData);
+	}
+
 	void test3()
 	{
 		char window_name[] = "Drawing_3 Map";
 		RNG rng( 0xFFFFFFFF );
 		Mat image = Mat::zeros(800, 800, CV_8UC3);
-		imshow( window_name, image );
-		waitKey( DELAY );
+		//imshow( window_name, image );
+		//waitKey( DELAY );
 
 		Point pt1, pt2;
 
@@ -676,9 +683,48 @@ namespace space_test_cv {
 		}
 
 		flip(image, image, 0); 
-		imshow( window_name, image );
+		imshow(window_name, image);
+
+		//waitKey(1000);
+// 		int value = 10;
+// 		int userData = 100;
+// 		createTrackbar("trackbar", window_name, &value, 90, Foo, &userData);
+// 		createTrackbar("trackbar2", window_name, &value, 90, Foo, &userData);
+		//setTrackbarPos("trackbar", window_name, 85);
 
 		waitKey(0);
+	}
+
+	void test4()
+	{
+		//ts->printf(ts->LOG, "GUI 0\n");
+		destroyAllWindows();
+
+		//ts->printf(ts->LOG, "GUI 1\n");
+		namedWindow("Win");
+
+		//ts->printf(ts->LOG, "GUI 2\n");
+		Mat m(256, 256, CV_8U);
+		m = Scalar(128);
+
+		//ts->printf(ts->LOG, "GUI 3\n");
+		imshow("Win", m);
+
+		//ts->printf(ts->LOG, "GUI 4\n");
+		int value = 10;
+
+		//ts->printf(ts->LOG, "GUI 5\n");
+		createTrackbar( "trackbar", "Win", &value, 90, Foo, &value);
+
+		//ts->printf(ts->LOG, "GUI 6\n");
+		getTrackbarPos( "trackbar", "Win" );
+
+		//ts->printf(ts->LOG, "GUI 7\n");
+		waitKey(0);
+
+		//ts->printf(ts->LOG, "GUI 8\n");
+		destroyAllWindows();
+		//ts->set_failed_test_info(cvtest::TS::OK);
 	}
 
 }
@@ -688,6 +734,7 @@ void test_cv()
 	//space_test_cv::test1();
 	//space_test_cv::test2();
 	space_test_cv::test3();
+	//space_test_cv::test4();
 
 	getchar();
 }
