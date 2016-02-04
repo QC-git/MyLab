@@ -65,6 +65,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\QC-nd\svn\MyLab\trunk\MyLab\pro\xCocos\Classes\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
@@ -148,11 +149,29 @@ xcopy /Y /Q "$(COCOS_FRAMEWORKS)\cocos2d-x-3.9\prebuilt\win32\*.*" "$(OutDir)"
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\AppTest.cpp" />
+    <ClCompile Include="..\Classes\AStar_mask\AStarMap.cpp" />
+    <ClCompile Include="..\Classes\AStar_mask\Intersection.cpp" />
+    <ClCompile Include="..\Classes\AStar_mask\MapNode.cpp" />
+    <ClCompile Include="..\Classes\AStar_mask\Optimize.cpp" />
+    <ClCompile Include="..\Classes\AStar_mask\PathSearchObject.cpp" />
+    <ClCompile Include="..\Classes\AStar_mask\TgridImporter.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\AppTest.h" />
+    <ClInclude Include="..\Classes\AStar_mask\AStarMap.h" />
+    <ClInclude Include="..\Classes\AStar_mask\AStarSearch.hpp" />
+    <ClInclude Include="..\Classes\AStar_mask\Intersection.h" />
+    <ClInclude Include="..\Classes\AStar_mask\IntrHashSet.hpp" />
+    <ClInclude Include="..\Classes\AStar_mask\IntrHeapHash.hpp" />
+    <ClInclude Include="..\Classes\AStar_mask\inttypes.h" />
+    <ClInclude Include="..\Classes\AStar_mask\MapNode.h" />
+    <ClInclude Include="..\Classes\AStar_mask\Optimize.h" />
+    <ClInclude Include="..\Classes\AStar_mask\PathSearchObject.h" />
+    <ClInclude Include="..\Classes\AStar_mask\TgridImporter.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

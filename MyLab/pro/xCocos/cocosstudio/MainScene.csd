@@ -6,14 +6,14 @@
       <ObjectData Name="Scene" ctype="GameNodeObjectData">
         <Size X="960.0000" Y="640.0000" />
         <Children>
-          <AbstractNodeData Name="Default" ActionTag="953446860" Tag="5" IconVisible="False" ctype="SpriteObjectData">
-            <Size X="960.0000" Y="640.0000" />
+          <AbstractNodeData Name="Default" ActionTag="953446860" Tag="5" IconVisible="False" LeftMargin="-195.0006" RightMargin="-194.9994" TopMargin="-73.9995" BottomMargin="-74.0005" ctype="SpriteObjectData">
+            <Size X="1350.0000" Y="788.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="480.0000" Y="320.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <Position X="479.9994" Y="319.9995" />
+            <Scale ScaleX="0.7039" ScaleY="0.7978" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.5000" />
-            <PreSize X="1.0000" Y="1.0000" />
+            <PreSize X="1.4063" Y="1.2313" />
             <FileData Type="Normal" Path="HelloWorld.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>

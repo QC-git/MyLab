@@ -3,6 +3,9 @@
 
 #include "cocos2d.h"
 
+#include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
+
 class HelloWorld : public cocos2d::Layer
 {
 public:
@@ -11,6 +14,13 @@ public:
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
+
+	virtual void update(float delta);
+
+	void myUpdate(float delta);
+
+public:
+	cocos2d::CCSprite* m_sprite;
 
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);

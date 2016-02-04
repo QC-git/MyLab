@@ -10,6 +10,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\AStar_mask">
+      <UniqueIdentifier>{5f405f0c-6e91-4739-93fb-d6d4afc9a854}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,6 +24,27 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\AStar_mask\AStarMap.cpp">
+      <Filter>src\AStar_mask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AStar_mask\Intersection.cpp">
+      <Filter>src\AStar_mask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AStar_mask\MapNode.cpp">
+      <Filter>src\AStar_mask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AStar_mask\Optimize.cpp">
+      <Filter>src\AStar_mask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AStar_mask\PathSearchObject.cpp">
+      <Filter>src\AStar_mask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AStar_mask\TgridImporter.cpp">
+      <Filter>src\AStar_mask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppTest.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -30,6 +54,39 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\AStarMap.h">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\AStarSearch.hpp">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\Intersection.h">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\IntrHashSet.hpp">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\IntrHeapHash.hpp">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\inttypes.h">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\MapNode.h">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\Optimize.h">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\PathSearchObject.h">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStar_mask\TgridImporter.h">
+      <Filter>src\AStar_mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppTest.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
