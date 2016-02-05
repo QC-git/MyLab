@@ -9,7 +9,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xTest", "..\..\pro\xTest\xT
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xDemo", "..\..\pro\xDemo\xDemo.vcxproj", "{6D5C6D52-1A53-4E84-8BC5-251E53CB202C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xCocos", "..\..\pro\xCocos\proj.win32\xCocos.vcxproj", "{76A39BB2-9B84-4C65-98A5-654D86B86F2A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xTest-game", "..\..\pro\xCocos\proj.win32\xCocos.vcxproj", "{76A39BB2-9B84-4C65-98A5-654D86B86F2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ext", "ext", "{713942C9-25E5-4DC4-9987-B1EBBF7B6E1A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_core", "..\..\dep\libs_src\opencv\vs2010\modules\core\opencv_core.vcxproj", "{959B8304-7DB1-4DE5-9431-D55D6170E242}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_imgproc", "..\..\dep\libs_src\opencv\vs2010\modules\imgproc\opencv_imgproc.vcxproj", "{8D863C1F-48F8-4ECF-8B65-6C4BF5724443}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_highgui", "..\..\dep\libs_src\opencv\vs2010\modules\highgui\opencv_highgui.vcxproj", "{96BB9792-41AA-48B7-9D00-9011364D3E4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +41,22 @@ Global
 		{76A39BB2-9B84-4C65-98A5-654D86B86F2A}.Debug|Win32.Build.0 = Debug|Win32
 		{76A39BB2-9B84-4C65-98A5-654D86B86F2A}.Release|Win32.ActiveCfg = Release|Win32
 		{76A39BB2-9B84-4C65-98A5-654D86B86F2A}.Release|Win32.Build.0 = Release|Win32
+		{959B8304-7DB1-4DE5-9431-D55D6170E242}.Debug|Win32.ActiveCfg = Debug|Win32
+		{959B8304-7DB1-4DE5-9431-D55D6170E242}.Release|Win32.ActiveCfg = Release|Win32
+		{959B8304-7DB1-4DE5-9431-D55D6170E242}.Release|Win32.Build.0 = Release|Win32
+		{8D863C1F-48F8-4ECF-8B65-6C4BF5724443}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8D863C1F-48F8-4ECF-8B65-6C4BF5724443}.Release|Win32.ActiveCfg = Release|Win32
+		{8D863C1F-48F8-4ECF-8B65-6C4BF5724443}.Release|Win32.Build.0 = Release|Win32
+		{96BB9792-41AA-48B7-9D00-9011364D3E4B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{96BB9792-41AA-48B7-9D00-9011364D3E4B}.Release|Win32.ActiveCfg = Release|Win32
+		{96BB9792-41AA-48B7-9D00-9011364D3E4B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{959B8304-7DB1-4DE5-9431-D55D6170E242} = {713942C9-25E5-4DC4-9987-B1EBBF7B6E1A}
+		{8D863C1F-48F8-4ECF-8B65-6C4BF5724443} = {713942C9-25E5-4DC4-9987-B1EBBF7B6E1A}
+		{96BB9792-41AA-48B7-9D00-9011364D3E4B} = {713942C9-25E5-4DC4-9987-B1EBBF7B6E1A}
 	EndGlobalSection
 EndGlobal
