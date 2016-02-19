@@ -19,7 +19,10 @@ public:
 
 	void myUpdate(float delta);
 
+	bool touchBegin(cocos2d::CCTouch * touch, cocos2d::CCEvent *event);
+
 public:
+	cocos2d::Node* m_rootNode;
 	cocos2d::CCSprite* m_sprite;
 
     // implement the "static create()" method manually

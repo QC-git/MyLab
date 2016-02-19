@@ -37,11 +37,11 @@ bool HelloWorld::init()
 	CCLOG("\n HelloWorld::init() \n");
 	fflush(stdout);
 
-	//     auto rootNode = CSLoader::createNode("MainScene.csb");
-	// 
-	//     addChild(rootNode);
+    m_rootNode = CSLoader::createNode("MainScene.csb");
 
-	CCDrawNode* draw = CCDrawNode::create();
+    addChild(m_rootNode);
+
+	auto draw = CCDrawNode::create();
 
 	addChild(draw, 10);
 
@@ -56,15 +56,26 @@ bool HelloWorld::init()
 
 	draw->drawPoint(Vec2(300, 150), 10, Color4F(0, 1, 1, 1));
 
-	CCSprite* sprite = CCSprite::create("person.png");
+	auto sprite = CCSprite::create("person.png");
 	sprite->setPosition(ccp(100, 100));
 	this->addChild(sprite);
 
 	m_sprite = CCSprite::create("person.png", CCRectMake(0, 0, 60, 60));
 	m_sprite->setPosition(ccp(300, 100));
-	this->addChild(m_sprite);
+	
+	m_rootNode->addChild(m_sprite);
+	//this->addChild(m_sprite);
+
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::touchBegin, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	//test_main();
+
+	auto camera = Camera::createOrthographic(100, 100, 10, 200);
+	camera->setCameraFlag(CameraFlag::USER2);
+	camera->setPosition3D(Vec3(0, 0, 0));
+	this->addChild(camera);
 
 	scheduleUpdate();
 	schedule(schedule_selector(HelloWorld::myUpdate), 0.1f);
@@ -95,11 +106,25 @@ void HelloWorld::myUpdate(float delta)
 	gettimeofday(&cur, NULL);
 	curTime = cur.tv_sec % 3600 * 1000 + cur.tv_usec / 1000;
 
-	printf("\n myUpdate(), delta = %.2f, delTime = %d \n", delta, curTime - lastTime);
+	//printf("\n myUpdate(), delta = %.2f, delTime = %d \n", delta, curTime - lastTime);
 	lastTime = curTime;
 
-	Vec2 pos = m_sprite->getPosition();
-	pos.x += 5;
+// 	Vec2 pos = m_sprite->getPosition();
+// 	pos.x += 5;
+// 	m_sprite->setPosition(pos);
+// 
+// 	Vec2 rootPos = m_rootNode->getPosition();
+// 	rootPos.x -= 5;
+// 	m_rootNode->setPosition(rootPos);
+}
+
+bool HelloWorld::touchBegin(CCTouch* touch, CCEvent* event)
+{
+	Vec2 pos = touch->getLocation();
+	printf("\n %d, %.2f, %.2f \n", event->getType(), pos.x, pos.y);
+
 	m_sprite->setPosition(pos);
 
+	//CCLog("CLick");
+	return true;
 }
