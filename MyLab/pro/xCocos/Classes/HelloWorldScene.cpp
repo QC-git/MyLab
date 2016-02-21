@@ -40,6 +40,11 @@ bool HelloWorld::init()
     m_rootNode = CSLoader::createNode("MainScene.csb");
 
     addChild(m_rootNode);
+	auto rootPos = m_rootNode->getPosition(); 
+	m_rootNode->setPosition(ccp(100, 100));
+	m_centerPos = ccp(480, 320);
+	//m_rootNode->setPosition(ccp(100, 100));
+
 
 	auto draw = CCDrawNode::create();
 
@@ -56,19 +61,53 @@ bool HelloWorld::init()
 
 	draw->drawPoint(Vec2(300, 150), 10, Color4F(0, 1, 1, 1));
 
-	auto sprite = CCSprite::create("person.png");
-	sprite->setPosition(ccp(100, 100));
-	this->addChild(sprite);
-
 	m_sprite = CCSprite::create("person.png", CCRectMake(0, 0, 60, 60));
-	m_sprite->setPosition(ccp(300, 100));
+	m_sprite->setPosition(ccp(480, 320));
+	auto pos = m_sprite->getPosition();
 	
 	m_rootNode->addChild(m_sprite);
 	//this->addChild(m_sprite);
 
 	auto listener = EventListenerTouchOneByOne::create();
+
 	listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::touchBegin, this);
+	listener->onTouchBegan = [=](CCTouch* touch, CCEvent* event)
+	{
+// 		Vec2 pos = touch->getLocation();
+// 		Vec2 pos2 = m_rootNode->convertToNodeSpace(pos);
+// 		printf("\n %d, %.2f, %.2f \n", event->getType(), pos2.x, pos2.y);
+// 		m_sprite->setPosition(pos);
+// 
+// 		auto rootPos = m_rootNode->getPosition();
+// 		rootPos.x -= pos2.x - m_centerPos.x;
+// 		rootPos.y -= pos2.y - m_centerPos.y;
+// 		m_rootNode->setPosition(rootPos);
+
+		Vec2 pos = touch->getLocation();
+		Vec2 pos2 = m_rootNode->convertToNodeSpace(pos);
+		printf("\n %d, %.2f, %.2f \n", event->getType(), pos2.x, pos2.y);
+
+		if (pos2.x < 0 || pos2.y < 0)
+		{
+			return true;
+		}
+
+		Vec2 diffPos = pos2 - m_sprite->getPosition();
+
+		m_sprite->setPosition(pos2);
+
+		
+		m_rootNode->setPosition(m_rootNode->getPosition() - diffPos );
+
+		//auto rootPos = m_rootNode->getPosition();
+		auto rootPos = (pos2 - m_centerPos);
+		//m_rootNode->setPosition(rootPos);
+
+		return true;
+	};
+
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 
 	//test_main();
 
@@ -120,11 +159,7 @@ void HelloWorld::myUpdate(float delta)
 
 bool HelloWorld::touchBegin(CCTouch* touch, CCEvent* event)
 {
-	Vec2 pos = touch->getLocation();
-	printf("\n %d, %.2f, %.2f \n", event->getType(), pos.x, pos.y);
-
-	m_sprite->setPosition(pos);
-
 	//CCLog("CLick");
 	return true;
 }
+
