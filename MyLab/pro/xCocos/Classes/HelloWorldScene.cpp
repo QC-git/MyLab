@@ -33,6 +33,8 @@ bool HelloWorld::init()
         return false;
     }
    
+	m_bW = m_bS = m_bA = m_bD = false;
+
 	printf("\n HelloWorld::init() \n");
 	CCLOG("\n HelloWorld::init() \n");
 	fflush(stdout);
@@ -73,15 +75,7 @@ bool HelloWorld::init()
 	listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::touchBegin, this);
 	listener->onTouchBegan = [=](CCTouch* touch, CCEvent* event)
 	{
-// 		Vec2 pos = touch->getLocation();
-// 		Vec2 pos2 = m_rootNode->convertToNodeSpace(pos);
-// 		printf("\n %d, %.2f, %.2f \n", event->getType(), pos2.x, pos2.y);
-// 		m_sprite->setPosition(pos);
-// 
-// 		auto rootPos = m_rootNode->getPosition();
-// 		rootPos.x -= pos2.x - m_centerPos.x;
-// 		rootPos.y -= pos2.y - m_centerPos.y;
-// 		m_rootNode->setPosition(rootPos);
+
 
 		Vec2 pos = touch->getLocation();
 		Vec2 pos2 = m_rootNode->convertToNodeSpace(pos);
@@ -92,21 +86,84 @@ bool HelloWorld::init()
 			return true;
 		}
 
-		Vec2 diffPos = pos2 - m_sprite->getPosition();
+// 		Vec2 diffPos = pos2 - m_sprite->getPosition();
+// 		m_sprite->setPosition(pos2);
+// 		m_rootNode->setPosition(m_rootNode->getPosition() - diffPos);
 
 		m_sprite->setPosition(pos2);
-
-		
-		m_rootNode->setPosition(m_rootNode->getPosition() - diffPos );
-
-		//auto rootPos = m_rootNode->getPosition();
-		auto rootPos = (pos2 - m_centerPos);
-		//m_rootNode->setPosition(rootPos);
 
 		return true;
 	};
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	auto eyboardListener = EventListenerKeyboard::create();
+	eyboardListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event)
+	{
+		printf("\n onKeyPressed(), keyCode %d \n", keyCode);
+
+		Vec2 diff;
+
+		switch (keyCode)
+		{
+		case EventKeyboard::KeyCode::KEY_W: 
+		{
+											  m_bW = true;
+		} break;
+		case EventKeyboard::KeyCode::KEY_S:
+		{
+											  m_bS = true;
+		} break;
+		case EventKeyboard::KeyCode::KEY_A:
+		{
+											  m_bA = true;
+		} break;
+		case EventKeyboard::KeyCode::KEY_D:
+		{
+											  m_bD = true;
+		} break;
+		default:
+			break;
+		}
+
+// 		Vec2 pos = m_sprite->getPosition() + diff;
+// 		m_sprite->setPosition(pos);
+// 		m_rootNode->setPosition(m_rootNode->getPosition() - diff);
+
+	};
+
+	eyboardListener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event* event)
+	{
+		printf("\n onKeyPressed(), keyCode %d \n", keyCode);
+
+		Vec2 diff;
+
+		switch (keyCode)
+		{
+		case EventKeyboard::KeyCode::KEY_W:
+		{
+											  m_bW = false;
+		} break;
+		case EventKeyboard::KeyCode::KEY_S:
+		{
+											  m_bS = false;
+		} break;
+		case EventKeyboard::KeyCode::KEY_A:
+		{
+											  m_bA = false;
+		} break;
+		case EventKeyboard::KeyCode::KEY_D:
+		{
+											  m_bD = false;
+		} break;
+		default:
+			break;
+		}
+	};
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(eyboardListener, this);
+
+
 
 
 	//test_main();
@@ -132,6 +189,32 @@ void HelloWorld::update(float delta)
 //	printf("\n update(), delta = %.2f, delTime = %d \n", delta, (curTime.tv_usec - lastTime.tv_usec) / 1000);
 //	lastTime = curTime;
 
+
+	auto diff = ccp(0,0);
+	float diffValue = 5;
+	if (m_bW) 
+	{
+		diff.y += diffValue;
+	}
+	if (m_bS)
+	{
+		diff.y -= diffValue;
+	}
+	if (m_bA)
+	{
+		diff.x -= diffValue;
+	}
+	if (m_bD)
+	{
+		diff.x += diffValue;
+	}
+
+
+	Vec2 pos = m_sprite->getPosition() + diff;
+	m_sprite->setPosition(pos);
+	m_rootNode->setPosition(m_rootNode->getPosition() - diff);
+
+
 }
 
 
@@ -148,18 +231,21 @@ void HelloWorld::myUpdate(float delta)
 	//printf("\n myUpdate(), delta = %.2f, delTime = %d \n", delta, curTime - lastTime);
 	lastTime = curTime;
 
-// 	Vec2 pos = m_sprite->getPosition();
-// 	pos.x += 5;
-// 	m_sprite->setPosition(pos);
-// 
-// 	Vec2 rootPos = m_rootNode->getPosition();
-// 	rootPos.x -= 5;
-// 	m_rootNode->setPosition(rootPos);
+	auto pos = m_sprite->getPosition();
+	auto pos2 = m_rootNode->convertToWorldSpace(pos);
+	auto diff = pos2 - ccp(480, 320);
+
+	m_rootNode->setPosition(m_rootNode->getPosition() - diff);
+
 }
 
 bool HelloWorld::touchBegin(CCTouch* touch, CCEvent* event)
 {
-	//CCLog("CLick");
 	return true;
+}
+
+void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	//printf("\n onKeyPressed(), keyCode %d \n", keyCode);
 }
 

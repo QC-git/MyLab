@@ -21,10 +21,17 @@ public:
 
 	bool touchBegin(cocos2d::CCTouch * touch, cocos2d::CCEvent *event);
 
+	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+
 public:
 	cocos2d::Node* m_rootNode;
 	cocos2d::CCSprite* m_sprite;
 	cocos2d::Vec2 m_centerPos;
+
+	bool m_bW;
+	bool m_bS;
+	bool m_bA;
+	bool m_bD;
 
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
