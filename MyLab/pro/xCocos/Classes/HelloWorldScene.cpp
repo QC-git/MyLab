@@ -39,8 +39,9 @@ bool HelloWorld::init()
 	CCLOG("\n HelloWorld::init() \n");
 	fflush(stdout);
 
-    m_rootNode = CSLoader::createNode("MainScene.csb");
-
+    //m_rootNode = CSLoader::createNode("MainScene.csb");
+	m_rootNode = CCTMXTiledMap::create("test1111.tmx");
+	m_rootNode->setPosition(ccp(0, 0));
     addChild(m_rootNode);
 	auto rootPos = m_rootNode->getPosition(); 
 	m_rootNode->setPosition(ccp(100, 100));
@@ -58,7 +59,6 @@ bool HelloWorld::init()
 // 	m_sprite = CCSprite::create("person.png", CCRectMake(0, 0, 60, 60));
 // 	m_sprite->setPosition(ccp(480, 320));
 // 	m_rootNode->addChild(m_sprite);
-
 	m_sprite = CSLoader::createNode("Hero.csb");
 	m_sprite->setPosition(ccp(480, 320));
 	auto heroAction = CSLoader::createTimeline("Hero.csb");
@@ -67,7 +67,6 @@ bool HelloWorld::init()
 	m_rootNode->addChild(m_sprite);
 
 	auto listener = EventListenerTouchOneByOne::create();
-
 	listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::touchBegin, this);
 	listener->onTouchBegan = [=](CCTouch* touch, CCEvent* event)
 	{
@@ -82,15 +81,10 @@ bool HelloWorld::init()
 			return true;
 		}
 
-// 		Vec2 diffPos = pos2 - m_sprite->getPosition();
-// 		m_sprite->setPosition(pos2);
-// 		m_rootNode->setPosition(m_rootNode->getPosition() - diffPos);
-
 		m_sprite->setPosition(pos2);
 
 		return true;
 	};
-
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	auto eyboardListener = EventListenerKeyboard::create();
