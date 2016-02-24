@@ -47,28 +47,24 @@ bool HelloWorld::init()
 	m_centerPos = ccp(480, 320);
 	//m_rootNode->setPosition(ccp(100, 100));
 
-
 	auto draw = CCDrawNode::create();
-
 	addChild(draw, 10);
-
-
 	draw->drawLine(Vec2(50, 50), Vec2(500, 500), Color4F(0, 1, 1, 1));
-
 	draw->drawLine(ccp(50, 60), ccp(500, 510), Color4F(0, 1, 1, 1));
-
 	draw->drawCircle(Vec2(500, 150), 100, 0, 8, false, Color4F(0, 1, 1, 1));
-
 	draw->drawCircle(Vec2(500, 500), 100, 0, 8, false, 2, 1, Color4F(0, 1, 1, 1));
-
 	draw->drawPoint(Vec2(300, 150), 10, Color4F(0, 1, 1, 1));
 
-	m_sprite = CCSprite::create("person.png", CCRectMake(0, 0, 60, 60));
+// 	m_sprite = CCSprite::create("person.png", CCRectMake(0, 0, 60, 60));
+// 	m_sprite->setPosition(ccp(480, 320));
+// 	m_rootNode->addChild(m_sprite);
+
+	m_sprite = CSLoader::createNode("Hero.csb");
 	m_sprite->setPosition(ccp(480, 320));
-	auto pos = m_sprite->getPosition();
-	
+	auto heroAction = CSLoader::createTimeline("Hero.csb");
+	m_sprite->runAction(heroAction);
+	heroAction->gotoFrameAndPlay(0);
 	m_rootNode->addChild(m_sprite);
-	//this->addChild(m_sprite);
 
 	auto listener = EventListenerTouchOneByOne::create();
 
@@ -106,7 +102,7 @@ bool HelloWorld::init()
 
 		switch (keyCode)
 		{
-		case EventKeyboard::KeyCode::KEY_W: 
+		case EventKeyboard::KeyCode::KEY_W:
 		{
 											  m_bW = true;
 		} break;
@@ -125,10 +121,6 @@ bool HelloWorld::init()
 		default:
 			break;
 		}
-
-// 		Vec2 pos = m_sprite->getPosition() + diff;
-// 		m_sprite->setPosition(pos);
-// 		m_rootNode->setPosition(m_rootNode->getPosition() - diff);
 
 	};
 
@@ -162,8 +154,6 @@ bool HelloWorld::init()
 	};
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(eyboardListener, this);
-
-
 
 
 	//test_main();

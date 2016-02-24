@@ -25,7 +25,7 @@ public:
 
 public:
 	cocos2d::Node* m_rootNode;
-	cocos2d::CCSprite* m_sprite;
+	cocos2d::Node* m_sprite;
 	cocos2d::Vec2 m_centerPos;
 
 	bool m_bW;

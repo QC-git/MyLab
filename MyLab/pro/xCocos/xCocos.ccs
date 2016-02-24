@@ -5,6 +5,13 @@
       <RootFolder Name=".">
         <Project Name="MainScene.csd" Type="Scene" />
         <Image Name="HelloWorld.png" />
+        <Image Name="cac_b.jpg" />
+        <Project Name="Scene.csd" Type="Scene" />
+        <Project Name="Layer.csd" Type="Layer" />
+        <Project Name="Node.csd" Type="Node" />
+        <PlistInfo Name="Plist.csi" Type="Plist" />
+        <Project Name="Scene3D.csd" Type="Scene3D" />
+        <Project Name="Skeleton.csd" Type="Skeleton" />
       </RootFolder>
     </Group>
   </SolutionFolder>
