@@ -157,6 +157,7 @@ xcopy /Y /Q "$(COCOS_FRAMEWORKS)\cocos2d-x-3.9\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\AStar_mask\PathSearchObject.cpp" />
     <ClCompile Include="..\Classes\AStar_mask\TgridImporter.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\Sprite3DTest\DrawNode3D.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +174,8 @@ xcopy /Y /Q "$(COCOS_FRAMEWORKS)\cocos2d-x-3.9\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\AStar_mask\PathSearchObject.h" />
     <ClInclude Include="..\Classes\AStar_mask\TgridImporter.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\Sprite3DTest\DrawNode3D.h" />
+    <ClInclude Include="..\Classes\testResource.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

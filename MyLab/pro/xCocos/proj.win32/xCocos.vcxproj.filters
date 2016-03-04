@@ -13,6 +13,9 @@
     <Filter Include="src\AStar_mask">
       <UniqueIdentifier>{5f405f0c-6e91-4739-93fb-d6d4afc9a854}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Sprite3DTest">
+      <UniqueIdentifier>{e6b5ecef-eec8-45ca-a102-5b8d4c904d60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\AppTest.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sprite3DTest\DrawNode3D.cpp">
+      <Filter>src\Sprite3DTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AppTest.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\testResource.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sprite3DTest\DrawNode3D.h">
+      <Filter>src\Sprite3DTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
