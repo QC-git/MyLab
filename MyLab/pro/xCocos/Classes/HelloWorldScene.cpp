@@ -5,6 +5,7 @@
 #include "AppTest.h"
 
 #include "Sprite3DTest/DrawNode3D.h"
+#include "Logic.h"
 
 USING_NS_CC;
 
