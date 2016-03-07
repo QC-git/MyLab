@@ -358,32 +358,41 @@ void Scene3d::onTouchesBegan(const std::vector<Touch*>& touches, cocos2d::Event 
 }
 void Scene3d::onTouchesMoved(const std::vector<Touch*>& touches, cocos2d::Event  *event)
 {
-	if (touches.size() == 1)
-	{
-		auto touch = touches[0];
-		auto location = touch->getLocation();
-		Point newPos = touch->getPreviousLocation() - location;
-		if (_cameraType == CameraType::Free || _cameraType == CameraType::FirstPerson)
-		{
-			Vec3 cameraDir;
-			Vec3 cameraRightDir;
-			_camera->getNodeToWorldTransform().getForwardVector(&cameraDir);
-			cameraDir.normalize();
-			cameraDir.y = 0;
-			_camera->getNodeToWorldTransform().getRightVector(&cameraRightDir);
-			cameraRightDir.normalize();
-			cameraRightDir.y = 0;
-			Vec3 cameraPos = _camera->getPosition3D();
-			cameraPos += cameraDir*newPos.y*0.1f;
-			cameraPos += cameraRightDir*newPos.x*0.1f;
-			_camera->setPosition3D(cameraPos);
-			if (_sprite3D &&  _cameraType == CameraType::FirstPerson)
-			{
-				_sprite3D->setPosition3D(Vec3(_camera->getPositionX(), 0, _camera->getPositionZ()));
-				_targetPos = _sprite3D->getPosition3D();
-			}
-		}
-	}
+	LOG("touches.size() = %d", touches.size());
+
+	auto touch = touches[0];
+	auto location = touch->getLocation();
+	Point newPos = location - touch->getPreviousLocation();
+
+// 	if (touches.size() == 1)
+// 	{
+// 		auto touch = touches[0];
+// 		auto location = touch->getLocation();
+// 		Point newPos = touch->getPreviousLocation() - location;
+// 		if (_cameraType == CameraType::Free || _cameraType == CameraType::FirstPerson)
+// 		{
+// 			Vec3 cameraDir;
+// 			Vec3 cameraRightDir;
+// 			_camera->getNodeToWorldTransform().getForwardVector(&cameraDir);
+// 			cameraDir.normalize();
+// 			cameraDir.y = 0;
+// 			_camera->getNodeToWorldTransform().getRightVector(&cameraRightDir);
+// 			cameraRightDir.normalize();
+// 			cameraRightDir.y = 0;
+// 			Vec3 cameraPos = _camera->getPosition3D();
+// 			cameraPos += cameraDir*newPos.y*0.1f;
+// 			cameraPos += cameraRightDir*newPos.x*0.1f;
+// 			_camera->setPosition3D(cameraPos);
+// 			if (_sprite3D &&  _cameraType == CameraType::FirstPerson)
+// 			{
+// 				_sprite3D->setPosition3D(Vec3(_camera->getPositionX(), 0, _camera->getPositionZ()));
+// 				_targetPos = _sprite3D->getPosition3D();
+// 			}
+// 		}
+// 	}
+
+	//_camera->lookAt()
+
 }
 
 void Scene3d::onTouchesEnded(const std::vector<Touch*>& touches, cocos2d::Event  *event)

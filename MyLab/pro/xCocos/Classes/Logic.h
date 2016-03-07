@@ -10,6 +10,8 @@ void LogicMain();
 
 #define ARC(x) ((float)(3.1415926*(x)/180.0))
 
+#define LOG(fmt, ...)    printf("\n\n[LOG] "fmt" \n", __VA_ARGS__)
+
 void FollowNode(cocos2d::CCNode* node, cocos2d::CCNode* superNode, cocos2d::Vec2& diff);
 
 void CenterNode(cocos2d::CCNode* node, cocos2d::CCNode* superNode, cocos2d::Vec2& center);
@@ -37,8 +39,6 @@ void NodeFoward(cocos2d::CCNode* node, float value);
 
 void NodeShift(cocos2d::CCNode* node, float value);
 
-void NodeMove(cocos2d::CCNode* moveNode, cocos2d::CCNode* relateNode, float distance, float angle);
-
 class CameraView
 {
 public:
@@ -47,6 +47,8 @@ public:
 
 	void Rise(float angle);
 	void Zoom(float distance);
+
+	void Move(cocos2d::Vec3 dir, float value = 1);
 
 	void Update();
 
