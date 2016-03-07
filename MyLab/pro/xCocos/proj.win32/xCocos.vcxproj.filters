@@ -16,6 +16,9 @@
     <Filter Include="src\Sprite3DTest">
       <UniqueIdentifier>{e6b5ecef-eec8-45ca-a102-5b8d4c904d60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\tool">
+      <UniqueIdentifier>{11f04d05-159d-4f28-816f-01b7aa5486a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,6 +53,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Sprite3DTest\DrawNode3D.cpp">
       <Filter>src\Sprite3DTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Logic.cpp">
+      <Filter>src\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Util.cpp">
+      <Filter>src\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene2d.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene3d.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +115,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Sprite3DTest\DrawNode3D.h">
       <Filter>src\Sprite3DTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Logic.h">
+      <Filter>src\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Util.h">
+      <Filter>src\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene2d.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene3d.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
