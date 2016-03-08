@@ -48,7 +48,7 @@ public:
 	void Rise(float angle);
 	void Zoom(float distance);
 
-	void Move(cocos2d::Vec3 dir, float value = 1);
+	void Move(cocos2d::Vec3 touchDir, float value = 1);
 
 	void Update();
 
@@ -56,6 +56,7 @@ private:
 	cocos2d::Camera* _camera;
 	cocos2d::CCNode* _node;
 	float _d1, _d2, _angle, _offset;
+	cocos2d::Vec3 _lookPos;
 
 };
 

@@ -185,14 +185,31 @@ void CameraView::Zoom(float distance)
 	Update();
 }
 
+void CameraView::Move(cocos2d::Vec3 touchDir, float value)
+{
+	auto cameraPos = _camera->getPosition3D();
+
+	auto lookDir = _lookPos - cameraPos;
+	auto lookDir2 = lookDir + touchDir;
+	auto lookDir3 = lookDir2.getNormalized() * 200;
+
+	auto lookPos = cameraPos + lookDir3;
+
+	_camera->lookAt(lookPos);
+	_lookPos = lookPos;
+
+}
+
 void CameraView::Update()
 {
 	auto cameraPos = CalcNodePositon(_node, 0, -_angle, -_d1);
-	auto viewPos = CalcNodePositon(_node, 0, -_angle, _d2);
+	auto lookPos = CalcNodePositon(_node, 0, -_angle, _d2);
 
 	cameraPos.y += _offset;
-	viewPos.y += _offset;
+	lookPos.y += _offset;
 
 	_camera->setPosition3D(cameraPos);
-	_camera->lookAt(viewPos);
+	_camera->lookAt(lookPos);
+
+	_lookPos = lookPos;
 }

@@ -196,7 +196,7 @@ bool Scene3d::init()
 	schedule(CC_SCHEDULE_SELECTOR(Scene3d::updateCamera), 0.0f);
 	if (_camera == nullptr)
 	{
-		_camera = Camera::createPerspective(60, (GLfloat)s.width / s.height, 1, 1000);
+		_camera = Camera::createPerspective(60, (GLfloat)s.width / s.height, 10, 1000);
 		_camera->setCameraFlag(CameraFlag::USER1);
 		_layer3D->addChild(_camera);
 	}
@@ -360,10 +360,21 @@ void Scene3d::onTouchesMoved(const std::vector<Touch*>& touches, cocos2d::Event 
 {
 	LOG("touches.size() = %d", touches.size());
 
-	auto touch = touches[0];
-	auto location = touch->getLocation();
-	Point newPos = location - touch->getPreviousLocation();
+	auto touche = touches[0];
+	auto pos1 = touche->getPreviousLocation();
+	auto pos2 = touche->getLocation();
+	
+	auto pos3 = Vec3(-pos1.x, pos1.y, 1);
+	auto pos4 = Vec3(-pos2.x, pos2.y, 1);
+	auto pos5 = _camera->unproject(pos3);
+	auto pos6 = _camera->unproject(pos4);
 
+
+	auto dir = pos4 - pos3;
+
+	_cameraView->Move(pos5 - pos6);
+
+	printf("");
 // 	if (touches.size() == 1)
 // 	{
 // 		auto touch = touches[0];
