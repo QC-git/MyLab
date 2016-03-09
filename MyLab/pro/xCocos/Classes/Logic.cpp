@@ -82,6 +82,30 @@ void DrawGrid(cocos2d::DrawNode3D* drawNode, cocos2d::Vec3& anchor, int gridNum,
 	}
 }
 
+void DrawCoordinateSystem(cocos2d::DrawNode3D* drawNode, float length)
+{
+	float a = 0;
+	float b = length;
+	drawNode->drawLine(Vec3(a, 0, 0), Vec3(b, 0, 0), Color4F(1, 0, 0, 1));  //x÷·
+	drawNode->drawLine(Vec3(0, a, 0), Vec3(0, b, 0), Color4F(0, 1, 0, 1));  //y÷·
+	drawNode->drawLine(Vec3(0, 0, a), Vec3(0, 0, b), Color4F(0, 0, 1, 1));  //z÷·
+
+	int num = (int)length;
+	for (int i = 1; i <= num; i++)
+	{
+		drawNode->drawLine(Vec3(i, -1, 0), Vec3(i, 1, 0), Color4F(1, 1, 1, 1));  //x÷·øÃ∂»
+		drawNode->drawLine(Vec3(-1, i, 0), Vec3(1, i, 0), Color4F(1, 1, 1, 1));  //y÷·øÃ∂»
+	}
+
+	for (float i = 0.1; i <= 0.9;)
+	{
+		drawNode->drawLine(Vec3(i, -1, 0), Vec3(i, 1, 0), Color4F(1, 1, 1, 1));  //x÷·øÃ∂»
+		drawNode->drawLine(Vec3(-1, i, 0), Vec3(1, i, 0), Color4F(1, 1, 1, 1));  //y÷·øÃ∂»
+
+		i += 0.1;
+	}
+
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -185,16 +209,18 @@ void CameraView::Zoom(float distance)
 	Update();
 }
 
-void CameraView::Move(cocos2d::Vec3 touchDir, float value)
+void CameraView::Move(cocos2d::Vec2 screenPos1, cocos2d::Vec2 screenPos2)
 {
+	auto movePos1 = _camera->unprojectGL(Vec3(screenPos1.x, screenPos1.y, 0));
+	auto movePos2 = _camera->unprojectGL(Vec3(screenPos2.x, screenPos2.y, 0));
+	auto moveDir = movePos2 - movePos1;  //LOG("x = %.5f, y = %.5f, z = %.5f", moveDir.x, moveDir.y, moveDir.z);
+	auto moveDir2 = moveDir * (_d1 + _d2);  
+
 	auto cameraPos = _camera->getPosition3D();
-
 	auto lookDir = _lookPos - cameraPos;
-	auto lookDir2 = lookDir + touchDir;
-	auto lookDir3 = lookDir2.getNormalized() * 200;
+	auto lookDir2 = lookDir + moveDir2;
 
-	auto lookPos = cameraPos + lookDir3;
-
+	auto lookPos = cameraPos + lookDir2;
 	_camera->lookAt(lookPos);
 	_lookPos = lookPos;
 
@@ -202,6 +228,11 @@ void CameraView::Move(cocos2d::Vec3 touchDir, float value)
 
 void CameraView::Update()
 {
+	if (!_node)
+	{
+		return;
+	}
+
 	auto cameraPos = CalcNodePositon(_node, 0, -_angle, -_d1);
 	auto lookPos = CalcNodePositon(_node, 0, -_angle, _d2);
 
@@ -213,3 +244,4 @@ void CameraView::Update()
 
 	_lookPos = lookPos;
 }
+

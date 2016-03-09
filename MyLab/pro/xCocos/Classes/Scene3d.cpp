@@ -196,23 +196,18 @@ bool Scene3d::init()
 	schedule(CC_SCHEDULE_SELECTOR(Scene3d::updateCamera), 0.0f);
 	if (_camera == nullptr)
 	{
-		_camera = Camera::createPerspective(60, (GLfloat)s.width / s.height, 10, 1000);
+		_camera = Camera::createPerspective(60, (GLfloat)s.width / s.height, 1, 1000);
 		_camera->setCameraFlag(CameraFlag::USER1);
 		_layer3D->addChild(_camera);
 	}
 	SwitchViewCallback(this, CameraType::ThirdPerson);
+
+
 	DrawNode3D* line = DrawNode3D::create();
-
-
-	DrawGrid(line, Vec3(-200, 0, -200), 40, 10);
-
-	//draw y
-	line->drawLine(Vec3(0, -50, 0), Vec3(0, 0, 0), Color4F(0, 0.5, 0, 1));
-	line->drawLine(Vec3(0, 0, 0), Vec3(0, 50, 0), Color4F(0, 1, 0, 1));
-
+	//DrawGrid(line, Vec3(-200, 0, -200), 40, 10);
+	DrawCoordinateSystem(line, 300);
 	_layer3D->addChild(line);
 
-	_layer3D->setCameraMask(2);
 
 	//////////////////////////////////////////////////////////////////////////
 
@@ -235,7 +230,6 @@ bool Scene3d::init()
 
 	// add skybox
 	_skyBox = Skybox::create();
-	_skyBox->setCameraMask(2);
 	_skyBox->setTexture(_textureCube);
 	_skyBox->setScale(700.f);
 
@@ -250,28 +244,23 @@ bool Scene3d::init()
 	_terrain = Terrain::create(data, Terrain::CrackFixedType::SKIRT);
 	_terrain->setMaxDetailMapAmount(4);
 	_terrain->setDrawWire(false);
-
 	_terrain->setSkirtHeightRatio(3);
 	_terrain->setLODDistance(64, 128, 192);
-
-	_terrain->setCameraMask(2);
 
 	// create two Sprite3D monster, one is transparent
 	auto monster = Sprite3D::create("Sprite3DTest/orc.c3b");
 	monster->setRotation3D(Vec3(0, 180, 0));
 	monster->setPosition3D(Vec3(50, -10, 0));
 	monster->setOpacity(128);
-	monster->setCameraMask(2);
 	_monsters[0] = monster;
 	monster = Sprite3D::create("Sprite3DTest/orc.c3b");
 	monster->setRotation3D(Vec3(0, 180, 0));
 	monster->setPosition3D(Vec3(-50, -5, 0));
-	monster->setCameraMask(2);
 	_monsters[1] = monster;
 
 
-	_layer3D->addChild(_skyBox);
-	_layer3D->addChild(_terrain);
+	//_layer3D->addChild(_skyBox);
+	//_layer3D->addChild(_terrain);
 	_layer3D->addChild(_monsters[0]);
 	_layer3D->addChild(_monsters[1]);
 
@@ -279,6 +268,23 @@ bool Scene3d::init()
 
 	_keyRecord = new KeyboardRecord(this);
 	_cameraView = new CameraView(_camera, _sprite3D);
+
+
+	_testCamera = Camera::createPerspective(60, (GLfloat)s.width / s.height, 1, 1000);
+	_testCamera->setCameraFlag(CameraFlag::USER2);
+	_testCamera->setPosition3D(Vec3(0, 0, -1));
+	_testCamera->lookAt(Vec3(0, 0, 0));
+	//_testCamera->setRotation3D(Vec3(0, 0, 45));
+	_testCameraView = new CameraView(_testCamera);
+	_layer3D->addChild(_testCamera);
+
+	unsigned short mask1 = (unsigned short)CameraFlag::USER1;
+	unsigned short mask2 = (unsigned short)CameraFlag::USER2;
+	_layer3D->setCameraMask(mask1);
+
+	//_camera->applyViewport();
+	//_testCamera->apply();
+	auto viewPort = Camera::getDefaultViewport();
 
 	return true;
 }
@@ -354,6 +360,9 @@ void Scene3d::onTouchesBegan(const std::vector<Touch*>& touches, cocos2d::Event 
 	{
 		auto touch = item;
 		auto location = touch->getLocation();
+
+		auto pos2 = _testCamera->unprojectGL(Vec3(location.x, location.y, 0));
+
 	}
 }
 void Scene3d::onTouchesMoved(const std::vector<Touch*>& touches, cocos2d::Event  *event)
@@ -361,18 +370,7 @@ void Scene3d::onTouchesMoved(const std::vector<Touch*>& touches, cocos2d::Event 
 	LOG("touches.size() = %d", touches.size());
 
 	auto touche = touches[0];
-	auto pos1 = touche->getPreviousLocation();
-	auto pos2 = touche->getLocation();
-	
-	auto pos3 = Vec3(-pos1.x, pos1.y, 1);
-	auto pos4 = Vec3(-pos2.x, pos2.y, 1);
-	auto pos5 = _camera->unproject(pos3);
-	auto pos6 = _camera->unproject(pos4);
-
-
-	auto dir = pos4 - pos3;
-
-	_cameraView->Move(pos5 - pos6);
+	_cameraView->Move(touche->getPreviousLocation(), touche->getLocation());
 
 	printf("");
 // 	if (touches.size() == 1)

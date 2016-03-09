@@ -33,6 +33,8 @@ private:
 
 void DrawGrid(cocos2d::DrawNode3D* drawNode, cocos2d::Vec3& anchor, int gridNum, float gridLength);
 
+void DrawCoordinateSystem(cocos2d::DrawNode3D* drawNode, float length);
+
 void NodeRotate(cocos2d::CCNode* node, float value);
 
 void NodeFoward(cocos2d::CCNode* node, float value);
@@ -42,13 +44,13 @@ void NodeShift(cocos2d::CCNode* node, float value);
 class CameraView
 {
 public:
-	CameraView(cocos2d::Camera* camera, cocos2d::CCNode* node);
+	CameraView(cocos2d::Camera* camera, cocos2d::CCNode* node = NULL);
 	~CameraView() {};
 
 	void Rise(float angle);
 	void Zoom(float distance);
 
-	void Move(cocos2d::Vec3 touchDir, float value = 1);
+	void Move(cocos2d::Vec2 screenPos1, cocos2d::Vec2 screenPos2);
 
 	void Update();
 

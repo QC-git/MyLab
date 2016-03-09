@@ -29,7 +29,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::createWithRect("xTest-game", Rect(0, 0, 960, 640));
+        glview = GLViewImpl::createWithRect("xTest-game", Rect(0, 0, 960, 640)); // 960, 640
         director->setOpenGLView(glview);
     }
 
@@ -44,7 +44,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->addSearchPath("res");
 
     // create a scene. it's an autorelease object
-	auto scene = Scene2d::createScene();
+	auto scene = Scene3d::createScene();
 
     // run
 	director->runWithScene(scene);

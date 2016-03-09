@@ -86,6 +86,7 @@ public:
 	cocos2d::MenuItem*      _decRot;
 	unsigned int   _curState;
 	cocos2d::Camera*      _camera;
+	cocos2d::Camera*      _testCamera;
 	cocos2d::MoveTo* _moveAction;
 	bool _bZoomOut    = false;
 	bool _bZoomIn     = false;
@@ -98,6 +99,7 @@ public:
 
 	KeyboardRecord* _keyRecord;
 	CameraView* _cameraView;
+	CameraView* _testCameraView;
 
 public:
 	// init in init()
