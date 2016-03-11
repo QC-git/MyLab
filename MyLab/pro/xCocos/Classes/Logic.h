@@ -51,6 +51,7 @@ public:
 	void Zoom(float distance);
 
 	void Move(cocos2d::Vec2 screenPos1, cocos2d::Vec2 screenPos2);
+	void MoveNode(cocos2d::Vec2 screenPos);
 
 	void Update();
 

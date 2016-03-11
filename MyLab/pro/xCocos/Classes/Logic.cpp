@@ -226,6 +226,30 @@ void CameraView::Move(cocos2d::Vec2 screenPos1, cocos2d::Vec2 screenPos2)
 
 }
 
+void CameraView::MoveNode(cocos2d::Vec2 screenPos)
+{
+	auto pos = _camera->unprojectGL(Vec3(screenPos.x, screenPos.y, 0));
+	auto dir = pos - _camera->getPosition3D();
+
+	float a = dir.x;
+	float b = dir.y;
+	float c = dir.z;
+
+	float x0 = pos.x;
+	float y0 = pos.y;
+	float z0 = pos.z;
+
+	float k1 = a / b;
+	float k2 = c / b;
+
+	float y = 0;
+	float x = (y - y0) * k1 + x0;
+	float z = (y - y0) * k2 + z0;
+
+	_node->setPosition3D(Vec3(x, y, z));
+
+}
+
 void CameraView::Update()
 {
 	if (!_node)
