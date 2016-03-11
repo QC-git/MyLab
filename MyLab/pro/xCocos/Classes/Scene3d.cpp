@@ -359,12 +359,7 @@ void Scene3d::onTouchesBegan(const std::vector<Touch*>& touches, cocos2d::Event 
 	for (auto &item : touches)
 	{
 		auto touch = item;
-		auto location = touch->getLocation();
-
-		auto pos2 = _testCamera->unprojectGL(Vec3(location.x, location.y, 0));
-
-		_cameraView->MoveNode(location);
-
+		_cameraView->MoveNode(touch->getLocation());
 	}
 }
 void Scene3d::onTouchesMoved(const std::vector<Touch*>& touches, cocos2d::Event  *event)

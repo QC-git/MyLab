@@ -240,7 +240,7 @@ void CameraView::MoveNode(cocos2d::Vec2 screenPos)
 	float z0 = pos.z;
 
 	float k1 = a / b;
-	float k2 = c / b;
+	float k2 = c / b; 
 
 	float y = 0;
 	float x = (y - y0) * k1 + x0;
