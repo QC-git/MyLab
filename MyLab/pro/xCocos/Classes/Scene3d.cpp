@@ -259,7 +259,7 @@ bool Scene3d::init()
 	_monsters[1] = monster;
 
 
-	//_layer3D->addChild(_skyBox);
+	_layer3D->addChild(_skyBox);
 	//_layer3D->addChild(_terrain);
 	_layer3D->addChild(_monsters[0]);
 	_layer3D->addChild(_monsters[1]);
@@ -356,11 +356,15 @@ void Scene3d::SwitchViewCallback(Ref* sender, CameraType cameraType)
 
 void Scene3d::onTouchesBegan(const std::vector<Touch*>& touches, cocos2d::Event  *event)
 {
-	for (auto &item : touches)
+	if ( _keyRecord->IsPress(EventKeyboard::KeyCode::KEY_CTRL) )
 	{
-		auto touch = item;
-		_cameraView->MoveNode(touch->getLocation());
+		for (auto &item : touches)
+		{
+			auto touch = item;
+			_cameraView->MoveNode(touch->getLocation());
+		}
 	}
+	
 }
 void Scene3d::onTouchesMoved(const std::vector<Touch*>& touches, cocos2d::Event  *event)
 {
@@ -604,61 +608,38 @@ void Scene3d::updateCamera(float fDelta)
 // 		}
 // 	}
 
-	auto cameraFllow = [this]() 
-	{
-// 		auto lookPos = _sprite3D->getPosition3D();
-// 		float distance = 0;
-// 		float height = 0;
-// 		if (CameraType::FirstPerson == _cameraType)
-// 		{
-// 			distance = -0.1;
-// 			height = 40;
-// 			lookPos.y = height;
-// 			
-// 		}
-// 		else if (CameraType::ThirdPerson == _cameraType)
-// 		{
-// 			distance = -150;
-// 			height = 150;
-// 		}
-// 		
-// 		NodeFollow(_camera, _sprite3D, distance, height);
-// 		_camera->lookAt(lookPos);
-
-		_cameraView->Update();
-	};
 
 	auto diff = ccp(0, 0);
 	float diffValue = 5;
 	if (_keyRecord->IsPress(EventKeyboard::KeyCode::KEY_W))
 	{
 		NodeFoward(_sprite3D, 1);
-		cameraFllow();
+		_cameraView->Update();
 	}
 	if (_keyRecord->IsPress(EventKeyboard::KeyCode::KEY_S))
 	{
 		NodeFoward(_sprite3D, -1);
-		cameraFllow();
+		_cameraView->Update();
 	}
 	if (_keyRecord->IsPress(EventKeyboard::KeyCode::KEY_A))
 	{
 		NodeRotate(_sprite3D, 5);
-		cameraFllow();
+		_cameraView->Update();
 	}
 	if (_keyRecord->IsPress(EventKeyboard::KeyCode::KEY_D))
 	{
 		NodeRotate(_sprite3D, -5);
-		cameraFllow();
+		_cameraView->Update();
 	}
 	if (_keyRecord->IsPress(EventKeyboard::KeyCode::KEY_Q))
 	{
 		NodeShift(_sprite3D, 1);
-		cameraFllow();
+		_cameraView->Update();
 	}
 	if (_keyRecord->IsPress(EventKeyboard::KeyCode::KEY_E))
 	{
 		NodeShift(_sprite3D, -1);
-		cameraFllow();
+		_cameraView->Update();
 	}
 	if (_bZoomIn) 
 	{

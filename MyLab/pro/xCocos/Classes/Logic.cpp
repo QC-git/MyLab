@@ -220,6 +220,13 @@ void CameraView::Move(cocos2d::Vec2 screenPos1, cocos2d::Vec2 screenPos2)
 	auto lookDir = _lookPos - cameraPos;
 	auto lookDir2 = lookDir + moveDir2;
 
+	float k1 = lookDir.x * lookDir2.x;
+	float k2 = lookDir.z * lookDir2.z;
+	if (k1 < 0 && k2 < 0)
+	{
+		return;
+	}
+
 	auto lookPos = cameraPos + lookDir2;
 	_camera->lookAt(lookPos);
 	_lookPos = lookPos;
