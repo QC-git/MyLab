@@ -66,7 +66,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 1013;
+	int arg = 1;
 	switch(arg)
 	{
 	case 1000:

@@ -354,6 +354,104 @@ namespace space_test_util {
 	}
 
 
+	class C8
+	{
+	public:
+		C8()
+		{
+			printf("");
+		}
+
+		~C8()
+		{
+			printf("");
+		}
+
+	private:
+
+	};
+
+
+	void f8_1(int&& a)
+	{
+		printf("\n 1");
+	}
+
+	void f8_1(int& a)
+	{
+		printf("\n 2");
+	}
+
+	void f8_2(int&& a)
+	{
+		f8_1(a);
+	}
+
+	void test8()
+	{
+		int a = 1;
+		f8_1(a);
+		f8_1(1);
+		f8_1(std::move(1));
+		f8_1(std::move(a));
+		f8_2(1);
+		//	2
+		//	1
+		//	1
+		//	1
+		//	2
+
+		std::shared_ptr<C8> p(new C8());
+		//p = new C8();
+		p = nullptr;
+		//~C8()
+
+	}
+
+
+	class C9
+	{
+	public:
+		C9(int data)
+		{
+			m_data = data;
+		}
+
+		~C9()
+		{
+
+		}
+
+// 		void operator=(C9& _Right)
+// 		{
+// 			m_data = _Right.m_data;
+// 		}
+
+		C9& operator=(C9& _Right)  // Ö§³Ö = (c1 = c2)
+		{
+			m_data = _Right.m_data;
+			C9* p = new C9(3);
+			return *p;
+		}
+
+		int m_data;
+
+	private:
+
+	};
+
+	void test9()
+	{
+		C9 c1(1);
+		C9 c2(2);
+		C9 c3(0);
+
+		c3 = (c1 = c2);
+		
+
+	}
+
+
 }
 
 
@@ -375,7 +473,9 @@ void test_util()
 // 	space_test_util::test3();
 // 	space_test_util::test4();
 // 	space_test_util::test6();
-	space_test_util::test7();
+//	space_test_util::test7();
+//	space_test_util::test8();
+	space_test_util::test9();
 
 	getchar();
 }
