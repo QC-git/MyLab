@@ -451,6 +451,49 @@ namespace space_test_util {
 
 	}
 
+	void test10()
+	{
+		std::map<int, int> cMap;
+
+		// case 1
+
+// 		cMap.insert(std::pair<int, int>(2, 22));
+// 		cMap.insert(std::pair<int, int>(4, 44));
+// 		cMap.insert(std::pair<int, int>(6, 66));
+//
+// 		//cMap.insert(std::pair<int, int>(1, 11));
+// 		//cMap.insert(std::pair<int, int>(3, 33));
+// 		cMap.insert(std::pair<int, int>(5, 55));
+// 		cMap.insert(std::pair<int, int>(7, 77));
+
+		// case 2
+		cMap.insert(std::pair<int, int>(3, 33));
+		cMap.insert(std::pair<int, int>(2, 22));
+		cMap.insert(std::pair<int, int>(1, 11));
+
+		// case 3
+// 		cMap.insert(std::pair<int, int>(3, 33));
+// 		cMap.insert(std::pair<int, int>(1, 11));
+// 		cMap.insert(std::pair<int, int>(2, 22));
+
+		// case 4
+// 		cMap.insert(std::pair<int, int>(1, 11));
+// 		cMap.insert(std::pair<int, int>(3, 33));
+// 		cMap.insert(std::pair<int, int>(2, 22));
+
+		// case 5
+// 		cMap.insert(std::pair<int, int>(1, 11));
+// 		cMap.insert(std::pair<int, int>(2, 22));
+// 		cMap.insert(std::pair<int, int>(3, 33));
+
+
+
+
+		cMap[2] = 22;
+		cMap[1] = 11;
+
+	}
+
 
 }
 
@@ -475,7 +518,8 @@ void test_util()
 // 	space_test_util::test6();
 //	space_test_util::test7();
 //	space_test_util::test8();
-	space_test_util::test9();
+//	space_test_util::test9();
+	space_test_util::test10();
 
 	getchar();
 }
