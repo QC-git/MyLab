@@ -51,6 +51,8 @@ extern void test_battle();
 
 extern void test_hacker();
 
+extern void test_yh();
+
 //////////////////////////////////////////////////////////////////////////
 
 extern void test_tool();
@@ -66,7 +68,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 1;
+	int arg = 1017;
 	switch(arg)
 	{
 	case 1000:
@@ -145,6 +147,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	case 1016:
 		{
 			test_hacker();
+		}break;
+	case 1017:
+		{
+			test_yh();
 		}break;
 	case 1900:
 		{

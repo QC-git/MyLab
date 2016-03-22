@@ -4,7 +4,19 @@
 
 namespace sl_asio {
 
-	struct MsgHead;
+	const unsigned int MAX_MSG_SIZE = 1024;
+	const unsigned int REC_BUF_SIZE = 128 * 1024;
+	const unsigned int SEND_BUF_SIZE = 128 * 1024;
+
+	typedef unsigned short MsgSize;
+	typedef unsigned short MsgType;
+
+	struct MsgHead
+	{
+		MsgSize msgSize;
+		MsgType msgType;
+	};
+
 	typedef boost::shared_ptr<MsgHead> MsgPtr;
 	typedef unsigned int SckId;
 
@@ -13,11 +25,11 @@ namespace sl_asio {
 	class IMessagePipe
 	{
 	public:
-		virtual void OnConnected(int error_code, SckId sckId) = 0;
-		virtual void OnNewConnection(int error_code, SckId sckId) = 0;
-		virtual void OnLostConnection(SckId sckId) = 0;
-		virtual void OnProcessMsg(const char* msg, SckId sckId) = 0;
-		virtual void OnTick() = 0;
+		virtual void OnConnected(int error_code, SckId sckId) {};
+		virtual void OnNewConnection(int error_code, SckId sckId) {};
+		virtual void OnLostConnection(SckId sckId) {};
+		virtual void OnProcessMsg(const char* msg, SckId sckId) {};
+		virtual void OnTick() {};
 	};
 
 	//////////////////////////////////////////////////////////////////////////
@@ -30,6 +42,8 @@ namespace sl_asio {
 		// updateTime ∫¡√Î
 		virtual void RunUpdateTimer(unsigned int updateTime) = 0;
 		virtual bool Send(SckId sckId, const MsgPtr& msgPtr) = 0;
+
+		virtual void Run(){};
 	};
 
 	typedef boost::shared_ptr<ITcpGuest> TcpGuestPtr;

@@ -48,6 +48,9 @@ namespace sl_asio {
 		virtual void RunUpdateTimer(unsigned int updateTime);
 		virtual bool Send(SckId sckId, const MsgPtr& msgPtr);
 
+	public:
+		virtual void Run();
+
 	private:
 		void AsyncConnect(const TcpSckPtr& sck, resolver_iter ep_iter);
 		void HandleConnect(const ErrCode& ec, const TcpSckPtr& sck);

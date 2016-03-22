@@ -494,6 +494,87 @@ namespace space_test_util {
 
 	}
 
+	class C11_1
+	{
+	public:
+		C11_1() { c = 3; }
+		virtual ~C11_1() 
+		{
+			printf("");
+		}
+
+		int c;
+
+	private:
+
+	};
+
+	class C11_0 : public C11_1
+	{
+	public:
+		C11_0() { b = 2; }
+		~C11_0()
+		{
+			printf("");
+		}
+
+		int b;
+
+	private:
+
+	};
+
+	class C11 : public C11_0
+	{
+	public:
+		C11() { a = 1; }
+		~C11()
+		{
+			printf("");
+		}
+
+		int a;
+
+	private:
+
+	};
+
+
+	void test11()
+	{
+		std::shared_ptr<int> p = std::shared_ptr<int>();
+		auto r = !p;
+		int* pp = new int[10];
+		p.reset(pp);
+		r = !p;
+
+// 		auto f = []()->bool
+// 		{
+// 			return true;
+// 		};
+// 		auto r = f();
+
+// 		C11* p1 = new C11();
+// 		C11_0* p2 = p1;
+// 		delete p2;
+// 		delete p1;
+// 
+// 		char* p = new char[10];
+// 		delete p;
+// 		try 
+// 		{
+// 			throw "asdasd";
+// 			int b = 0;
+// 			auto a = 1 / b;
+// 			delete p;
+// 		}
+// 		catch (std::exception e)
+// 		{
+// 
+// 		}
+		
+	}
+
 
 }
 
@@ -519,7 +600,8 @@ void test_util()
 //	space_test_util::test7();
 //	space_test_util::test8();
 //	space_test_util::test9();
-	space_test_util::test10();
+//	space_test_util::test10();
+	space_test_util::test11();
 
 	getchar();
 }

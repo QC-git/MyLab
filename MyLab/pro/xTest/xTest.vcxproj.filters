@@ -365,6 +365,9 @@
     <ClCompile Include="test_battle\test_battle_RoleAdvance.cpp">
       <Filter>test_battle\role</Filter>
     </ClCompile>
+    <ClCompile Include="test1017_yh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="xTest.rc">

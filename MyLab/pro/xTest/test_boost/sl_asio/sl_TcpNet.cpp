@@ -113,6 +113,11 @@ namespace sl_asio {
 		return m_sessionMgr.Send(sckId, msgPtr);
 	}
 
+	void TcpGuest::Run()
+	{
+		m_io.run();
+	}
+
 	//////////////////////////////////////////////////////////////////////////
 
 	TcpHost::TcpHost(IMessagePipe& pipe, const char* addr, unsigned short port)

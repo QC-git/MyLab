@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86;../../dep\libs;../../shr/GLUT;D:\boost_1_57_0\stage\lib;.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86;../../dep\libs;../../shr/YH;../../shr/GLUT;D:\boost_1_57_0\stage\lib;.\..\..\bin\Debug;$(LibraryPath)</LibraryPath>
     <IncludePath>../xTestEx/modules/include;../xTestEx/precompile;../../dep\lib\dependencies\log4cxx\src\main\include;../../dep\libs_src\opencv\sources\modules\videoio\include;../../dep\libs_src\opencv\sources\modules\imgcodecs\include;../../dep\libs_src\opencv\sources\modules\hal\include;../../dep\libs_src\opencv\sources\modules\highgui\include;../../dep\libs_src\opencv\sources\modules\imgproc\include;../../dep\libs_src\opencv\sources\modules\core\include;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;../../shr;../..\dep\libs_src\protobuf-2.6.1\src;../..\dep\libs_src;./test_boost;../..\dep\libs_src\pomelo2\include;../..\dep\libs_src\uv\include;D:\boost_1_57_0;../xServer\code\include;../xService\code\include;./;$(IncludePath)</IncludePath>
     <IntDir>.\..\..\bld\tmp\$(ProjectName)\Debug</IntDir>
     <OutDir>.\..\..\bin\Debug</OutDir>
@@ -169,6 +169,7 @@ xcopy "$(ProjectDir)/..\..\shr\GLUT\*.*" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClCompile Include="test1013_cv.cpp" />
     <ClCompile Include="test1015_battle.cpp" />
     <ClCompile Include="test1016_hacker.cpp" />
+    <ClCompile Include="test1017_yh.cpp" />
     <ClCompile Include="test1900_tool.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
