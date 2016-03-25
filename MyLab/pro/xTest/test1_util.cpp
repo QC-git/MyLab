@@ -542,11 +542,26 @@ namespace space_test_util {
 
 	void test11()
 	{
-		std::shared_ptr<int> p = std::shared_ptr<int>();
-		auto r = !p;
-		int* pp = new int[10];
-		p.reset(pp);
-		r = !p;
+		struct Data
+		{
+			char a;
+			//char b[100];
+			char* b;
+			char c;
+		};
+
+		Data d;
+		Data* p = &d;
+		memset(&d, 0, sizeof(d));
+		d.a = 1;
+		d.b = (char*)2;
+		d.c = 3;
+
+// 		std::shared_ptr<int> p = std::shared_ptr<int>();
+// 		auto r = !p;
+// 		int* pp = new int[10];
+// 		p.reset(pp);
+// 		r = !p;
 
 // 		auto f = []()->bool
 // 		{
