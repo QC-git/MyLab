@@ -1,0 +1,7 @@
+{
+    "userCacheTimer": 3600000,
+    "updateTimer": 10000,
+    "memCache":true,
+    "extCache":false,
+    "checkPM":true
+}

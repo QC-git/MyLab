@@ -1,0 +1,26 @@
+{
+  "rule": {
+    "cdFree": 1,
+    "cdPay": 2760,
+    "freeCount": 3,
+    "cellPayIngot": 288,
+    "batchPayIngot": 2590,
+    "maxLuck": 11
+  },
+
+  "pools": [
+    {"hid": 1, "freeOdds": 35,  "payOdds": 28},
+    {"hid": 2, "freeOdds": 2,   "payOdds": 2},
+    {"hid": 3, "freeOdds": 25,  "payOdds": 22},
+    {"hid": 4, "freeOdds": 14,  "payOdds": 18},
+    {"hid": 6, "freeOdds": 18,  "payOdds": 25},
+    {"hid": 7, "freeOdds": 2,   "payOdds": 3},
+    {"hid": 8, "freeOdds": 4,   "payOdds": 2}
+  ],
+
+  "topPrizePools": [
+    {"hid": 2, "odds": 45},
+    {"hid": 7, "odds": 35},
+    {"hid": 8, "odds": 20}
+  ]
+}

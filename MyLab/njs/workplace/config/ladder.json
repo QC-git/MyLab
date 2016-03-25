@@ -1,0 +1,48 @@
+{
+    "peekRule" : {
+        "5v5": 0,
+        "4v4": 1,
+        "3v3": 2,
+        "2v2": 3,
+        "1v1": 4
+    },
+
+	"ladder-server-1":{
+		"ladderMode": 13,
+		"adapterInterval": 1,
+		"expandInterval": 2,
+		"maxExpandScore": 300,
+		"levelUpScore": 25,
+		"minScore": 100,
+		"maxScore": 3500,
+		"expandScore": [50,75,100,125,150,175,200,225,250,275,300],
+        "peekRule": 0,
+        "roomServerType": "matchManager"
+	},
+
+    "ladder-server-2":{
+        "ladderMode": 12,
+        "adapterInterval": 1,
+        "expandInterval": 2,
+        "maxExpandScore": 300,
+        "levelUpScore": 25,
+        "minScore": 100,
+        "maxScore": 3500,
+        "expandScore": [50,75,100,125,150,175,200,225,250,275,300],
+        "peekRule": 2,
+        "roomServerType": "matchManager"
+    },
+
+    "ladder-server-3":{
+        "ladderMode": 11,
+        "adapterInterval": 1,
+        "expandInterval": 2,
+        "maxExpandScore": 300,
+        "levelUpScore": 25,
+        "minScore": 100,
+        "maxScore": 3500,
+        "expandScore": [50,75,100,125,150,175,200,225,250,275,300],
+        "peekRule": 4,
+        "roomServerType": "matchManager"
+    }
+}

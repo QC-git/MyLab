@@ -1,0 +1,20 @@
+{
+  "1":  {"name":   "守财奴（初级）","bsId":1011, "color": 1, "levelLimit":  5, "gemsLimit":  2, "description": "初级：初始金币增加200"},
+  "2":  {"name": "恃强凌弱（初级）","bsId":1021, "color": 1, "levelLimit":  8, "gemsLimit":  5, "description": "初级：普通攻击对小兵伤害提高20%"},
+  "3":  {"name": "吸星大法（初级）","bsId":1031, "color": 1, "levelLimit": 11, "gemsLimit":  7, "description": "初级：杀死远程小兵可获得20%小兵剩余的魔法值"},
+  "4":  {"name":   "守财奴（高级）","bsId":1012, "color": 1, "levelLimit": 11, "gemsLimit":  9, "description": "初级：初始金币增加200 高级：每5秒增加2点额外金钱"},
+  "5":  {"name": "恃强凌弱（高级）","bsId":1022, "color": 1, "levelLimit": 14, "gemsLimit":  9, "description": "初级：普通攻击对小兵伤害提高20% 高级：普通攻击对野怪伤害提高30%"},
+  "6":  {"name": "吸星大法（高级）","bsId":1032, "color": 1, "levelLimit": 17, "gemsLimit": 11, "description": "初级：杀死远程小兵可获得20%小兵剩余的魔法值 高级：杀死英雄可获得50%英雄剩余的魔法值"},
+  "7":  {"name":   "打零工（初级）","bsId":2011, "color": 2, "levelLimit":  7, "gemsLimit":  2, "description": "初级：杀死小兵额外获得8%的金币"},
+  "8":  {"name":   "推土机（初级）","bsId":2021, "color": 2, "levelLimit": 10, "gemsLimit":  5, "description": "初级：攻击建筑时，伤害增加15%"},
+  "9":  {"name": "药剂大师（初级）","bsId":2031, "color": 2, "levelLimit": 13, "gemsLimit":  7, "description": "初级：生命药水效果增加35%"},
+  "10": {"name":   "打零工（高级）","bsId":2012, "color": 2, "levelLimit": 13, "gemsLimit":  9, "description": "初级：杀死小兵额外获得8%的金币 高级：杀死野怪额外获得8%的金币"},
+  "11": {"name":   "推土机（高级）","bsId":2022, "color": 2, "levelLimit": 16, "gemsLimit":  9, "description": "初级：攻击建筑时，伤害增加15% 高级：受到建筑攻击时，伤害减少15%"},
+  "12": {"name": "药剂大师（高级）","bsId":2032, "color": 2, "levelLimit": 19, "gemsLimit": 11, "description": "初级：生命药水的效果增加35% 高级：魔法药水的效果增加35%"},
+  "13": {"name": "赏金猎人（初级）","bsId":3011, "color": 3, "levelLimit":  9, "gemsLimit":  2, "description": "初级：杀死敌方英雄额外获得50的金币/助攻额外获得25"},
+  "14": {"name": "看穿生死（初级）","bsId":3021, "color": 3, "levelLimit": 12, "gemsLimit":  5, "description": "初级：死亡时间缩短15%"},
+  "15": {"name": "去去就来（初级）","bsId":3031, "color": 3, "levelLimit": 15, "gemsLimit":  7, "description": "初级：传送冷却时间缩短20%"},
+  "16": {"name": "赏金猎人（高级）","bsId":3012, "color": 3, "levelLimit": 15, "gemsLimit":  9, "description": "初级：杀死敌方英雄额外获得50的金币/助攻额外获得25 高级：推掉敌方建筑额外获得50的金币"},
+  "17": {"name": "看穿生死（高级）","bsId":3022, "color": 3, "levelLimit": 18, "gemsLimit":  9, "description": "初级：死亡时间缩短15% 高级：英雄死亡时回复700范围内友方单位200点生命和100点魔法"},
+  "18": {"name": "去去就来（高级）","bsId":3032, "color": 3, "levelLimit": 21, "gemsLimit": 13, "description": "初级：传送冷却时间缩短20% 高级：传送可对己方单位使用"}
+}

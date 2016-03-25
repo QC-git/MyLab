@@ -1,0 +1,43 @@
+{
+  "1":{
+    "gold": 100,
+    "skillPoint": 1
+  },
+  "2":{
+    "gold": 300,
+    "skillPoint": 1
+  },
+  "3":{
+    "gold": 500,
+    "skillPoint": 1
+  },
+  "4":{
+    "gold": 700,
+    "skillPoint": 1
+  },
+  "5":{
+    "gold": 900,
+    "skillPoint": 1
+  },
+  "6":{
+    "gold": 1500,
+    "skillPoint": 1
+  },
+  "7":{
+    "gold": 2100,
+    "skillPoint": 1
+  },
+  "8":{
+    "gold": 2700,
+    "skillPoint": 1
+  },
+  "9":{
+    "gold": 3300,
+    "skillPoint": 1
+  },
+  "10":{
+    "gold": 3900,
+    "skillPoint": 1
+  },
+  "MaxLevel": 10
+}

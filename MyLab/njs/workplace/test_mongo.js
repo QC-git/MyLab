@@ -177,7 +177,7 @@ var PersonModel1 = Mongoose.model(TABLE_NAME_1, Person1);
 
 ////////////////////////////////////////////////////////
 
-require('./util/global');
+require('./util_lp/global');
 var async = require("async");
 var util  = require("./test_util");
 var UserModel = depInj("dao", "userSchema").Model;

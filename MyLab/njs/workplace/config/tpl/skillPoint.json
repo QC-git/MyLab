@@ -1,0 +1,11 @@
+{
+  "maxPoint": 20,
+  "resumeInterval": 600,
+  "purchaseMaxTime": 10,
+  "price": 10,
+  "pointAdded": 1,
+  "resetHour": 3,
+  "resetMin": 0,
+  "resetSec": 0,
+  "timezone": 8
+}

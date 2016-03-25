@@ -205,6 +205,10 @@ function getWeekEx(time, startDay) {
     return week;
 }
 
+var randNum = function(range) {
+    return Math.floor(Math.random()*range);
+};
+
 function doRepeat(num, fn, cb) {
     for (var i= 0; i<num; i++) {
         if ( fn(i)) {
@@ -1034,6 +1038,7 @@ module.exports = {
 
     getWeek: getWeek,
     getWeekEx: getWeekEx,
+    randNum: randNum,
 
     doRepeat: doRepeat,
     doEach: doEach,

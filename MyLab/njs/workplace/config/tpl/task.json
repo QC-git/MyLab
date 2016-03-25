@@ -1,0 +1,11 @@
+{
+  "1":  {"taskType": 1 ,"taskMode":1,"times":2,"prizes":{"point": 10,"gold":  450, "shopPoint": 10, "item": {"id":101001,"num": 1}}},
+  "2":  {"taskType": 1 ,"taskMode":2,"times":2,"prizes":{"point": 10,"gold":  450, "shopPoint": 11, "item": {"id":105001,"num": 1}}},
+  "7":  {"taskType": 1 ,"taskMode":3,"times":2,"prizes":{"point": 10,"gold":  450, "shopPoint": 12, "item": {"id":107001,"num": 1}}},
+  "3":  {"taskType": 2 ,"taskMode":1,"times":1,"prizes":{"point": 10,"gold" : 450, "shopPoint": 13, "item": {"id":301001,"num": 1}}},
+  "4":  {"taskType": 2 ,"taskMode":2,"times":1,"prizes":{"point": 10,"gold":  450, "shopPoint": 14, "item": {"id":305001,"num": 1}}},
+  "8":  {"taskType": 2 ,"taskMode":3,"times":1,"prizes":{"point": 10,"gold":  450, "shopPoint": 15, "item": {"id":307001,"num": 1}}},
+  "5":  {"taskType": 3 ,"taskMode":1,"times":2,"prizes":{"point": 10,"gold":  750, "shopPoint": 16, "item": {"id":201001,"num": 1}}},
+  "6":  {"taskType": 3 ,"taskMode":2,"times":2,"prizes":{"point": 10,"gold":  750, "shopPoint": 17, "item": {"id":205001,"num": 1}}},
+  "9":  {"taskType": 3 ,"taskMode":3,"times":2,"prizes":{"point": 10,"gold":  750, "shopPoint": 18, "item": {"id":207001,"num": 1}}}
+}

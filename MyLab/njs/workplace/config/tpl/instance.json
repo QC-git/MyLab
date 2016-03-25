@@ -1,0 +1,73 @@
+
+
+[
+    {
+        "id": 1001,
+        "level": 0,
+        "preInstanceId": 0,
+        "power" : 0,
+        "mapId": 111,
+        "award" : [
+            {
+                "id": 99999,
+                "num": 100
+            },
+            {
+                "id": 99999,
+                "num": 1000
+            }
+        ]
+    },
+    {
+        "id": 1002,
+        "level": 1,
+        "preInstanceId": 1001,
+        "power" : 0,
+        "mapId": 222,
+        "award" : [
+            {
+                "id": 99999,
+                "num": 100
+            },
+            {
+                "id": 99999,
+                "num": 1000
+            }
+        ]
+    },
+    {
+        "id": 1003,
+        "level": 1,
+        "preInstanceId": 1002,
+        "power" : 3,
+        "mapId": 222,
+        "award" : [
+            {
+                "id": 99999,
+                "num": 100
+            },
+            {
+                "id": 99999,
+                "num": 1000
+            }
+        ]
+    },
+    {
+        "id": 1004,
+        "level": 4,
+        "preInstanceId": 1003,
+        "power" : 1,
+        "mapId": 222,
+        "award" : [
+            {
+                "id": 99999,
+                "num": 100
+            },
+            {
+                "id": 99999,
+                "num": 1000
+            }
+        ]
+    }
+
+]

@@ -1,0 +1,27 @@
+{
+  "rule": {
+    "cdFree": 1,
+    "cellPayGold": 10000,
+    "batchPayGold": 90000
+  },
+
+  "pool": {
+    "free": [
+      {"quality": 0, "odds": 30, "num": 5, "topPrize": false},
+      {"quality": 1, "odds": 60, "num": 1, "topPrize": false},
+      {"quality": 2, "odds": 7,  "num": 1, "topPrize": false},
+      {"quality": 3, "odds": 3,  "num": 1, "topPrize": true}
+    ],
+
+    "pay": [
+      {"quality": 0, "odds": 0,  "num": 1, "topPrize": false},
+      {"quality": 1, "odds": 30, "num": 1, "topPrize": false},
+      {"quality": 2, "odds": 60, "num": 1, "topPrize": false},
+      {"quality": 3, "odds": 10, "num": 1, "topPrize": true}
+    ],
+
+    "topPrize": [
+      {"quality": 3, "odds": 100, "num": 1, "topPrize": true}
+    ]
+  }
+}

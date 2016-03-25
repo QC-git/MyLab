@@ -1,0 +1,15 @@
+{
+    "mongodb": {
+        "host" : "127.0.0.1",
+        "port" : "27017",
+        "database" : "cosLegend",
+        "user":"",
+        "pass":""
+    },
+    "redis": {
+        "host" : "127.0.0.1",
+        "port" : 6379,
+        "db":1,
+        "maxAge":180000
+    }
+}

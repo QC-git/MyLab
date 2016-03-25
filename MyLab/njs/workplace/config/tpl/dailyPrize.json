@@ -1,0 +1,7 @@
+{
+  "1": {"point": 10,"prizes":{"ingot": 10,"debris":{"id":12,"num":1}}},
+  "2": {"point": 20,"prizes":{"ingot": 20,"debris":{"id":12,"num":2}}},
+  "3": {"point": 40,"prizes":{"ingot": 30,"debris":{"id":12,"num":2}}},
+  "4": {"point": 70,"prizes":{"ingot": 40,"debris":{"id":12,"num":2}}},
+  "5": {"point": 90,"prizes":{"ingot": 50,"debris":{"id":12,"num":3}}}
+}

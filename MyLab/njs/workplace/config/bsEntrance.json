@@ -1,0 +1,12 @@
+{
+    "development":{
+        "game-server-1":{
+            "addr": "0.0.0.0:6677"
+        }
+    },
+    "production":{
+        "game-server-1":{
+            "addr": "127.0.0.1:6677"
+        }
+    }
+}

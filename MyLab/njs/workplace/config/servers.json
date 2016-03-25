@@ -1,0 +1,103 @@
+{
+    "development":{
+        "connector": [
+            {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientPort": 3010, "frontend": true, "args": "--debug=33050"},
+			{"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "clientPort": 3011, "frontend": true},
+			{"id": "connector-server-3", "host": "127.0.0.1", "port": 3152, "clientPort": 3012, "frontend": true},
+			{"id": "connector-server-4", "host": "127.0.0.1", "port": 3153, "clientPort": 3013, "frontend": true},
+			{"id": "connector-server-5", "host": "127.0.0.1", "port": 3154, "clientPort": 3014, "frontend": true},
+			{"id": "connector-server-6", "host": "127.0.0.1", "port": 3155, "clientPort": 3015, "frontend": true},
+			{"id": "connector-server-7", "host": "127.0.0.1", "port": 3156, "clientPort": 3016, "frontend": true},
+			{"id": "connector-server-8", "host": "127.0.0.1", "port": 3157, "clientPort": 3017, "frontend": true},
+			{"id": "connector-server-9", "host": "127.0.0.1", "port": 3158, "clientPort": 3018, "frontend": true},
+			{"id": "connector-server-10", "host": "127.0.0.1", "port": 3159, "clientPort": 3019, "frontend": true}
+        ],
+        "userCenter": [
+            {"id": "userCenter-server-1", "host": "127.0.0.1", "port": 3160, "args": "--debug=33051"}
+        ],
+        "locator": [
+            {"id": "locator-server-1", "host": "127.0.0.1", "port": 3170, "args": "--debug=33052"}
+        ],
+        "auth": [
+            {"id": "auth-server-1", "host": "127.0.0.1", "port": 3180, "args": "--debug=33054"}
+        ],
+        "room": [
+            {"id": "room-server-1", "host": "127.0.0.1", "port": 3190, "args": "--debug=33055"}
+        ],
+        "lottery": [
+            {"id": "lottery-server-1", "host": "127.0.0.1", "port": 3200, "args": "--debug=33056"}
+        ],
+        "chat": [
+            {"id": "chat-server-1", "host": "127.0.0.1", "port": 3210, "args": "--debug=33057"}
+        ],
+        "friend": [
+            {"id": "friend-server-1", "host": "127.0.0.1", "port": 3220, "args": "--debug=33058"}
+        ],
+        "game": [
+            {"id": "game-server-1", "host": "127.0.0.1", "port": 3230, "args": "--debug=33059"}
+        ],
+        "task": [
+            {"id": "task-server-1", "host": "127.0.0.1", "port": 3240, "args": "--debug=33240"}
+        ],
+        "http": [
+            {"id": "http-server-1", "host": "127.0.0.1", "port": 3250, "args": "--debug=33250", "httpListenPort": 22056}
+        ],
+        "team": [
+            {"id": "team-server-1", "host": "127.0.0.1", "port": 3260, "args": "--debug=33260"}
+        ],
+        "ladder": [
+            {"id": "ladder-server-1", "host": "127.0.0.1", "port": 3270},
+            {"id": "ladder-server-2", "host": "127.0.0.1", "port": 3271},
+            {"id": "ladder-server-3", "host": "127.0.0.1", "port": 3272}
+        ],
+        "matchManager": [
+            {"id": "matchManager-server-1", "host": "127.0.0.1", "port": 3280, "args": "--debug=32710"}
+        ]
+    },
+    "production":{
+        "connector": [
+            {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientPort": 3010, "frontend": true}
+        ],
+        "userCenter": [
+            {"id": "userCenter-server-1", "host": "127.0.0.1", "port": 3160}
+        ],
+        "locator": [
+            {"id": "locator-server-1", "host": "127.0.0.1", "port": 3170}
+        ],
+        "auth": [
+            {"id": "auth-server-1", "host": "127.0.0.1", "port": 3180}
+        ],
+        "room": [
+            {"id": "room-server-1", "host": "127.0.0.1", "port": 3190}
+        ],
+        "lottery": [
+            {"id": "lottery-server-1", "host": "127.0.0.1", "port": 3200}
+        ],
+        "chat": [
+            {"id": "chat-server-1", "host": "127.0.0.1", "port": 3210}
+        ],
+        "friend": [
+            {"id": "friend-server-1", "host": "127.0.0.1", "port": 3220}
+        ],
+        "game": [
+            {"id": "game-server-1", "host": "127.0.0.1", "port": 3230}
+        ],
+        "task": [
+            {"id": "task-server-1", "host": "127.0.0.1", "port": 3240}
+        ],
+        "http": [
+            {"id": "http-server-1", "host": "127.0.0.1", "port": 3250, "httpListenPort": 22056}
+        ],
+        "team": [
+            {"id": "team-server-1", "host": "127.0.0.1", "port": 3260}
+        ],
+        "ladder": [
+            {"id": "ladder-server-1", "host": "127.0.0.1", "port": 3270},
+            {"id": "ladder-server-2", "host": "127.0.0.1", "port": 3271},
+            {"id": "ladder-server-3", "host": "127.0.0.1", "port": 3272}
+        ],
+        "matchManager": [
+            {"id": "matchManager-server-1", "host": "127.0.0.1", "port": 3280}
+        ]
+    }
+}

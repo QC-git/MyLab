@@ -1,0 +1,35 @@
+{
+  "1": {
+    "name": "装备",
+    "maxNum": 1
+  },
+  "2": {
+    "name": "消耗品",
+    "maxNum": 999
+  },
+  "3": {
+    "name": "宝石",
+    "maxNum": 1,
+    "maxDurability":30,
+    "props":{
+      "1":"life",
+      "2":"mana",
+      "3":"lifeRegen",
+      "4":"manaRegen",
+      "5":"attack",
+      "6":"attackSpeed",
+      "7":"spellPower",
+      "8":"defense",
+      "9":"spellResist",
+      "10":"parryChance"
+    }
+  },
+  "4": {
+    "name": "天赋书",
+    "maxNum": 10
+  },
+  "5":{
+    "name":"皮肤碎片",
+    "maxNum":999
+  }
+}
