@@ -1,0 +1,1 @@
+start "" "C:\Program Files (x86)\JetBrains\WebStorm 10.0.2\bin\WebStorm.exe" "E:\QC-nd\svn\MyLab\trunk\MyLab\njs"
