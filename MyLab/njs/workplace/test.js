@@ -1,2 +1,4 @@
 
-console.log.apply(null, ["hello", "hello", "hello"]);
+console.log.apply(null, ["hello"]);
+
+//10
