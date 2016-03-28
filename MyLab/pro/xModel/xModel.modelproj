@@ -22,6 +22,27 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" Condition="'$(VSToolsPath)' != ''" />
   <ItemGroup>
+    <Content Include="cos\match.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="cos\match.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>cos\match.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="cos\room.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="cos\room.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>cos\room.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="cos\team.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="cos\team.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>cos\team.sequencediagram</DependentUpon>
+    </Content>
     <Content Include="UMLClassDiagram1.classdiagram">
       <SubType>Content</SubType>
     </Content>
@@ -29,16 +50,10 @@
       <SubType>Content</SubType>
       <DependentUpon>UMLClassDiagram1.classdiagram</DependentUpon>
     </Content>
-    <Content Include="UMLSequenceDiagram1.sequencediagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UMLSequenceDiagram1.sequencediagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UMLSequenceDiagram1.sequencediagram</DependentUpon>
-    </Content>
     <Folder Include="ModelDefinition\" />
     <Content Include="ModelDefinition\xModel.uml">
       <SubType>Content</SubType>
     </Content>
+    <Folder Include="cos" />
   </ItemGroup>
 </Project>
