@@ -1,5 +1,6 @@
 
 #include "x_all.h"
+#include "xTestService.hpp"
 
 #pragma comment(lib, "xService.lib")
 #pragma comment(lib, "xServer.lib")
@@ -591,6 +592,33 @@ namespace space_test_util {
 	}
 
 
+	void test12()
+	{
+		CFuncList_T list;
+
+		list.push_back([](CFuncCb_T cb)
+		{
+			printf("\n 1 \n");
+			cb(0);
+		});
+
+		list.push_back([](CFuncCb_T cb)
+		{
+			printf("\n 2 \n");
+			cb(0);
+		});
+
+		list.push_back([](CFuncCb_T cb)
+		{
+			printf("\n 3 \n");
+			cb(0);
+		});
+
+		AsyncRun(list);
+
+	}
+
+
 }
 
 
@@ -616,7 +644,8 @@ void test_util()
 //	space_test_util::test8();
 //	space_test_util::test9();
 //	space_test_util::test10();
-	space_test_util::test11();
+//	space_test_util::test11();
+	space_test_util::test12();
 
 	getchar();
 }

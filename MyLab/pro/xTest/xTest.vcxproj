@@ -147,6 +147,7 @@ xcopy "$(ProjectDir)/..\..\shr\GLUT\*.*" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_unpacker.h" />
     <ClInclude Include="test_proto\test_person.pb.h" />
     <ClInclude Include="xTest.h" />
+    <ClInclude Include="xTestService.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\xTestEx\modules\mod_001\code\test_mod.cpp">
@@ -197,6 +198,7 @@ xcopy "$(ProjectDir)/..\..\shr\GLUT\*.*" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClCompile Include="test_lua\lua_test_mainc.c" />
     <ClCompile Include="test_proto\test_person.pb.cc" />
     <ClCompile Include="xTest.cpp" />
+    <ClCompile Include="xTestService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="xTest.rc" />

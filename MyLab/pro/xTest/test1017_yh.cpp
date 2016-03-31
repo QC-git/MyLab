@@ -1,5 +1,5 @@
 
-
+#include "xTestService.hpp"
 #include "xTest.h"
 
 #include "test_boost/sl_asio/sl_Interface.h"
@@ -142,7 +142,6 @@ namespace space_test_yh {
 	};
 
 
-
 	void test1()
 	{
 		CPipe* pPipe = new CPipe;
@@ -151,6 +150,10 @@ namespace space_test_yh {
 		spClient->AsyncConnect("127.0.0.1", 5819);
 
 		spClient->Run();
+
+		CFuncList_T list;
+		AsyncRun(list);
+
 	}
 
 

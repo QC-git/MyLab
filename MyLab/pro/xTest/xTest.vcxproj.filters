@@ -234,6 +234,9 @@
     <ClInclude Include="test_battle\test_battle_RoleAdvance.h">
       <Filter>test_battle\role</Filter>
     </ClInclude>
+    <ClInclude Include="xTestService.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -366,6 +369,9 @@
       <Filter>test_battle\role</Filter>
     </ClCompile>
     <ClCompile Include="test1017_yh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="xTestService.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
