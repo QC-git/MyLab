@@ -102,38 +102,49 @@ namespace space_test_yh {
 
 		}
 
+		template<class _T>
+		void InitMsgHead(_T& sMsg, unsigned short uType)
+		{
+			unsigned short uSize = sizeof(sMsg);
+			memset(&sMsg, 0, uSize);
+
+			sMsg.sHead.msgSize = uSize;
+			sMsg.sHead.msgSize = uType;
+		};
+
+#define YH_MESSAGE(_SMsg, _SData, _sMsg, _type, fn) \
+		struct _SMsg\
+		{\
+		sl_asio::MsgHead sHead; \
+		_SData sData; \
+		}; \
+		_SMsg _sMsg; \
+		InitMsgHead<_SMsg>(_sMsg, _type); \
+		fn();
+
+		template<class _T>
+		void SendMsg(sl_asio::TcpGuestPtr spClient, sl_asio::SckId nSckId, _T sMsg)
+		{
+			sl_asio::MsgPtr spMsg;// (pHead);
+			spMsg.reset(((sl_asio::MsgHead*)&sMsg));
+			spClient->Send(nSckId, spMsg);
+		}
+
 		virtual void OnConnected(int error_code, sl_asio::SckId sckId)
 		{
-			struct Msg
+			if (1)
 			{
-				sl_asio::MsgHead head;
-				MsgBSCreateGame data;
-			};
+				YH_MESSAGE(Msg, MsgBSCreateGame, msg, 50001, [&msg]()
+				{
+					auto p = &msg.sData;
 
-			Msg msg;
-			auto msgSize = sizeof(msg);
-			memset(&msg, 0, msgSize);
+					p->lpRequestId = 1;
+					p->gameConf = 1;
+					p->teamAmount = 1;
+				});
 
-			sl_asio::MsgHead* pHead = &msg.head;
-			pHead->msgSize = msgSize;
-			pHead->msgType = 50001;
-
-			MsgBSCreateGame* cgame = &msg.data;
-			cgame->lpRequestId = 1;
-			cgame->gameConf = 1;
-			cgame->teamAmount = 1;
-
-// 			sl_asio::MsgPtr spMsg;// (pHead);
-// 			spMsg.reset(pHead);
-// 			spClient->Send(sckId, spMsg);
-
-			char buffer[1024];
-			((sl_asio::MsgHead*)buffer)->msgSize = msgSize;
-			((sl_asio::MsgHead*)buffer)->msgType = 50001;
-			memcpy(buffer + 4, cgame, msgSize-4);
-			sl_asio::MsgPtr spMsg;// (pHead);
-			spMsg.reset(((sl_asio::MsgHead*)buffer));
-			spClient->Send(sckId, spMsg);
+				SendMsg<Msg>(spClient, sckId, msg);
+			}
 
 		}
 
@@ -151,8 +162,6 @@ namespace space_test_yh {
 
 		spClient->Run();
 
-		CFuncList_T list;
-		AsyncRun(list);
 
 	}
 
