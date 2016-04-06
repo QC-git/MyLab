@@ -1,7 +1,21 @@
 {
-    "userCacheTimer": 3600000,
-    "updateTimer": 10000,
-    "memCache":true,
-    "extCache":false,
-    "checkPM":true
+  "userCacheTimer": 3600000,
+  "updateTimer": 60000,
+  "memCache": true,
+  "extCache": false,
+  "checkPM": "auto",
+  "localSvrIps": [
+    "192.168.243.",
+    "192.168.246."
+  ],
+  "localClientIps": [
+    "192.168.",
+    "10.",
+    "172.",
+    "127.0",
+    "110.87.60.97",
+    "110.87.60.209",
+    "222.77.191.245"
+  ],
+  "fakeAs": true
 }

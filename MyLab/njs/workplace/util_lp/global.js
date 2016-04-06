@@ -16,13 +16,13 @@
 		},
 		*/
 		config: function(confName){
-			return require('../../config/'+confName);
+			return require('../config/'+confName);
 		},
 		tpl: function(tplName){
-			return require('../../config/tpl/'+tplName);
+			return require('../config/tpl/'+tplName);
 		},
 		json: function(jsName){
-			return require('../../config/'+jsName + '.json');
+			return require('../config/'+jsName + '.json');
 		},
 		util: function(filename){
 			return require('./'+filename);

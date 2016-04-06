@@ -5,11 +5,12 @@
 
 (function () {
     'use strict';
-    require('././global');
+    //require('./../util/global');
 
     var mongoose = require('./mongoose').mongoose;
     var skillCfg = depInj('tpl', 'skill');
     var ec = depInj('ec');
+    var moment = require('moment');
 
     var itemSchema = require('./itemSchema').schema;
     var Schema = mongoose.Schema;
@@ -35,7 +36,14 @@
         step: {                                     // 徽章
             level:{type:Number,default:0},
             badges:{type: String, default: '000000'}
-        }
+        },
+        type: {type: Number, default: 0}, //0：普通英雄， 1：契约英雄
+        contract: { //契约英雄信息
+            useTime: {type: Date, default: 0}, //启用时间
+            expireTime: {type: Date, default: 0} //过期时间
+        },
+        recommendEquips: {type: [Number], default: [-1, -1, -1, -1, -1, -1]}           //推荐装备列表
+        
     }, {versionKey: false});
 
     HeroSchema.statics.findByUser_HeroId = function(uid, hid, cb) {
@@ -84,6 +92,22 @@
             }
         }
         return false;
+    };
+
+    HeroSchema.methods.updateContract = function (totalDate) {
+        var expireTime = moment(this.contract.expireTime);
+        var now = moment();
+
+        //判断过期时间是否比当前时间早
+        if (expireTime.isBefore(now)) {
+            expireTime = now;
+            expireTime.add(totalDate, 'days'); //续期
+            this.contract.useTime = now.format();
+            this.contract.expireTime = expireTime.format();
+        } else {
+            expireTime.add(totalDate, 'days'); //续期
+            this.contract.expireTime = expireTime.format();
+        }
     };
 
     module.exports.schema = HeroSchema;

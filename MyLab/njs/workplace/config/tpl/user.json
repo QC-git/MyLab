@@ -102,25 +102,30 @@
   },
 
   "vip": [
-    {"lvl": 0, "hasBuyPowerTimes": 1,
+    {
+      "lvl": 0,
+      "hasBuyPowerTimes": 1,
       "giftPackage": {
         "items": []
       }
     },
     {
-      "lvl": 1, "hasBuyPowerTimes": 2,
+      "lvl": 1,
+      "hasBuyPowerTimes": 2,
       "giftPackage": {
         "items": []
       }
     },
     {
-      "lvl": 2, "hasBuyPowerTimes": 3,
+      "lvl": 2,
+      "hasBuyPowerTimes": 3,
       "giftPackage": {
         "items": []
       }
     },
     {
-      "lvl": 3, "hasBuyPowerTimes": 4,
+      "lvl": 3,
+      "hasBuyPowerTimes": 4,
       "giftPackage": {
         "items": []
       }
@@ -132,7 +137,8 @@
       }
     },
     {
-      "lvl": 5, "hasBuyPowerTimes": 6,
+      "lvl": 5,
+      "hasBuyPowerTimes": 6,
       "giftPackage": {
         "items": []
       }
@@ -144,7 +150,8 @@
       }
     },
     {
-      "lvl": 7, "hasBuyPowerTimes": 8,
+      "lvl": 7,
+      "hasBuyPowerTimes": 8,
       "giftPackage": {
         "items": []
       }
@@ -156,13 +163,15 @@
       }
     },
     {
-      "lvl": 9, "hasBuyPowerTimes": 10,
+      "lvl": 9,
+      "hasBuyPowerTimes": 10,
       "giftPackage": {
         "items": []
       }
     },
     {
-      "lvl": 10, "hasBuyPowerTimes": 11,
+      "lvl": 10,
+      "hasBuyPowerTimes": 11,
       "giftPackage": {
         "items": []
       }
@@ -171,25 +180,60 @@
 
   "awardExpInfo": {
     "11": [
-      {"gameTime": 15, "baseExp": 0, "minuteExp": 6, "secAttExp": 3, "killExp": 6},
-      {"gameTime": 30, "baseExp": 90, "minuteExp": 2, "secAttExp": 3, "killExp": 6},
-      {"gameTime": 300, "baseExp": 90, "minuteExp": 2, "secAttExp": 3, "killExp": 6}
+      {"gameTime": 3, "baseExp": 0, "minuteExp": 6, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 5, "baseExp": 18, "minuteExp": 2, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 300, "baseExp": 22, "minuteExp": 0, "killExp": 2, "secAttExp": 1}
     ],
     "12": [
-      {"gameTime": 15, "baseExp": 0, "minuteExp": 6, "secAttExp": 3, "killExp": 6},
-      {"gameTime": 30, "baseExp": 90, "minuteExp": 2, "secAttExp": 3, "killExp": 6},
-      {"gameTime": 300, "baseExp": 90, "minuteExp": 2, "secAttExp": 3, "killExp": 6}
+      {"gameTime": 5, "baseExp": 0, "minuteExp": 6, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 10, "baseExp": 30, "minuteExp": 2, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 300, "baseExp": 40, "minuteExp": 0, "killExp": 2, "secAttExp": 1}
     ],
     "13": [
-      {"gameTime": 15, "baseExp": 0, "minuteExp": 6, "secAttExp": 3, "killExp": 6},
-      {"gameTime": 30, "baseExp": 90, "minuteExp": 2, "secAttExp": 3, "killExp": 6},
-      {"gameTime": 300, "baseExp": 90, "minuteExp": 2, "secAttExp": 3, "killExp": 6}
+      {"gameTime": 10, "baseExp": 0, "minuteExp": 6, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 15, "baseExp": 60, "minuteExp": 2, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 300, "baseExp": 70, "minuteExp": 0, "killExp": 2, "secAttExp": 1}
     ],
-    "9": [
-      {"gameTime": 15, "baseExp": 0, "minuteExp": 6, "secAttExp": 3, "killExp": 6},
-      {"gameTime": 30, "baseExp": 90, "minuteExp": 2, "secAttExp": 3, "killExp": 6},
-      {"gameTime": 300, "baseExp": 90, "minuteExp": 2, "secAttExp": 3, "killExp": 6}
+    "14": [
+      {"gameTime": 10, "baseExp": 0, "minuteExp": 6, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 15, "baseExp": 60, "minuteExp": 2, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 300, "baseExp": 70, "minuteExp": 0, "killExp": 2, "secAttExp": 1}
+    ],
+
+    "15": [
+      {"gameTime": 10, "baseExp": 0, "minuteExp": 6, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 15, "baseExp": 60, "minuteExp": 2, "killExp": 2, "secAttExp": 1},
+      {"gameTime": 300, "baseExp": 70, "minuteExp": 0, "killExp": 2, "secAttExp": 1}
+    ],
+
+    "21": [
+      {"gameTime": 2, "baseExp": 0, "minuteExp": 0, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 4, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 7, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 10, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 15, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 20, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 300, "baseExp": 120, "minuteExp": 0, "killExp": 0, "secAttExp": 0}
+    ],
+    "22": [
+      {"gameTime": 2, "baseExp": 0, "minuteExp": 0, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 4, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 7, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 10, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 15, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 20, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 300, "baseExp": 120, "minuteExp": 0, "killExp": 0, "secAttExp": 0}
+    ],
+    "24": [
+      {"gameTime": 2, "baseExp": 0, "minuteExp": 0, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 4, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 7, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 10, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 15, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 20, "baseExp": 0, "minuteExp": 6, "killExp": 0, "secAttExp": 0},
+      {"gameTime": 300, "baseExp": 120, "minuteExp": 0, "killExp": 0, "secAttExp": 0}
     ]
+
   },
 
   "nameFbd":[
@@ -6107,8 +6151,8 @@
     "十八届一中全会",
 
     "\\",
-    "\"",
     "'",
+    "\"",
     "{",
     "}",
     "$"

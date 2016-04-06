@@ -7,7 +7,7 @@
     var gemGroupSchema = new Schema({
         _id: false,
         talent: {type: Number},
-        gems: [{type: String, ref: 'item'}]
+        gems: [{type: String}]
     });
 
     var schema = new Schema({

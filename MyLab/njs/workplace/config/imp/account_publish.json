@@ -1,0 +1,13 @@
+{
+  "http": {
+    "host": "10.105.9.254",
+    "port": 32056
+  },
+  "udp": {
+    "host": "10.105.9.254",
+    "port": 43001
+  },
+  "gamekey": "cos123",
+  "prefix": "COS:TOKEN",
+  "expireSecond": 3600
+}

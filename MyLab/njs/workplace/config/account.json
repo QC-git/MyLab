@@ -1,0 +1,13 @@
+{
+  "http": {
+    "host": "192.168.243.121",
+    "port": 32056
+  },
+  "udp": {
+    "host": "192.168.243.121",
+    "port": 43001
+  },
+  "gamekey": "cos123",
+  "prefix": "COS:TOKEN",
+  "expireSecond": 3600
+}

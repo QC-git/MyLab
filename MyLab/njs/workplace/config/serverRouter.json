@@ -33,6 +33,33 @@
 		"userCenter-server-1":{
 			"addr": "127.0.0.1:31321", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
 		},
+		"userCenter-server-2":{
+			"addr": "127.0.0.1:31322", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+		},
+		"userCenter-server-3":{
+			"addr": "127.0.0.1:31323", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+		},
+		"userCenter-server-4":{
+			"addr": "127.0.0.1:31324", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+		},
+		"userCenter-server-5":{
+			"addr": "127.0.0.1:31325", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+		},
+		"userCenter-server-6":{
+			"addr": "127.0.0.1:31326", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+		},
+		"userCenter-server-7":{
+			"addr": "127.0.0.1:31327", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+		},
+		"userCenter-server-8":{
+			"addr": "127.0.0.1:31328", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+		},
+		"userCenter-server-9":{
+			"addr": "127.0.0.1:31329", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+		},
+		"userCenter-server-10":{
+			"addr": "127.0.0.1:31330", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+		},
         "auth-server-1":{
             "addr": "127.0.0.1:31331", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
         },
@@ -72,58 +99,142 @@
         "ladder-server-3":{
             "addr": "127.0.0.1:31433", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 0
         },
+        "ladder-server-4":{
+            "addr": "127.0.0.1:31434", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 0
+        },
+        "ladder-server-5":{
+            "addr": "127.0.0.1:31435", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 0
+        },
         "matchManager-server-1":{
             "addr": "127.0.0.1:31441", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
-        }
+        },
+        "mail-server-1":{
+            "addr": "127.0.0.1:31451", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+        },
+        "rank-server-1":{
+            "addr": "127.0.0.1:31461", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+        },
+        "notification-server-1":{
+        "addr": "127.0.0.1:31471", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+      }
     },
     "production":{
         "connector-server-1":{
-            "addr": "127.0.0.1:31311", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31311", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 3
+        },
+        "connector-server-2":{
+            "addr": "127.0.0.1:31312", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 3
+        },
+        "connector-server-3":{
+            "addr": "127.0.0.1:31313", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 3
+        },
+        "connector-server-4":{
+            "addr": "127.0.0.1:31314", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 3
+        },
+        "connector-server-5":{
+            "addr": "127.0.0.1:31315", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 3
+        },
+        "connector-server-6":{
+            "addr": "127.0.0.1:31316", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 3
+        },
+        "connector-server-7":{
+            "addr": "127.0.0.1:31317", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 3
+        },
+        "connector-server-8":{
+            "addr": "127.0.0.1:31318", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 3
+        },
+        "connector-server-9":{
+            "addr": "127.0.0.1:31319", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort": 6379, "cppModule": false, "logLev": 3
+        },
+        "connector-server-10":{
+            "addr": "127.0.0.1:31310", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "userCenter-server-1":{
-            "addr": "127.0.0.1:31321", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31321", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "userCenter-server-2":{
+            "addr": "127.0.0.1:31322", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "userCenter-server-3":{
+            "addr": "127.0.0.1:31323", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "userCenter-server-4":{
+            "addr": "127.0.0.1:31324", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "userCenter-server-5":{
+            "addr": "127.0.0.1:31325", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "userCenter-server-6":{
+            "addr": "127.0.0.1:31326", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "userCenter-server-7":{
+            "addr": "127.0.0.1:31327", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "userCenter-server-8":{
+            "addr": "127.0.0.1:31328", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "userCenter-server-9":{
+            "addr": "127.0.0.1:31329", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "userCenter-server-10":{
+            "addr": "127.0.0.1:31330", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "auth-server-1":{
-            "addr": "127.0.0.1:31331", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31331", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "locator-server-1":{
-            "addr": "127.0.0.1:31341", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 0
+            "addr": "127.0.0.1:31341", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 3
         },
         "room-server-1":{
-            "addr": "127.0.0.1:31351", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31351", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "lottery-server-1":{
-            "addr": "127.0.0.1:31361", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31361", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "chat-server-1":{
-            "addr": "127.0.0.1:31371", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31371", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "friend-server-1":{
-            "addr": "127.0.0.1:31381", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31381", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "game-server-1":{
-            "addr": "127.0.0.1:31391", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 0
+            "addr": "127.0.0.1:31391", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 3
         },
         "task-server-1":{
-            "addr": "127.0.0.1:31401", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31401", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "http-server-1":{
-            "addr": "127.0.0.1:31411", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31411", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "team-server-1":{
-            "addr": "127.0.0.1:31421", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
+            "addr": "127.0.0.1:31421", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
         },
         "ladder-server-1":{
-            "addr": "127.0.0.1:31431", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 0
+            "addr": "127.0.0.1:31431", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 3
         },
         "ladder-server-2":{
-            "addr": "127.0.0.1:31432", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 0
+            "addr": "127.0.0.1:31432", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 3
         },
         "ladder-server-3":{
-            "addr": "127.0.0.1:31433", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 0
+            "addr": "127.0.0.1:31433", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 3
+        },
+        "ladder-server-4":{
+            "addr": "127.0.0.1:31434", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 3
+        },
+        "ladder-server-5":{
+            "addr": "127.0.0.1:31435", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": true, "logLev": 0
         },
         "matchManager-server-1":{
-            "addr": "127.0.0.1:31441", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 0
-        }
+            "addr": "127.0.0.1:31441", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "mail-server-1":{
+            "addr": "127.0.0.1:31451", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+        "rank-server-1":{
+            "addr": "127.0.0.1:31461", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+        },
+      "notification-server-1":{
+        "addr": "127.0.0.1:31471", "localService": true, "objLife": "300", "redisHost": "127.0.0.1", "redisPort":6379, "cppModule": false, "logLev": 3
+      }
     }
 }

@@ -1,5 +1,4 @@
 
-
 function getTime(now) {
     if ( "number" == typeof now ) {
         return now;
@@ -1540,4 +1539,4 @@ UpdateTime.test = function() {
     }, 10000);
 
 };
-UpdateTime.test();
+//UpdateTime.test();

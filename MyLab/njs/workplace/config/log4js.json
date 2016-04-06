@@ -4,6 +4,21 @@
       "type": "console"
     },
     {
+      "type": "${opts:base}/app/domain/statistic/appenderRemote.js",
+      "category": "statistic",
+      "options": "${opts:statistic}"
+    },
+    {
+      "type": "file",
+      "filename": "${opts:base}/logs/db-log.log",
+      "maxLogSize": 1048576,
+      "layout": {
+        "type": "basic"
+      },
+      "backups": 5,
+      "category": "statistic"
+    },
+    {
       "type": "file",
       "filename": "${opts:base}/logs/con-log-${opts:serverId}.log",
       "pattern": "connector",
@@ -175,6 +190,16 @@
         "type": "basic"
       }
     ,"backups": 5,
+      "category":"rank"
+    },
+    {
+      "type": "file",
+      "filename": "${opts:base}/logs/${opts:serverId}.log",
+      "maxLogSize": 1048576,
+      "layout": {
+        "type": "basic"
+      }
+    ,"backups": 5,
       "category":"game"
     },
     {
@@ -192,7 +217,7 @@
   "levels": {
     "rpc-log" : "WARN",
     "forward-log": "WARN",
-    "pomelo": "DEBUG",
+    "pomelo": "INFO",
     "console": "INFO",
 
     "connector": "INFO",
@@ -200,16 +225,17 @@
     "auth": "INFO",
     "lottery": "INFO",
     "userCenter": "INFO",
-    "room": "INFO",
+    "room": "DEBUG",
     "game": "INFO",
     "common": "INFO",
     "chat": "INFO",
     "task": "INFO",
     "friend": "INFO",
-    "team": "INFO"
+    "team": "INFO",
+    "rank": "INFO"
   },
 
   "replaceConsole": true,
 
-  "lineDebug": false
+  "lineDebug": true
 }

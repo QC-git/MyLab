@@ -15,7 +15,7 @@
 		"levelUpScore": 25,
 		"minScore": 100,
 		"maxScore": 3500,
-		"expandScore": [50,75,100,125,150,175,200,225,250,275,300],
+		"expandScore": [60,120,180,240,300,360,420,480,540,600],
         "peekRule": 0,
         "roomServerType": "matchManager"
 	},
@@ -28,7 +28,7 @@
         "levelUpScore": 25,
         "minScore": 100,
         "maxScore": 3500,
-        "expandScore": [50,75,100,125,150,175,200,225,250,275,300],
+        "expandScore": [60,120,180,240,300,360,420,480,540,600],
         "peekRule": 2,
         "roomServerType": "matchManager"
     },
@@ -41,8 +41,34 @@
         "levelUpScore": 25,
         "minScore": 100,
         "maxScore": 3500,
-        "expandScore": [50,75,100,125,150,175,200,225,250,275,300],
+        "expandScore": [60,120,180,240,300,360,420,480,540,600],
         "peekRule": 4,
+        "roomServerType": "matchManager"
+    },
+
+    "ladder-server-4":{
+        "ladderMode": 14,
+        "adapterInterval": 1,
+        "expandInterval": 2,
+        "maxExpandScore": 300,
+        "levelUpScore": 25,
+        "minScore": 100,
+        "maxScore": 3500,
+        "expandScore": [60,120,180,240,300,360,420,480,540,600],
+        "peekRule": 0,
+        "roomServerType": "matchManager"
+    },
+
+    "ladder-server-5":{
+        "ladderMode": 15,
+        "adapterInterval": 1,
+        "expandInterval": 2,
+        "maxExpandScore": 300,
+        "levelUpScore": 25,
+        "minScore": 100,
+        "maxScore": 3500,
+        "expandScore": [60,120,180,240,300,360,420,480,540,600],
+        "peekRule": 0,
         "roomServerType": "matchManager"
     }
 }

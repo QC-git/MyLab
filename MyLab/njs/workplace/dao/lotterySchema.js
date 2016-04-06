@@ -4,7 +4,7 @@
 
 (function () {
     'use strict';
-    require('././global');
+    //require('./../util/global');
 
     var mongoose = require('./mongoose').mongoose;
     var ec = depInj('ec');

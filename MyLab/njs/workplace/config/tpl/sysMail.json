@@ -1,0 +1,8 @@
+{
+  "1":  {"sysName": "系统君" ,"title":"测试通知","content":"1.0.1停机补偿,金币450,点券:100,装备若干",
+    "startTime":"2016-01-19","endTime":"2016-02-19","removeTime":"2016-12-20","limit":{"level":2},"prizes":{"gold":  450, "ingot": 100, "item": [{"id":101001,"num": 1}]}},
+  "2":  {"sysName": "系统君" ,"title":"测试通知2","content":"1.0.1停机补偿,金币450,点券:100,装备若干2",
+    "startTime":"2016-01-19","endTime":"2016-02-19","removeTime":"2016-01-21","limit":{"level":2},"prizes":{"gold":  450, "ingot": 100, "item": [{"id":101001,"num": 1}]}},
+  "3":  {"sysName": "系统君" ,"title":"测试通知3","content":"1.0.1停机补偿,金币450,点券:100,金刚石一颗",
+    "startTime":"2016-01-19","endTime":"2016-02-19","removeTime":"2016-02-21","limit":{"level":2},"prizes":{"gold":  500, "ingot": 200, "item": [{"id":900340,"num": 1}]}}
+}

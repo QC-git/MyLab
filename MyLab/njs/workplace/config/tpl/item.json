@@ -164,5 +164,27 @@
 
   "37001201":{"name":      "银梦修罗","type":4,"skinDebris":   50},
   "77001302":{"name":      "御冰奥法","type":4,"skinDebris":   50},
-  "33001201":{"name":      "暴走妖石","type":4,"skinDebris":   20}
+  "33001201":{"name":      "暴走妖石","type":4,"skinDebris":   20},
+
+  "370010003": {"name": "赵云契约卡", "type": 6, "hid": "1", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "960010003": {"name": "超能Q号契约卡", "type": 6, "hid": "3", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "770010003": {"name": "冰雪女王契约卡", "type": 6, "hid": "4", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "330010003": {"name": "五彩神石契约卡", "type": 6, "hid": "7", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "130010003": {"name": "项羽契约卡", "type": 6, "hid": "9", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "890010003": {"name": "张飞契约卡", "type": 6, "hid": "10", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "950010003": {"name": "聂小倩契约卡", "type": 6, "hid": "11", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "790010003": {"name": "后羿契约卡", "type": 6, "hid": "12", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "680010003": {"name": "哪吒契约卡", "type": 6, "hid": "13", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "390010003": {"name": "吕布契约卡", "type": 6, "hid": "14", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "560010003": {"name": "地狱火契约卡", "type": 6, "hid": "15", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "300010003": {"name": "金乌契约卡", "type": 6, "hid": "16", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "1070010003": {"name": "狼人契约卡", "type": 6, "hid": "17", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "340010003": {"name": "关羽契约卡", "type": 6, "hid": "18", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "80010003": {"name": "暗月猎手契约卡", "type": 6, "hid": "19", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "170010003": {"name": "忘川巫女契约卡", "type": 6, "hid": "20", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "670010003": {"name": "李元霸契约卡", "type": 6, "hid": "21", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "1060010003": {"name": "幻卡魔女契约卡", "type": 6, "hid": "22", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "490010003": {"name": "猎魔人契约卡", "type": 6, "hid": "23", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20},
+  "510010003": {"name": "波塞冬契约卡", "type": 6, "hid": "24", "date": 3, "ingot":5, "shopPoint":10, "evaluate":20}
+
 }

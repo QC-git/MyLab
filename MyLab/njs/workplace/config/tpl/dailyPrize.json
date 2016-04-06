@@ -1,7 +1,7 @@
 {
-  "1": {"point": 10,"prizes":{"ingot": 10,"debris":{"id":12,"num":1}}},
-  "2": {"point": 20,"prizes":{"ingot": 20,"debris":{"id":12,"num":2}}},
-  "3": {"point": 40,"prizes":{"ingot": 30,"debris":{"id":12,"num":2}}},
-  "4": {"point": 70,"prizes":{"ingot": 40,"debris":{"id":12,"num":2}}},
-  "5": {"point": 90,"prizes":{"ingot": 50,"debris":{"id":12,"num":3}}}
+  "1": {"point": 10,"prizes":{"gold": 20,"item":[{"id":900330,"num":1},{"id":101001,"num":1}]}},
+  "2": {"point": 20,"prizes":{"gold": 40,"item":[{"id":900330,"num":1},{"id":207001,"num":1}]}},
+  "3": {"point": 40,"prizes":{"gold": 70,"item":[{"id":900300,"num":1},{"id":306001,"num":1}]}},
+  "4": {"point": 70,"prizes":{"gold":120,"item":[{"id":900300,"num":1},{"id":305001,"num":1}]}},
+  "5": {"point": 90,"prizes":{"gold":170,"item":[{"id":900340,"num":1},{"id":101002,"num":1}]}}
 }
