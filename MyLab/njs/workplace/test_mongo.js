@@ -102,6 +102,8 @@ async.waterfall([
 
     //db.user.count({ lastLoginTime: {$gt: ISODate("2016-03-25T0:0:0+08:00")} })
 
+    //E:\QC-nd\db\cos-env\DEV_ENV\mongodb\bin>mongorestore -h 127.0.0.1 -d myCos  --directoryperdb cosLegend
+
     function(cb) {
         var date1 = new Date();
         date1.setMonth(2);

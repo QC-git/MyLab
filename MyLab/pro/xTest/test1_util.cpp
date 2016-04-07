@@ -594,27 +594,10 @@ namespace space_test_util {
 
 	void test12()
 	{
-		CFuncList_T list;
+		CAsync::Test1();
+		CAsync::Test2();
 
-		list.push_back([](CFuncCb_T cb)
-		{
-			printf("\n 1 \n");
-			cb(0);
-		});
-
-		list.push_back([](CFuncCb_T cb)
-		{
-			printf("\n 2 \n");
-			cb(0);
-		});
-
-		list.push_back([](CFuncCb_T cb)
-		{
-			printf("\n 3 \n");
-			cb(0);
-		});
-
-		AsyncRun(list);
+		CAsyncPriority::Test();
 
 	}
 

@@ -11,6 +11,7 @@
 #include <list>
 #include <map>
 #include <hash_map>
+#include <queue>
 
 #include <string>
 #include <iostream>  

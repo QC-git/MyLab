@@ -86,6 +86,21 @@ namespace space_test_yh {
 		unsigned char heroFeats[100];
 		PlayerSkin szSkinData[1];
 	};
+
+	struct MsgBSUpdateRoleHeroSkin
+	{
+		struct HeroInfo
+		{
+			unsigned int idAccount;
+			unsigned int lookface;
+			unsigned int skin;
+		};
+
+		unsigned short usAmount;
+		HeroInfo szHeroInfo[1];
+	};
+
+
 #pragma pack(pop)
 
 	sl_asio::TcpGuestPtr spClient;
@@ -109,42 +124,87 @@ namespace space_test_yh {
 			memset(&sMsg, 0, uSize);
 
 			sMsg.sHead.msgSize = uSize;
-			sMsg.sHead.msgSize = uType;
+			sMsg.sHead.msgType = uType;
 		};
 
-#define YH_MESSAGE(_SMsg, _SData, _sMsg, _type, fn) \
-		struct _SMsg\
-		{\
-		sl_asio::MsgHead sHead; \
-		_SData sData; \
-		}; \
-		_SMsg _sMsg; \
-		InitMsgHead<_SMsg>(_sMsg, _type); \
-		fn();
+#define YH_MESSAGE(_SMsg, _SData, _spMsg, _type, fn) \
+		sl_asio::MsgPtr _spMsg; \
+		{ \
+			struct _SMsg \
+			{ \
+				sl_asio::MsgHead sHead; \
+				_SData sData; \
+			}; \
+			_SMsg* _pMsg = new _SMsg; \
+			_spMsg.reset(((sl_asio::MsgHead*)_pMsg)); \
+			InitMsgHead<_SMsg>(*_pMsg, _type); \
+			fn(); \
+		} \
 
-		template<class _T>
-		void SendMsg(sl_asio::TcpGuestPtr spClient, sl_asio::SckId nSckId, _T sMsg)
-		{
-			sl_asio::MsgPtr spMsg;// (pHead);
-			spMsg.reset(((sl_asio::MsgHead*)&sMsg));
-			spClient->Send(nSckId, spMsg);
-		}
 
 		virtual void OnConnected(int error_code, sl_asio::SckId sckId)
 		{
-			if (1)
+			static int nStep = 0;
+			nStep++;
+			if (1 == nStep)
 			{
-				YH_MESSAGE(Msg, MsgBSCreateGame, msg, 50001, [&msg]()
+				YH_MESSAGE(Msg, MsgBSCreateGame, spMsg, 50001, [&_pMsg]()
 				{
-					auto p = &msg.sData;
+					auto p = &_pMsg->sData;
 
-					p->lpRequestId = 1;
+					p->lpRequestId = 100;
+
+					p->heroMode = 1102;
 					p->gameConf = 1;
+					p->deny = false;
+					p->gameMode = p->heroMode;
+
 					p->teamAmount = 1;
+
+					p->mapId = 14;
+					p->playerCount = 1;
+
+					auto* player = &p->player[0];
+					player->accountId = 1;
+					player->uinId = 1;
+					player->camp = bs_Camp_A;
+					player->robot = false;
+					player->averagerOther = 1200;
+					strcpy(player->szNickName, "test");
+
 				});
 
-				SendMsg<Msg>(spClient, sckId, msg);
+				spClient->Send(sckId, spMsg);
+
+
+
+				YH_MESSAGE(Msg, MsgBSUpdateRoleHeroSkin, spMsg2, 50013, [&_pMsg]()
+				{
+					auto p = &_pMsg->sData;
+
+					p->usAmount = 1;
+
+					auto* player = &p->szHeroInfo[0];
+					player->idAccount = 1;
+					player->lookface = 37001;
+					player->skin = 37001;
+
+				});
+
+				spClient->Send(sckId, spMsg2);
+
+
 			}
+			else if (2 == nStep)
+			{
+				
+
+			}
+
+		}
+
+		virtual void OnProcessMsg(const char* msg, sl_asio::SckId sckId)
+		{
 
 		}
 
@@ -155,12 +215,13 @@ namespace space_test_yh {
 
 	void test1()
 	{
-		CPipe* pPipe = new CPipe;
 
-		spClient = sl_asio::NetCreator::CreateTcpGuest(*pPipe);
-		spClient->AsyncConnect("127.0.0.1", 5819);
-
-		spClient->Run();
+// 		CPipe* pPipe = new CPipe;
+// 
+// 		spClient = sl_asio::NetCreator::CreateTcpGuest(*pPipe);
+// 		spClient->AsyncConnect("127.0.0.1", 5819);
+// 
+// 		spClient->Run();
 
 
 	}
