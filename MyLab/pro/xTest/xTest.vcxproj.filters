@@ -76,8 +76,14 @@
     <Filter Include="test_battle\role">
       <UniqueIdentifier>{ee6801b9-2977-4ef4-90d9-c84d8f36f490}</UniqueIdentifier>
     </Filter>
-    <Filter Include="test_bt">
+    <Filter Include="test_ai">
       <UniqueIdentifier>{e8ede441-7994-4ee7-b544-4aecef0e77cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test_ai\bt">
+      <UniqueIdentifier>{16c31787-1f2c-4a76-91b5-9de0b274f5e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test_ai\fsm">
+      <UniqueIdentifier>{a912881a-22bb-4219-97f6-3039126228fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -240,14 +246,14 @@
     <ClInclude Include="xTestService.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="test_bt\BehaviorShared.h">
-      <Filter>test_bt</Filter>
+    <ClInclude Include="test_ai\bt\BehaviorShared.h">
+      <Filter>test_ai\bt</Filter>
     </ClInclude>
-    <ClInclude Include="test_bt\BehaviorTest.h">
-      <Filter>test_bt</Filter>
+    <ClInclude Include="test_ai\bt\BehaviorTest.h">
+      <Filter>test_ai\bt</Filter>
     </ClInclude>
-    <ClInclude Include="test_bt\test_BehaviorTree.hpp">
-      <Filter>test_bt</Filter>
+    <ClInclude Include="test_ai\bt\test_BehaviorTree.hpp">
+      <Filter>test_ai\bt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -386,23 +392,23 @@
     <ClCompile Include="xTestService.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="test_bt\BehaviorTree.cpp">
-      <Filter>test_bt</Filter>
-    </ClCompile>
-    <ClCompile Include="test_bt\BehaviorTest.cpp">
-      <Filter>test_bt</Filter>
-    </ClCompile>
-    <ClCompile Include="test_bt\BehaviorTreeEvent.cpp">
-      <Filter>test_bt</Filter>
-    </ClCompile>
-    <ClCompile Include="test_bt\BehaviorTreeOptimized.cpp">
-      <Filter>test_bt</Filter>
-    </ClCompile>
-    <ClCompile Include="test_bt\BehaviorTreeShared.cpp">
-      <Filter>test_bt</Filter>
-    </ClCompile>
-    <ClCompile Include="test1018_behavior.cpp">
+    <ClCompile Include="test1018_ai.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_ai\bt\BehaviorTest.cpp">
+      <Filter>test_ai\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test_ai\bt\BehaviorTree.cpp">
+      <Filter>test_ai\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test_ai\bt\BehaviorTreeEvent.cpp">
+      <Filter>test_ai\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test_ai\bt\BehaviorTreeOptimized.cpp">
+      <Filter>test_ai\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test_ai\bt\BehaviorTreeShared.cpp">
+      <Filter>test_ai\bt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
