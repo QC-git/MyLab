@@ -76,6 +76,9 @@
     <Filter Include="test_battle\role">
       <UniqueIdentifier>{ee6801b9-2977-4ef4-90d9-c84d8f36f490}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test_bt">
+      <UniqueIdentifier>{e8ede441-7994-4ee7-b544-4aecef0e77cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -237,6 +240,15 @@
     <ClInclude Include="xTestService.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="test_bt\BehaviorShared.h">
+      <Filter>test_bt</Filter>
+    </ClInclude>
+    <ClInclude Include="test_bt\BehaviorTest.h">
+      <Filter>test_bt</Filter>
+    </ClInclude>
+    <ClInclude Include="test_bt\test_BehaviorTree.hpp">
+      <Filter>test_bt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -372,6 +384,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="xTestService.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_bt\BehaviorTree.cpp">
+      <Filter>test_bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test_bt\BehaviorTest.cpp">
+      <Filter>test_bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test_bt\BehaviorTreeEvent.cpp">
+      <Filter>test_bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test_bt\BehaviorTreeOptimized.cpp">
+      <Filter>test_bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test_bt\BehaviorTreeShared.cpp">
+      <Filter>test_bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test1018_behavior.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

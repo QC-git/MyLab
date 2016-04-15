@@ -145,6 +145,9 @@ xcopy "$(ProjectDir)/..\..\shr\GLUT\*.*" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_udp_client.h" />
     <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_udp_socket.h" />
     <ClInclude Include="test_boost\st_asio\include\st_asio_wrapper_unpacker.h" />
+    <ClInclude Include="test_bt\BehaviorShared.h" />
+    <ClInclude Include="test_bt\BehaviorTest.h" />
+    <ClInclude Include="test_bt\test_BehaviorTree.hpp" />
     <ClInclude Include="test_proto\test_person.pb.h" />
     <ClInclude Include="xTest.h" />
     <ClInclude Include="xTestService.hpp" />
@@ -171,6 +174,7 @@ xcopy "$(ProjectDir)/..\..\shr\GLUT\*.*" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClCompile Include="test1015_battle.cpp" />
     <ClCompile Include="test1016_hacker.cpp" />
     <ClCompile Include="test1017_yh.cpp" />
+    <ClCompile Include="test1018_behavior.cpp" />
     <ClCompile Include="test1900_tool.cpp" />
     <ClCompile Include="test2_container.cpp" />
     <ClCompile Include="test4_net.cpp" />
@@ -194,6 +198,11 @@ xcopy "$(ProjectDir)/..\..\shr\GLUT\*.*" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClCompile Include="test_boost\sl_asio\sl_Session.cpp" />
     <ClCompile Include="test_boost\sl_asio\sl_Interface.cpp" />
     <ClCompile Include="test_boost\st_asio\test_src\asio_server.cpp" />
+    <ClCompile Include="test_bt\BehaviorTest.cpp" />
+    <ClCompile Include="test_bt\BehaviorTree.cpp" />
+    <ClCompile Include="test_bt\BehaviorTreeEvent.cpp" />
+    <ClCompile Include="test_bt\BehaviorTreeOptimized.cpp" />
+    <ClCompile Include="test_bt\BehaviorTreeShared.cpp" />
     <ClCompile Include="test_lua\lua_test_main.c" />
     <ClCompile Include="test_lua\lua_test_mainc.c" />
     <ClCompile Include="test_proto\test_person.pb.cc" />
