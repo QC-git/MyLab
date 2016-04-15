@@ -53,6 +53,8 @@ extern void test_hacker();
 
 extern void test_yh();
 
+extern void test_behavior();
+
 //////////////////////////////////////////////////////////////////////////
 
 extern void test_tool();
@@ -68,7 +70,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG_F("xTest main(), ≤‚ ‘ \n");
 
 
-	int arg = 1;
+	int arg = 1018;
 	switch(arg)
 	{
 	case 1000:
@@ -152,6 +154,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			test_yh();
 		}break;
+	case 1018:
+		{
+			test_behavior();
+		}
 	case 1900:
 		{
 			test_tool();
