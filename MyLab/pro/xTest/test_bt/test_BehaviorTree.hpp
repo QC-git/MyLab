@@ -6,7 +6,7 @@
 namespace bt
 {
 
-// ============================================================================
+// https://github.com/aigamedev/btsk
 
 enum Status
 /**
