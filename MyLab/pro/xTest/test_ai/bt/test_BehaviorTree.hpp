@@ -6,8 +6,6 @@
 namespace bt
 {
 
-// https://github.com/aigamedev/btsk
-
 enum Status
 /**
  * Return values of and valid states for behaviors.

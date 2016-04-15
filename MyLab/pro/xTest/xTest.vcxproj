@@ -117,6 +117,7 @@ xcopy "$(ProjectDir)/..\..\shr\GLUT\*.*" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClInclude Include="test_ai\bt\BehaviorShared.h" />
     <ClInclude Include="test_ai\bt\BehaviorTest.h" />
     <ClInclude Include="test_ai\bt\test_BehaviorTree.hpp" />
+    <ClInclude Include="test_ai\fsm\fsm.hpp" />
     <ClInclude Include="test_battle\script\test_battle_Script_task.h" />
     <ClInclude Include="test_battle\script\test_battle_script_tool.h" />
     <ClInclude Include="test_battle\test_battle_.h" />
@@ -189,6 +190,7 @@ xcopy "$(ProjectDir)/..\..\shr\GLUT\*.*" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClCompile Include="test_ai\bt\BehaviorTreeEvent.cpp" />
     <ClCompile Include="test_ai\bt\BehaviorTreeOptimized.cpp" />
     <ClCompile Include="test_ai\bt\BehaviorTreeShared.cpp" />
+    <ClCompile Include="test_ai\fsm\fsm.cpp" />
     <ClCompile Include="test_battle\script\test_battle_script_task.cpp" />
     <ClCompile Include="test_battle\script\test_battle_script_tool.cpp" />
     <ClCompile Include="test_battle\test_battle_.cpp" />

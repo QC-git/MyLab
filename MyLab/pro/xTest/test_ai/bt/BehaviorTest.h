@@ -8,7 +8,7 @@
 
 #include "BehaviorShared.h"
 
-namespace test
+namespace test_bt
 {
     typedef std::function<void()> Test;
 
@@ -106,7 +106,7 @@ namespace test
 
 #define TEST(SUITENAME, TESTNAME)                             \
     void SUITENAME##_##TESTNAME();                            \
-    static test::AutoTestRegister autoTestRegister_##SUITENAME##_##TESTNAME(#SUITENAME "_" #TESTNAME, SUITENAME##_##TESTNAME); \
+    static test_bt::AutoTestRegister autoTestRegister_##SUITENAME##_##TESTNAME(#SUITENAME "_" #TESTNAME, SUITENAME##_##TESTNAME); \
     void SUITENAME##_##TESTNAME()
 
 #define CHECK(X)                                              \
@@ -115,7 +115,7 @@ namespace test
         std::ostringstream os;                                \
         os << #X << " ";                                      \
         os << __FILE__ << ":" << __LINE__;                    \
-        throw test::TestFailedException(os.str());            \
+        throw test_bt::TestFailedException(os.str());            \
     }
 
 #define CHECK_EQUAL(X, Y)                                     \
@@ -125,7 +125,7 @@ namespace test
         os << "(" << #X << " == " << #Y << ") ";              \
         os << "expected:" << (X) << " actual:" << (Y) << " "; \
         os << __FILE__ << ":" << __LINE__;                    \
-        throw test::TestFailedException(os.str());            \
+        throw test_bt::TestFailedException(os.str());            \
     }
 
 #endif // TEST_H

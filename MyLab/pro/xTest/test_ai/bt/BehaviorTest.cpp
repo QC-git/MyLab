@@ -1,7 +1,7 @@
 #include <iostream>
 #include "BehaviorTest.h"
 
-using namespace test;
+using namespace test_bt;
 
 // int main()
 // {

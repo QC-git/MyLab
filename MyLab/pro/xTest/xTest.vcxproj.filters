@@ -255,6 +255,9 @@
     <ClInclude Include="test_ai\bt\test_BehaviorTree.hpp">
       <Filter>test_ai\bt</Filter>
     </ClInclude>
+    <ClInclude Include="test_ai\fsm\fsm.hpp">
+      <Filter>test_ai\fsm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -409,6 +412,9 @@
     </ClCompile>
     <ClCompile Include="test_ai\bt\BehaviorTreeShared.cpp">
       <Filter>test_ai\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="test_ai\fsm\fsm.cpp">
+      <Filter>test_ai\fsm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

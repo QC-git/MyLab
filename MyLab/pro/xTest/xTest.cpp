@@ -53,7 +53,7 @@ extern void test_hacker();
 
 extern void test_yh();
 
-extern void test_behavior();
+extern void test_ai();
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -156,7 +156,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		}break;
 	case 1018:
 		{
-			test_behavior();
+			test_ai();
 		}
 	case 1900:
 		{
