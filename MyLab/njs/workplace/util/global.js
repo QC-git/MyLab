@@ -27,6 +27,9 @@
 		util: function(filename){
 			return require('./'+filename);
 		},
+		orm: function(name){
+			return require('../orm/'+name);
+		},
 		utils: require('./utils'),
 		utilEx: require("./utilEx"),
 		ec: require('../shared/errorCode'),
